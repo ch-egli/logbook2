@@ -18,8 +18,6 @@ export class NavComponent {
         {displayName: 'Theme', routerLink: 'theme'}
     ];
 
-    public isCollapsed = true;
-
     constructor() {
     }
 
