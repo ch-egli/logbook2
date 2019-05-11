@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {ChartMetaType} from './posts.model';
+import {ChartMetaType} from './chart.model';
 
 @Injectable()
-export class PostsService {
+export class ChartService {
     readonly ENDPOINT_URL_LOCAL = 'http://192.168.1.121:8080/v1/ng2-charts/zoe/workouts/2019';
 
     constructor(private http: HttpClient) {

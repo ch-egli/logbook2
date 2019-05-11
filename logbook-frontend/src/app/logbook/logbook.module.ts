@@ -1,12 +1,3 @@
-/**
- * Copyright (C) Schweizerische Bundesbahnen SBB, 2017.
- *
- * ESTA WebJS: Modul für die Features
- *
- * @author u218609 (Kevin Kreuzer)
- * @version: 2.0.0
- * @since 24.05.2017, 2017.
- */
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -82,5 +73,5 @@ import { ChartsModule } from 'ng2-charts';
     ],
     providers: [ConfirmationService]
 })
-export class ExampleModule {
+export class LogbookModule {
 }

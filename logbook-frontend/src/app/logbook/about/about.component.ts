@@ -1,8 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Message} from 'primeng/primeng';
 
-import {PostsService} from './posts.service';
-import {ChartMetaType} from './posts.model';
+import {ChartService} from './chart.service';
+import {ChartMetaType} from './chart.model';
 import {Observable} from 'rxjs';
 
 import { ChartDataSets, ChartOptions } from 'chart.js';
@@ -12,7 +12,7 @@ import * as pluginAnnotations from 'chartjs-plugin-annotation';
 @Component({
     selector: 'app-about',
     templateUrl: './about.component.html',
-    providers: [PostsService]
+    providers: [ChartService]
 })
 export class AboutComponent implements OnInit {
     public aboutMessage: string;
@@ -95,12 +95,12 @@ export class AboutComponent implements OnInit {
 
     @ViewChild(BaseChartDirective) chart: BaseChartDirective;
 
-    constructor(private postsService: PostsService) {
+    constructor(private chartService: ChartService) {
         this.aboutMessage = 'Climbing Logbook 2';
     }
 
     ngOnInit(): any {
-        this.chartDataObservable = this.postsService.getChartsData();
+        this.chartDataObservable = this.chartService.getChartsData();
         this.chartDataObservable.subscribe((res)=>{
             console.log(res);
             this.lineChartData = res.chartData;
