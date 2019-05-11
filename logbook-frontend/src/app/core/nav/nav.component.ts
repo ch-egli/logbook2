@@ -14,8 +14,9 @@ export class NavComponent {
 
     public navItems: Array<NavItem> = [
         {displayName: 'Home', routerLink: 'home'},
-        {displayName: 'About', routerLink: 'about'},
-        {displayName: 'Theme', routerLink: 'theme'}
+        {displayName: 'Theme', routerLink: 'theme'},
+        {displayName: 'Charts', routerLink: 'charts'},
+        {displayName: 'About', routerLink: 'about'}
     ];
 
     constructor() {

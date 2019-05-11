@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {ChartMetaType} from './chart.model';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { ChartMetaType } from './chart.model';
 
 @Injectable()
 export class ChartService {

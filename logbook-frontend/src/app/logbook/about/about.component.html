@@ -1,26 +1,20 @@
-<div class="jumbotron">
-    <p-growl [(value)]="messages" sticky="sticky"></p-growl>
-    <h1>{{ aboutMessage }}
-    </h1>
- </div>
-
-<div class="flex">
-  <div class="flex-item">
-    <div style="display: block;">
-      <canvas baseChart width="400" height="400"
-              [datasets]="lineChartData"
-              [labels]="lineChartLabels"
-              [options]="lineChartOptions"
-              [colors]="lineChartColors"
-              [legend]="lineChartLegend"
-              [chartType]="lineChartType"
-              [plugins]="lineChartPlugins"
-              (chartHover)="chartHovered($event)"
-              (chartClick)="chartClicked($event)"></canvas>
+<div class="container">
+  <div class="jumbotron">
+    <div>
+      <h1>{{ aboutMessage }}</h1>
     </div>
   </div>
-  <div class="flex-item">
-    <button mat-button mat-raised-button color="primary" (click)="changeColor()">Neu einfärben</button>
-    <button mat-button mat-raised-button color="primary" (click)="hideOne()">Toggle Züge34</button>
+  <div class="container">
+    <div>Die Logbook App ist eine private Initiative für Athletinnen und Athleten des <a
+        href="http://rzklettern-berneroberland.ch/">Regionalzentrums Sportklettern Berner Oberland</a>.</div>
+    <p>
+      <div>Version: {{ logbookVersion }} ({{ metaInfo }})</div>
+      <div>&copy; 2016-19</div>
+      <p>
+        <div>
+          <address>
+            Für Fragen oder Anregungen: <a href="mailto:christian.egli4@gmail.com">christian.egli4@gmail.com</a>
+          </address>
+        </div>
   </div>
 </div>

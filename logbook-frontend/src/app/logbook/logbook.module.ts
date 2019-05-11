@@ -20,9 +20,10 @@ import {
     SplitButtonModule, StepsModule, TabViewModule,
     ToggleButtonModule
 } from 'primeng/primeng';
-import {AboutComponent} from './about/about.component';
-import {ThemeComponent} from './theme/theme.component';
-import {HomeComponent} from './home/home.component';
+import { AboutComponent } from './about/about.component';
+import { ThemeComponent } from './theme/theme.component';
+import { HomeComponent } from './home/home.component';
+import { ChartsComponent } from './charts/charts.component';
 
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ChartsModule } from 'ng2-charts';
@@ -31,7 +32,8 @@ import { ChartsModule } from 'ng2-charts';
     declarations: [
         HomeComponent,
         AboutComponent,
-        ThemeComponent
+        ThemeComponent,
+        ChartsComponent
     ],
     imports: [
         CommonModule,
