@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Repository for entity Benutzer.
+ * Repository for entity Workout.
  *
  * @author Christian Egli
  * @since 24/1/16.
