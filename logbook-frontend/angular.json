@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "webjs-starterkit": {
+    "logbook": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/webjs-starterkit",
+            "outputPath": "dist/logbook",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -69,18 +69,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "webjs-starterkit:build"
+            "browserTarget": "logbook:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "webjs-starterkit:build:production"
+              "browserTarget": "logbook:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "webjs-starterkit:build"
+            "browserTarget": "logbook:build"
           }
         },
         "test": {
@@ -115,7 +115,7 @@
         }
       }
     },
-    "webjs-starterkit-e2e": {
+    "logbook-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "prefix": "",
@@ -124,11 +124,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "webjs-starterkit:serve"
+            "devServerTarget": "logbook:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "webjs-starterkit:serve:production"
+              "devServerTarget": "logbook:serve:production"
             }
           }
         },
@@ -144,5 +144,5 @@
       }
     }
   },
-  "defaultProject": "webjs-starterkit"
+  "defaultProject": "logbook"
 }

@@ -6,7 +6,7 @@
     <includeBaseDirectory>false</includeBaseDirectory>
     <fileSets>
         <fileSet>
-            <directory>dist/webjs-starterkit</directory>
+            <directory>dist/logbook</directory>
             <outputDirectory>/</outputDirectory>
         </fileSet>
     </fileSets>
