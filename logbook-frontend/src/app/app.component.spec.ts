@@ -9,7 +9,6 @@
  */
 import {async, inject, TestBed} from '@angular/core/testing';
 import {RouterModule} from '@angular/router';
-import {TranslateService} from '@ngx-translate/core';
 import {AppComponent} from './app.component';
 import {CoreModule} from './core/core.module';
 import {Observable, of} from 'rxjs';

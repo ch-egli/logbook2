@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TranslateModule } from '@ngx-translate/core';
 import {
     AccordionModule,
     BreadcrumbModule,
@@ -25,7 +24,6 @@ import { ThemeComponent } from './theme/theme.component';
 import { HomeComponent } from './home/home.component';
 import { ChartsComponent } from './charts/charts.component';
 
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
@@ -39,7 +37,6 @@ import { ChartsModule } from 'ng2-charts';
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        TranslateModule,
         BrowserAnimationsModule,
         BreadcrumbModule,
         ButtonModule,
@@ -70,7 +67,6 @@ import { ChartsModule } from 'ng2-charts';
         StepsModule,
         MenubarModule,
         ProgressBarModule,
-        NgxChartsModule,
         ChartsModule,
         TabMenuModule
     ],
