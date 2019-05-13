@@ -5,7 +5,24 @@
 <div>
   <p-tabView>
     <p-tabPanel header="Trainings" leftIcon="fa fa-list" [selected]="true">
-      Content 1
+      <p-table [value]="workouts">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Datum</th>
+            <th>Benutzer</th>
+            <th>Ort</th>
+            <th>Dauer</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-workouts>
+          <tr>
+            <td>{{workouts.datum}}</td>
+            <td>{{workouts.benutzer}}</td>
+            <td>{{workouts.ort}}</td>
+            <td>{{workouts.dauer}}</td>
+          </tr>
+        </ng-template>
+      </p-table>
     </p-tabPanel>
     <p-tabPanel header="Status" leftIcon="fa fa-heartbeat">
       Content 2

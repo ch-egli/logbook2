@@ -1,1 +1,9 @@
 @import '../node_modules/esta-webjs-extensions/styles/esta-extension-styles.scss';
+
+.ui-tabview .ui-tabview-panel { padding: 1em 0em 0em 0em }
+
+.ui-table .ui-table-tbody > tr > td { border: 0px }
+
+.ui-table .ui-table-thead > tr > th, .ui-table .ui-table-tfoot > tr > td {
+    border: 0px;
+}
