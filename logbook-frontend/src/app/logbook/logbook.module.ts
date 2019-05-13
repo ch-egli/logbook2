@@ -1,8 +1,8 @@
-import {CommonModule} from '@angular/common';
-import {NgModule} from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {TranslateModule} from '@ngx-translate/core';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TranslateModule } from '@ngx-translate/core';
 import {
     AccordionModule,
     BreadcrumbModule,
@@ -18,7 +18,7 @@ import {
     SelectButtonModule,
     SharedModule, SliderModule, SpinnerModule,
     SplitButtonModule, StepsModule, TabViewModule,
-    ToggleButtonModule
+    ToggleButtonModule, TabMenuModule
 } from 'primeng/primeng';
 import { AboutComponent } from './about/about.component';
 import { ThemeComponent } from './theme/theme.component';
@@ -71,7 +71,8 @@ import { ChartsModule } from 'ng2-charts';
         MenubarModule,
         ProgressBarModule,
         NgxChartsModule,
-        ChartsModule
+        ChartsModule,
+        TabMenuModule
     ],
     providers: [ConfirmationService]
 })
