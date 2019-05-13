@@ -1,6 +1,6 @@
 export class Workout {
     datum: string;
-    benutzer: string;
+    benutzername: string;
     ort: string;
-    dauer: number;
+    trainingszeit: number;
 }
