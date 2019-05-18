@@ -3,6 +3,8 @@ package ch.egli.training.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.sql.Date;
+
 /**
  * @author Christian Egli
  * @since 5/17/19.
@@ -12,6 +14,7 @@ import lombok.Data;
 public class StatsData {
     private Integer year;
     private Integer week;
+    private Date weekDate;
     private Double countTrainings;
     private Double avgTrainingszeit;
     private Double avgSchlaf;

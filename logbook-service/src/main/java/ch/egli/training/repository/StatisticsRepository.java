@@ -25,6 +25,7 @@ public class StatisticsRepository {
         List<StatsData> result;
         result = jdbcTemplate.query("SELECT date_part('year', datum::date) AS year,\n" +
                 "date_part('week', datum::date) AS week,\n" +
+                "to_date(concat(date_part('year', datum::date), date_part('week', datum::date)), 'iyyyiw') + 3 AS weekDate,\n" +
                 "COUNT(benutzername) AS countTrainings,\n" +
                 "ROUND(AVG(belastung), 1) as avgBelastung,\n" +
                 "MAX(belastung) as maxBelastung,\n" +

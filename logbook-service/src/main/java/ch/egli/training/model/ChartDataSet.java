@@ -1,27 +1,22 @@
 package ch.egli.training.model;
 
+import lombok.Data;
+
 import java.util.List;
+import java.util.Map;
 
 /**
- * TODO: Describe
- *
  * @author Christian Egli
  * @since 5/9/19.
  */
+@Data
 public class ChartDataSet {
-    private List<ChartData> chartData;
+    private Map<String, List<Double>> chartData;
     private List<String> labels;
 
-    public ChartDataSet(List<ChartData> chartData, List<String> labels) {
+    public ChartDataSet(Map<String, List<Double>> chartData, List<String> labels) {
         this.chartData = chartData;
         this.labels = labels;
     }
 
-    public List<ChartData> getChartData() {
-        return chartData;
-    }
-
-    public List<String> getLabels() {
-        return labels;
-    }
 }

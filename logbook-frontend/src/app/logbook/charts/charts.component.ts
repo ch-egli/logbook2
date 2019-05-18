@@ -34,6 +34,13 @@ export class ChartsComponent implements OnInit {
           position: 'left',
         },
         {
+          id: 'y-axis-2',
+          position: 'left',
+          ticks: {
+            fontColor: 'green',
+          }
+        },
+        {
           id: 'y-axis-1',
           position: 'right',
           gridLines: {
@@ -72,14 +79,6 @@ export class ChartsComponent implements OnInit {
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     },
-    { // dark grey
-      backgroundColor: 'rgba(77,83,96,0.2)',
-      borderColor: 'rgba(77,83,96,1)',
-      pointBackgroundColor: 'rgba(77,83,96,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(77,83,96,1)'
-    },
     { // red
       backgroundColor: 'rgba(255,0,0,0.3)',
       borderColor: 'red',
@@ -87,6 +86,14 @@ export class ChartsComponent implements OnInit {
       pointBorderColor: '#fff',
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+    },
+    { // dark grey
+      backgroundColor: 'rgba(77,83,96,0.2)',
+      borderColor: 'rgba(77,83,96,1)',
+      pointBackgroundColor: 'rgba(77,83,96,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(77,83,96,1)'
     }
   ];
   public lineChartLegend = true;
@@ -103,7 +110,27 @@ export class ChartsComponent implements OnInit {
     this.chartDataObservable = this.chartService.getChartsData();
     this.chartDataObservable.subscribe((res) => {
       console.log(res);
-      this.lineChartData = res.chartData;
+      console.log(res.chartData);
+
+      let set1 = <ChartDataSets>{
+        data: res.chartData["Belastung"],
+        label: "Belastung",
+        yAxisID: "y-axis-0"
+      }
+      let set2 = <ChartDataSets>{
+        data: res.chartData["ZuegeTotal"],
+        label: "ZuegeTotal",
+        yAxisID: "y-axis-1"
+      }
+      let set3 = <ChartDataSets>{
+        data: res.chartData["Schlaf"],
+        label: "Schlaf",
+        yAxisID: "y-axis-2"
+      }
+      this.lineChartData = [];
+      this.lineChartData.push(set1);
+      this.lineChartData.push(set2);
+      this.lineChartData.push(set3);
       this.lineChartLabels = res.labels;
     });
   }

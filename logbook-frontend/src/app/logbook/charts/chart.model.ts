@@ -1,4 +1,4 @@
 export interface ChartMetaType {
-    chartData: any[];
+    chartData: Map<string, any[]>;
     labels: any[];
 }

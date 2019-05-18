@@ -17,6 +17,7 @@ public class StatisticsRowMapper implements RowMapper<StatsData> {
         StatsData data = new StatsData(
                 rs.getInt("year"),
                 rs.getInt("week"),
+                rs.getDate("weekDate"),
                 rs.getDouble("countTrainings"),
                 rs.getDouble("avgTrainingszeit"),
                 rs.getDouble("avgSchlaf"),
