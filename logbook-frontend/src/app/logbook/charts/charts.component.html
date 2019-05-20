@@ -1,12 +1,19 @@
 <div class="jumbotron">
   <p-growl [(value)]="messages" sticky="sticky"></p-growl>
-  <h1>{{ aboutMessage }}
-  </h1>
-</div>
-
-<div>
-  <p-dropdown [options]="chartOptions0" [(ngModel)]="selectedChart1" (onChange)="onSelectChart0($event)"></p-dropdown>
-  <p-dropdown [options]="chartOptions1" [(ngModel)]="selectedChart2" (onChange)="onSelectChart1($event)"></p-dropdown>
+  <h4>Logbook Statistik für </h4>
+  <div>
+    <p-dropdown [dropdownIcon]="angleDown" [options]="userOptions" [(ngModel)]="selectedUser"
+      (onChange)="onSelectUser($event)">
+    </p-dropdown>
+    <p-dropdown [dropdownIcon]="angleDown" [options]="yearOptions" [(ngModel)]="selectedYear"
+      (onChange)="onSelectYear($event)"></p-dropdown>
+  </div>
+  <div>
+    <p-dropdown [dropdownIcon]="angleDown" [options]="chartOptions0" [(ngModel)]="selectedChart0"
+      (onChange)="onSelectChart0($event)"></p-dropdown>
+    <p-dropdown [dropdownIcon]="angleDown" [options]="chartOptions1" [(ngModel)]="selectedChart1"
+      (onChange)="onSelectChart1($event)"></p-dropdown>
+  </div>
 </div>
 
 <div class="flex">
@@ -16,9 +23,5 @@
         [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"
         [plugins]="lineChartPlugins" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
     </div>
-  </div>
-  <div class="flex-item">
-    <button mat-button mat-raised-button color="primary" (click)="changeColor()">Neu einfärben</button>
-    <button mat-button mat-raised-button color="primary" (click)="hideOne()">Toggle Züge34</button>
   </div>
 </div>

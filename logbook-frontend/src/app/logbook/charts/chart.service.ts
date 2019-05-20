@@ -5,14 +5,15 @@ import { ChartMetaType } from './chart.model';
 
 @Injectable()
 export class ChartService {
-    readonly ENDPOINT_URL_LOCAL = 'http://192.168.1.121:8080/v1/charts/zoe/2018';
+    readonly ENDPOINT_URL_LOCAL = 'http://192.168.1.121:8080/v1/charts';
     // readonly ENDPOINT_URL_LOCAL = 'https://192.168.1.121:8443/v1/charts/zoe/2019';
 
 
     constructor(private http: HttpClient) {
     }
 
-    getChartsData(): Observable<ChartMetaType> {
-        return this.http.get<ChartMetaType>(this.ENDPOINT_URL_LOCAL);
+    getChartsData(user: string, year: string): Observable<ChartMetaType> {
+        console.log('getChartData with user ' + user + ' and year ' + year);
+        return this.http.get<ChartMetaType>(this.ENDPOINT_URL_LOCAL + '/' + user + '/' + year);
     }
 }

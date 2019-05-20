@@ -19,16 +19,6 @@ export class ChartsComponent implements OnInit {
   public aboutMessage: string;
   public messages: Array<Message> = [];
 
-  public chartDataObservable: Observable<ChartMetaType>;
-  public lineChartData: ChartDataSets[] = [{ data: [] }]
-  public lineChartLabels: Label[] = []
-
-  public myChartData: Map<string, any[]>;
-  public chartOptions0: SelectItem[] = [{ label: 'Wähle...', value: null }];
-  public chartOptions1: SelectItem[] = [{ label: 'Wähle...', value: null }];
-  public selectedChart0: string = 'Wähle...';
-  public selectedChart1: string = 'Wähle...';
-
   public lineChartOptions: (ChartOptions & { annotation: any }) = {
     responsive: true,
     maintainAspectRatio: false,
@@ -108,18 +98,44 @@ export class ChartsComponent implements OnInit {
 
   @ViewChild(BaseChartDirective) chart: BaseChartDirective;
 
+  public angleDown = 'fa fa-angle-down';
+
+  public chartDataObservable: Observable<ChartMetaType>;
+  public lineChartData: ChartDataSets[] = [{ data: [] }]
+  public lineChartLabels: Label[] = []
+
+  public user = 'zoe';
+  public selectedUser = this.user;
+  public userOptions: SelectItem[] = [{ label: this.user, value: this.user }, { label: 'liv', value: 'liv' }];
+
+  public year = '' + (new Date()).getFullYear();
+  public selectedYear = this.year;
+  public yearOptions: SelectItem[] = [];
+
+  public myChartData: Map<string, any[]>;
+  public chartOptions0: SelectItem[] = [{ label: 'Wähle...', value: null }];
+  public selectedChart0 = 'Wähle...';
+  public chartOptions1: SelectItem[] = [{ label: 'Wähle...', value: null }];
+  public selectedChart1 = 'Wähle...';
+
   constructor(private chartService: ChartService) {
     this.aboutMessage = 'Climbing Logbook 2';
+    for (let i = 2016; i <= (new Date()).getFullYear(); i++) {
+      this.yearOptions.push({ label: '' + i, value: '' + i });
+    }
   }
 
   ngOnInit(): any {
+    this.loadDataFromServer();
+  }
+
+  loadDataFromServer() {
     let me = this;
-    this.chartDataObservable = this.chartService.getChartsData();
+    this.chartDataObservable = this.chartService.getChartsData(this.user, this.year);
+
     this.chartDataObservable.subscribe((res) => {
       me.myChartData = res.chartData;
       //console.log(res);
-      console.log(me.myChartData);
-
 
       const set1 = <ChartDataSets>{
         data: res.chartData[this.selectedChart0],
@@ -158,7 +174,7 @@ export class ChartsComponent implements OnInit {
   }
 
   // events
-  onSelectChart0(event) {
+  public onSelectChart0(event) {
     console.log('chart1 selected:' + event.value);
     if (event.value === null) {
       this.chart.hideDataset(0, true);
@@ -180,7 +196,7 @@ export class ChartsComponent implements OnInit {
     }
   }
 
-  onSelectChart1(event) {
+  public onSelectChart1(event) {
     console.log('chart2 selected: ' + event.value);
     if (event.value === null) {
       this.chart.hideDataset(1, true);
@@ -200,6 +216,18 @@ export class ChartsComponent implements OnInit {
       }
       this.lineChartData[1] = dataSet;
     }
+  }
+
+  onSelectUser(event) {
+    console.log('selected user: ' + event.value);
+    this.user = event.value;
+    this.loadDataFromServer();
+  }
+
+  public onSelectYear(event) {
+    console.log('selected year: ' + event.value);
+    this.year = event.value;
+    this.loadDataFromServer();
   }
 
   public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
