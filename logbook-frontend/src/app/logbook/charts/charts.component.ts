@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Message } from 'primeng/primeng';
+import { Message, DropdownModule } from 'primeng/primeng';
+import { SelectItem } from 'primeng/api';
 
 import { ChartService } from './chart.service';
 import { ChartMetaType } from './chart.model';
@@ -22,6 +23,12 @@ export class ChartsComponent implements OnInit {
   public lineChartData: ChartDataSets[] = [{ data: [] }]
   public lineChartLabels: Label[] = []
 
+  public myChartData: Map<string, any[]>;
+  public chartOptions0: SelectItem[] = [{ label: 'Wähle...', value: null }];
+  public chartOptions1: SelectItem[] = [{ label: 'Wähle...', value: null }];
+  public selectedChart0: string = 'Wähle...';
+  public selectedChart1: string = 'Wähle...';
+
   public lineChartOptions: (ChartOptions & { annotation: any }) = {
     responsive: true,
     maintainAspectRatio: false,
@@ -32,12 +39,11 @@ export class ChartsComponent implements OnInit {
         {
           id: 'y-axis-0',
           position: 'left',
-        },
-        {
-          id: 'y-axis-2',
-          position: 'left',
+          gridLines: {
+            color: 'rgba(77,83,96,0.3)',
+          },
           ticks: {
-            fontColor: 'green',
+            fontColor: 'black',
           }
         },
         {
@@ -71,13 +77,13 @@ export class ChartsComponent implements OnInit {
     },
   };
   public lineChartColors: Color[] = [
-    { // grey
-      backgroundColor: 'rgba(148,159,177,0.2)',
-      borderColor: 'rgba(148,159,177,1)',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
+    { // dark grey
+      backgroundColor: 'rgba(77,83,96,0.2)',
+      borderColor: 'rgba(77,83,96,1)',
+      pointBackgroundColor: 'rgba(77,83,96,1)',
       pointBorderColor: '#fff',
       pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+      pointHoverBorderColor: 'rgba(77,83,96,1)'
     },
     { // red
       backgroundColor: 'rgba(255,0,0,0.3)',
@@ -87,16 +93,16 @@ export class ChartsComponent implements OnInit {
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     },
-    { // dark grey
-      backgroundColor: 'rgba(77,83,96,0.2)',
-      borderColor: 'rgba(77,83,96,1)',
-      pointBackgroundColor: 'rgba(77,83,96,1)',
+    { // grey
+      backgroundColor: 'rgba(148,159,177,0.2)',
+      borderColor: 'rgba(148,159,177,1)',
+      pointBackgroundColor: 'rgba(148,159,177,1)',
       pointBorderColor: '#fff',
       pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(77,83,96,1)'
+      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     }
   ];
-  public lineChartLegend = true;
+  public lineChartLegend = false;
   public lineChartType = 'line';
   public lineChartPlugins = [pluginAnnotations];
 
@@ -107,31 +113,41 @@ export class ChartsComponent implements OnInit {
   }
 
   ngOnInit(): any {
+    let me = this;
     this.chartDataObservable = this.chartService.getChartsData();
     this.chartDataObservable.subscribe((res) => {
-      console.log(res);
-      console.log(res.chartData);
+      me.myChartData = res.chartData;
+      //console.log(res);
+      console.log(me.myChartData);
 
-      let set1 = <ChartDataSets>{
-        data: res.chartData["Belastung"],
-        label: "Belastung",
-        yAxisID: "y-axis-0"
+
+      const set1 = <ChartDataSets>{
+        data: res.chartData[this.selectedChart0],
+        label: this.selectedChart0,
+        yAxisID: 'y-axis-0'
       }
-      let set2 = <ChartDataSets>{
-        data: res.chartData["ZuegeTotal"],
-        label: "ZuegeTotal",
-        yAxisID: "y-axis-1"
+      const set2 = <ChartDataSets>{
+        data: res.chartData[this.selectedChart1],
+        label: this.selectedChart1,
+        yAxisID: 'y-axis-1'
       }
-      let set3 = <ChartDataSets>{
-        data: res.chartData["Schlaf"],
-        label: "Schlaf",
-        yAxisID: "y-axis-2"
-      }
+
+      const optionValues: string[] = Array.from(Object.keys(res.chartData));
+      console.log('optionValues: ' + optionValues);
+      optionValues.forEach((optVal) => {
+        this.chartOptions0.push({ label: optVal, value: optVal });
+      });
+      console.log(this.chartOptions0);
+      optionValues.forEach((optVal) => {
+        this.chartOptions1.push({ label: optVal, value: optVal });
+      });
+
       this.lineChartData = [];
       this.lineChartData.push(set1);
       this.lineChartData.push(set2);
-      this.lineChartData.push(set3);
       this.lineChartLabels = res.labels;
+
+      this.chart.update();
     });
   }
 
@@ -142,6 +158,50 @@ export class ChartsComponent implements OnInit {
   }
 
   // events
+  onSelectChart0(event) {
+    console.log('chart1 selected:' + event.value);
+    if (event.value === null) {
+      this.chart.hideDataset(0, true);
+    } else {
+      this.lineChartLegend = true;
+      this.chart.hideDataset(0, false);
+      const dataSet = <ChartDataSets>{
+        data: this.myChartData[event.value],
+        label: event.value,
+        yAxisID: 'y-axis-0',
+        borderColor: 'grey',
+        backgroundColor: `rgba(77,83,96,0.2)`,
+        pointBackgroundColor: 'rgba(148,159,177,1)',
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+      }
+      this.lineChartData[0] = dataSet;
+    }
+  }
+
+  onSelectChart1(event) {
+    console.log('chart2 selected: ' + event.value);
+    if (event.value === null) {
+      this.chart.hideDataset(1, true);
+    } else {
+      this.lineChartLegend = true;
+      this.chart.hideDataset(1, false);
+      const dataSet = <ChartDataSets>{
+        data: this.myChartData[event.value],
+        label: event.value,
+        yAxisID: 'y-axis-1',
+        borderColor: 'red',
+        backgroundColor: `rgba(255,0,0,0.3)`,
+        pointBackgroundColor: 'rgba(148,159,177,1)',
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+      }
+      this.lineChartData[1] = dataSet;
+    }
+  }
+
   public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
     console.log(event, active);
   }

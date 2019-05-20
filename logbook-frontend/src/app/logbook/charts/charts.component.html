@@ -4,6 +4,11 @@
   </h1>
 </div>
 
+<div>
+  <p-dropdown [options]="chartOptions0" [(ngModel)]="selectedChart1" (onChange)="onSelectChart0($event)"></p-dropdown>
+  <p-dropdown [options]="chartOptions1" [(ngModel)]="selectedChart2" (onChange)="onSelectChart1($event)"></p-dropdown>
+</div>
+
 <div class="flex">
   <div class="flex-item">
     <div style="display: block;">
