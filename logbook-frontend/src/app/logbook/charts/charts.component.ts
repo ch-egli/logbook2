@@ -104,9 +104,10 @@ export class ChartsComponent implements OnInit {
   public lineChartData: ChartDataSets[] = [{ data: [] }]
   public lineChartLabels: Label[] = []
 
+  public userObservable: Observable<string[]>;
   public user = 'zoe';
   public selectedUser = this.user;
-  public userOptions: SelectItem[] = [{ label: this.user, value: this.user }, { label: 'liv', value: 'liv' }];
+  public userOptions: SelectItem[] = [{ label: this.user, value: this.user }];
 
   public year = '' + (new Date()).getFullYear();
   public selectedYear = this.year;
@@ -131,11 +132,17 @@ export class ChartsComponent implements OnInit {
 
   loadDataFromServer() {
     let me = this;
-    this.chartDataObservable = this.chartService.getChartsData(this.user, this.year);
+    this.userObservable = this.chartService.getAthletes();
+    this.userObservable.subscribe((users) => {
+      this.userOptions = []
+      users.forEach((user) => {
+        this.userOptions.push({ label: user, value: user });
+      });
+    });
 
+    this.chartDataObservable = this.chartService.getChartsData(this.user, this.year);
     this.chartDataObservable.subscribe((res) => {
       me.myChartData = res.chartData;
-      //console.log(res);
 
       const set1 = <ChartDataSets>{
         data: res.chartData[this.selectedChart0],
