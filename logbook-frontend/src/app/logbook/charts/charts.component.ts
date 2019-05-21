@@ -88,7 +88,8 @@ export class ChartsComponent implements OnInit {
   };
   public lineChartColors: Color[] = [
     { // dark grey
-      backgroundColor: 'rgba(77,83,96,0.2)',
+      backgroundColor: 'rgba(77,83,96,0.1)',
+      borderWidth: 1,
       borderColor: 'rgba(77,83,96,1)',
       pointBackgroundColor: 'rgba(77,83,96,1)',
       pointBorderColor: '#fff',
@@ -96,7 +97,8 @@ export class ChartsComponent implements OnInit {
       pointHoverBorderColor: 'rgba(77,83,96,1)'
     },
     { // red
-      backgroundColor: 'rgba(255,0,0,0.3)',
+      backgroundColor: 'rgba(255,0,0,0.2)',
+      borderWidth: 1,
       borderColor: 'red',
       pointBackgroundColor: 'rgba(148,159,177,1)',
       pointBorderColor: '#fff',
@@ -105,6 +107,7 @@ export class ChartsComponent implements OnInit {
     },
     { // grey
       backgroundColor: 'rgba(148,159,177,0.2)',
+      borderWidth: 1,
       borderColor: 'rgba(148,159,177,1)',
       pointBackgroundColor: 'rgba(148,159,177,1)',
       pointBorderColor: '#fff',
