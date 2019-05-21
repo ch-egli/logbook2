@@ -34,6 +34,16 @@ export class ChartsComponent implements OnInit {
           },
           ticks: {
             fontColor: 'black',
+          },
+          afterDataLimits: axis => {
+            if (this.selectedChart0 && this.selectedChart0.indexOf('Belastung') !== -1) {
+              axis.min = 6;
+              axis.max = 20;
+            } else if (this.selectedChart0 && this.selectedChart0.indexOf('Züge') !== -1) {
+              axis.min = 0;
+              axis.max = Math.max(this.maxZuege0, this.maxZuege1);
+              //console.log('maxZüge0: ' + axis.max);
+            }
           }
         },
         {
@@ -44,6 +54,16 @@ export class ChartsComponent implements OnInit {
           },
           ticks: {
             fontColor: 'red',
+          },
+          afterDataLimits: axis => {
+            if (this.selectedChart1 && this.selectedChart1.indexOf('Belastung') !== -1) {
+              axis.min = 6;
+              axis.max = 20;
+            } else if (this.selectedChart1 && this.selectedChart1.indexOf('Züge') !== -1) {
+              axis.min = 0;
+              axis.max = Math.max(this.maxZuege0, this.maxZuege1);
+              //console.log('maxZüge1: ' + axis.max);
+            }
           }
         }
       ]
@@ -99,7 +119,7 @@ export class ChartsComponent implements OnInit {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective;
 
   public angleDown = 'fa fa-angle-down';
-  private const chooseParam = 'Wähle...';
+  private chooseParam = 'Wähle...';
 
   public chartDataObservable: Observable<ChartMetaType>;
   public lineChartData: ChartDataSets[] = [{ data: [] }]
@@ -119,6 +139,9 @@ export class ChartsComponent implements OnInit {
   public selectedChart0 = this.chooseParam;
   public chartOptions1: SelectItem[] = [{ label: this.chooseParam, value: null }];
   public selectedChart1 = this.chooseParam;
+
+  public maxZuege0 = 0;
+  public maxZuege1 = 0;
 
   constructor(private chartService: ChartService) {
     this.aboutMessage = 'Climbing Logbook 2';
@@ -185,10 +208,12 @@ export class ChartsComponent implements OnInit {
 
   // events
   public onSelectChart0(event) {
-    console.log('chart1 selected:' + event.value);
+    console.log('chart0 selected:' + event.value);
     if (event.value === null) {
       this.chart.hideDataset(0, true);
+      this.selectedChart0 = this.chooseParam;
     } else {
+      this.selectedChart0 = event.value;
       this.lineChartLegend = true;
       this.chart.hideDataset(0, false);
       const dataSet = <ChartDataSets>{
@@ -204,14 +229,22 @@ export class ChartsComponent implements OnInit {
         pointHoverBorderColor: 'rgba(148,159,177,0.8)'
       }
       this.lineChartData[0] = dataSet;
+      if (event.value.indexOf('Züge') !== -1) {
+        this.maxZuege0 = Math.max(...this.myChartData[event.value]);
+      } else {
+        this.maxZuege0 = 0;
+      }
+      //console.log('maxZuege0: ' + this.maxZuege0);
     }
   }
 
   public onSelectChart1(event) {
-    console.log('chart2 selected: ' + event.value);
+    console.log('chart1 selected: ' + event.value);
     if (event.value === null) {
       this.chart.hideDataset(1, true);
+      this.selectedChart1 = this.chooseParam;
     } else {
+      this.selectedChart1 = event.value;
       this.lineChartLegend = true;
       this.chart.hideDataset(1, false);
       const dataSet = <ChartDataSets>{
@@ -227,6 +260,12 @@ export class ChartsComponent implements OnInit {
         pointHoverBorderColor: 'rgba(148,159,177,0.8)'
       }
       this.lineChartData[1] = dataSet;
+      if (event.value.indexOf('Züge') !== -1) {
+        this.maxZuege1 = Math.max(...this.myChartData[event.value]);
+      } else {
+        this.maxZuege1 = 0;
+      }
+      //console.log('maxZuege1: ' + this.maxZuege1);
     }
   }
 
