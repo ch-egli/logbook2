@@ -99,6 +99,7 @@ export class ChartsComponent implements OnInit {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective;
 
   public angleDown = 'fa fa-angle-down';
+  private const chooseParam = 'Wähle...';
 
   public chartDataObservable: Observable<ChartMetaType>;
   public lineChartData: ChartDataSets[] = [{ data: [] }]
@@ -114,10 +115,10 @@ export class ChartsComponent implements OnInit {
   public yearOptions: SelectItem[] = [];
 
   public myChartData: Map<string, any[]>;
-  public chartOptions0: SelectItem[] = [{ label: 'Wähle...', value: null }];
-  public selectedChart0 = 'Wähle...';
-  public chartOptions1: SelectItem[] = [{ label: 'Wähle...', value: null }];
-  public selectedChart1 = 'Wähle...';
+  public chartOptions0: SelectItem[] = [{ label: this.chooseParam, value: null }];
+  public selectedChart0 = this.chooseParam;
+  public chartOptions1: SelectItem[] = [{ label: this.chooseParam, value: null }];
+  public selectedChart1 = this.chooseParam;
 
   constructor(private chartService: ChartService) {
     this.aboutMessage = 'Climbing Logbook 2';
@@ -143,26 +144,28 @@ export class ChartsComponent implements OnInit {
     this.chartDataObservable = this.chartService.getChartsData(this.user, this.year);
     this.chartDataObservable.subscribe((res) => {
       me.myChartData = res.chartData;
+      console.log(res.chartData);
 
       const set1 = <ChartDataSets>{
         data: res.chartData[this.selectedChart0],
-        label: this.selectedChart0,
+        label: this.selectedChart0 !== this.chooseParam ? this.selectedChart0.substring(3) : this.chooseParam,
         yAxisID: 'y-axis-0'
       }
       const set2 = <ChartDataSets>{
         data: res.chartData[this.selectedChart1],
-        label: this.selectedChart1,
+        label: this.selectedChart1 !== this.chooseParam ? this.selectedChart1.substring(3) : this.chooseParam,
         yAxisID: 'y-axis-1'
       }
 
-      const optionValues: string[] = Array.from(Object.keys(res.chartData));
+      let optionValues: string[] = Array.from(Object.keys(res.chartData));
+      optionValues.sort();
       console.log('optionValues: ' + optionValues);
       optionValues.forEach((optVal) => {
-        this.chartOptions0.push({ label: optVal, value: optVal });
+        this.chartOptions0.push({ label: optVal.substring(3), value: optVal });
       });
       console.log(this.chartOptions0);
       optionValues.forEach((optVal) => {
-        this.chartOptions1.push({ label: optVal, value: optVal });
+        this.chartOptions1.push({ label: optVal.substring(3), value: optVal });
       });
 
       this.lineChartData = [];
@@ -190,7 +193,7 @@ export class ChartsComponent implements OnInit {
       this.chart.hideDataset(0, false);
       const dataSet = <ChartDataSets>{
         data: this.myChartData[event.value],
-        label: event.value,
+        label: event.value.substring(3),
         yAxisID: 'y-axis-0',
         borderColor: 'grey',
         backgroundColor: `rgba(77,83,96,0.2)`,
@@ -212,7 +215,7 @@ export class ChartsComponent implements OnInit {
       this.chart.hideDataset(1, false);
       const dataSet = <ChartDataSets>{
         data: this.myChartData[event.value],
-        label: event.value,
+        label: event.value.substring(3),
         yAxisID: 'y-axis-1',
         borderColor: 'red',
         backgroundColor: `rgba(255,0,0,0.3)`,

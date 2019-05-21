@@ -85,25 +85,25 @@ public class ChartDataController {
             coundJoggingData.add(data.getCountJogging());
         }
 
-        chartData.put("Anzahl Trainings", countTrainingsData);
-        chartData.put("Max. Belastung", maxBelastungData);
-        chartData.put("Belastung (Mittelwert)", avgBelastungData);
-        chartData.put("Trainingszeit (Mittelwert)", trainingszeitData);
-        chartData.put("Züge total", totalZuegeData);
-        chartData.put("Züge 12", zuege12Data);
-        chartData.put("Züge 23", zuege23Data);
-        chartData.put("Züge 34", zuege34Data);
-        chartData.put("Schlaf (Mittelwert)", avgSchlaf);
-        chartData.put("Anzahl Nächte mit wenig Schlaf", countSchlafLessThan7Data);
-        chartData.put("Gefühl (Mittelwert: 4=top, 1=flop)", avgGefuehl);
-        chartData.put("Anzahl schlechtes Gefühl", countGefuehlMoreThan2Data);
-        chartData.put("Anzahl Lead", countLeadData);
-        chartData.put("Anzahl Bouldern", countBouldernData);
-        chartData.put("Anzahl Campusboard", countCampusData);
-        chartData.put("Anzahl Krafttrainings", countKraftData);
-        chartData.put("Anzahl Stretching", countDehnenData);
-        chartData.put("Anzahl Mentaltraining", countMentaltrainingData);
-        chartData.put("Anzahl Jogging", coundJoggingData);
+        chartData.put("01 Anzahl Trainings", countTrainingsData);
+        chartData.put("02 Max. Belastung", maxBelastungData);
+        chartData.put("03 Belastung (Mittelwert)", avgBelastungData);
+        chartData.put("04 Trainingszeit (Mittelwert)", trainingszeitData);
+        chartData.put("05 Züge total", totalZuegeData);
+        chartData.put("06 Züge 12", zuege12Data);
+        chartData.put("07 Züge 23", zuege23Data);
+        chartData.put("08 Züge 34", zuege34Data);
+        chartData.put("09 Schlaf (Mittelwert)", avgSchlaf);
+        chartData.put("10 Anzahl Nächte mit wenig Schlaf", countSchlafLessThan7Data);
+        chartData.put("11 Gefühl (Mittelwert: 4=top, 1=flop)", avgGefuehl);
+        chartData.put("12 Anzahl schlechtes Gefühl", countGefuehlMoreThan2Data);
+        chartData.put("13 Anzahl Lead", countLeadData);
+        chartData.put("14 Anzahl Bouldern", countBouldernData);
+        chartData.put("15 Anzahl Campusboard", countCampusData);
+        chartData.put("16 Anzahl Krafttrainings", countKraftData);
+        chartData.put("17 Anzahl Stretching", countDehnenData);
+        chartData.put("18 Anzahl Mentaltraining", countMentaltrainingData);
+        chartData.put("19 Anzahl Jogging", coundJoggingData);
 
         ChartDataSet chartDataSet = new ChartDataSet(chartData, labels);
 
