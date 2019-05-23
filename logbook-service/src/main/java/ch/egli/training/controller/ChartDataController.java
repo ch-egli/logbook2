@@ -2,7 +2,9 @@ package ch.egli.training.controller;
 
 import ch.egli.training.model.ChartDataSet;
 import ch.egli.training.model.StatsData;
+import ch.egli.training.model.Wettkampf;
 import ch.egli.training.repository.StatisticsRepository;
+import ch.egli.training.repository.WettkampfRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,11 +27,13 @@ import java.util.Map;
 @RequestMapping("/v1")
 public class ChartDataController {
 
-    public ChartDataController(StatisticsRepository statisticsRepository) {
+    public ChartDataController(StatisticsRepository statisticsRepository, WettkampfRepository wettkampfRepository) {
         this.statisticsRepository = statisticsRepository;
+        this.wettkampfRepository = wettkampfRepository;
     }
 
     private StatisticsRepository statisticsRepository;
+    private WettkampfRepository wettkampfRepository;
 
     @GetMapping(value = "/charts/{benutzername}/{year}")
     public ResponseEntity<ChartDataSet> getChartData(@PathVariable String benutzername, @PathVariable Integer year) {
@@ -105,7 +109,9 @@ public class ChartDataController {
         chartData.put("18 Anzahl Mentaltraining", countMentaltrainingData);
         chartData.put("19 Anzahl Jogging", coundJoggingData);
 
-        ChartDataSet chartDataSet = new ChartDataSet(chartData, labels);
+        List<Wettkampf> wettkaempfe = wettkampfRepository.findByBenutzerAndYear(benutzername, year);
+
+        ChartDataSet chartDataSet = new ChartDataSet(chartData, labels, wettkaempfe);
 
         return ResponseEntity.ok(chartDataSet);
     }

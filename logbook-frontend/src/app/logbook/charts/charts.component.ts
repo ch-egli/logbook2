@@ -3,7 +3,7 @@ import { Message, DropdownModule } from 'primeng/primeng';
 import { SelectItem } from 'primeng/api';
 
 import { ChartService } from './chart.service';
-import { ChartMetaType } from './chart.model';
+import { ChartMetaType, Wettkampf } from './chart.model';
 import { Observable } from 'rxjs';
 
 import { ChartDataSets, ChartOptions } from 'chart.js';
@@ -114,7 +114,9 @@ export class ChartsComponent implements OnInit {
     this.chartDataObservable = this.chartService.getChartsData(this.user, this.year);
     this.chartDataObservable.subscribe((res) => {
       me.myChartData = res.chartData;
-      console.log(res.chartData);
+      //console.log(res.chartData);
+      console.log(res.wettkaempfe);
+      console.log(res.wettkaempfe[0].beschreibung);
 
       const set1 = <ChartDataSets>{
         data: res.chartData[this.selectedChart0],
