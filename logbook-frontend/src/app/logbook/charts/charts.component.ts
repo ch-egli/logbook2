@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { Message, DropdownModule } from 'primeng/primeng';
 import { SelectItem } from 'primeng/api';
 
@@ -75,7 +75,7 @@ export class ChartsComponent implements OnInit {
   public userOptions: SelectItem[] = [{ label: this.user, value: this.user }];
 
   public year = '' + (new Date()).getFullYear();
-  public selectedYear = this.year;
+  public numericYear = (new Date()).getFullYear() % 100;
   public yearOptions: SelectItem[] = [];
 
   public myChartData: Map<string, any[]>;
@@ -102,7 +102,7 @@ export class ChartsComponent implements OnInit {
   }
 
   loadDataFromServer() {
-    let me = this;
+    const me = this;
     this.userObservable = this.chartService.getAthletes();
     this.userObservable.subscribe((users) => {
       this.userOptions = []
@@ -245,6 +245,7 @@ export class ChartsComponent implements OnInit {
   public onSelectYear(event) {
     console.log('selected year: ' + event.value);
     this.year = event.value;
+    this.numericYear = (+event.value) % 100;
     this.loadDataFromServer();
     this.annotations = this.assembleAnnotations(this.showWettkaempfe);
     this.lineChartOptions = this.assembleLineChartOptions(this.annotations);
@@ -402,8 +403,8 @@ export class ChartsComponent implements OnInit {
           {
             type: 'time',
             time: {
-              min: '01.01.' + this.year.substr(2, this.year.length),
-              max: '31.12.' + this.year.substr(2, this.year.length),
+              min: '01.01.' + this.numericYear,
+              max: '01.01.' + (this.numericYear + 1),
               displayFormats: {
                 'day': 'DD.MM.YY',
                 'week': 'DD.MM.YY',
