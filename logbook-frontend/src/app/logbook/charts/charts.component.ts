@@ -267,11 +267,23 @@ export class ChartsComponent implements OnInit {
         label: this.selectedChart0 !== this.chooseParam ? this.selectedChart0.substring(3) : this.chooseParam,
         yAxisID: 'y-axis-0'
       };
+      if (this.selectedChart0.indexOf('Züge') !== -1) {
+        this.maxZuege0 = Math.max(...res.chartData[this.selectedChart0]);
+      } else {
+        this.maxZuege0 = 0;
+      }
+
       const set2 = <ChartDataSets>{
         data: res.chartData[this.selectedChart1],
         label: this.selectedChart1 !== this.chooseParam ? this.selectedChart1.substring(3) : this.chooseParam,
         yAxisID: 'y-axis-1'
       }
+      if (this.selectedChart1.indexOf('Züge') !== -1) {
+        this.maxZuege1 = Math.max(...res.chartData[this.selectedChart1]);
+      } else {
+        this.maxZuege1 = 0;
+      }
+
 
       this.chartOptions0 = [{ label: this.chooseParam, value: null }];
       const optionValues: string[] = Array.from(Object.keys(res.chartData));
