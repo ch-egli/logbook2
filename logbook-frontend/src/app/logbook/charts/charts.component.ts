@@ -19,10 +19,10 @@ export class ChartsComponent implements OnInit {
   public aboutMessage: string;
   public messages: Array<Message> = [];
 
-  public showWettkaempfe = false;
+  public showWettkaempfe = true;
 
-  public annotations = this.assembleAnnotations(this.showWettkaempfe);
-  public lineChartOptions: (ChartOptions & { annotation: any }) = this.assembleLineChartOptions(this.annotations);
+  public annotations;
+  public lineChartOptions: (ChartOptions & { annotation: any });
 
   public lineChartColors: Color[] = [
     { // dark grey
@@ -31,6 +31,7 @@ export class ChartsComponent implements OnInit {
       borderColor: 'rgba(77,83,96,1)',
       pointBackgroundColor: 'rgba(77,83,96,1)',
       pointBorderColor: '#fff',
+      pointRadius: 2,
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: 'rgba(77,83,96,1)'
     },
@@ -40,6 +41,7 @@ export class ChartsComponent implements OnInit {
       borderColor: 'red',
       pointBackgroundColor: 'rgba(148,159,177,1)',
       pointBorderColor: '#fff',
+      pointRadius: 2,
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     },
@@ -49,6 +51,7 @@ export class ChartsComponent implements OnInit {
       borderColor: 'rgba(148,159,177,1)',
       pointBackgroundColor: 'rgba(148,159,177,1)',
       pointBorderColor: '#fff',
+      pointRadius: 2,
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     }
@@ -92,6 +95,9 @@ export class ChartsComponent implements OnInit {
   }
 
   ngOnInit(): any {
+    this.annotations = this.assembleAnnotations(this.showWettkaempfe);
+    this.lineChartOptions = this.assembleLineChartOptions(this.annotations);
+
     this.loadDataFromServer();
   }
 
@@ -180,6 +186,7 @@ export class ChartsComponent implements OnInit {
         backgroundColor: `rgba(77,83,96,0.1)`,
         pointBackgroundColor: 'rgba(148,159,177,1)',
         pointBorderColor: '#fff',
+        pointRadius: 2,
         pointHoverBackgroundColor: '#fff',
         pointHoverBorderColor: 'rgba(148,159,177,0.8)'
       }
@@ -211,6 +218,7 @@ export class ChartsComponent implements OnInit {
         backgroundColor: `rgba(255,0,0,0.2)`,
         pointBackgroundColor: 'rgba(148,159,177,1)',
         pointBorderColor: '#fff',
+        pointRadius: 2,
         pointHoverBackgroundColor: '#fff',
         pointHoverBorderColor: 'rgba(148,159,177,0.8)'
       }
@@ -228,12 +236,16 @@ export class ChartsComponent implements OnInit {
     console.log('selected user: ' + event.value);
     this.user = event.value;
     this.loadDataFromServer();
+    this.annotations = this.assembleAnnotations(this.showWettkaempfe);
+    this.lineChartOptions = this.assembleLineChartOptions(this.annotations);
   }
 
   public onSelectYear(event) {
     console.log('selected year: ' + event.value);
     this.year = event.value;
     this.loadDataFromServer();
+    this.annotations = this.assembleAnnotations(this.showWettkaempfe);
+    this.lineChartOptions = this.assembleLineChartOptions(this.annotations);
   }
 
   public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
@@ -388,6 +400,8 @@ export class ChartsComponent implements OnInit {
           {
             type: 'time',
             time: {
+              min: '01.01.' + this.year.substr(2, this.year.length),
+              max: '31.12.' + this.year.substr(2, this.year.length),
               displayFormats: {
                 'day': 'DD.MM',
                 'week': 'DD.MM',
@@ -396,7 +410,7 @@ export class ChartsComponent implements OnInit {
               parser: 'DD.MM.YY',
               stepSize: 1,
               // unit: 'week', // default is false resp. month
-            }
+            },
           }
         ],
         yAxes: [
