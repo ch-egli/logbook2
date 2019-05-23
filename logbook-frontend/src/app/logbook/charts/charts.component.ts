@@ -403,9 +403,9 @@ export class ChartsComponent implements OnInit {
               min: '01.01.' + this.year.substr(2, this.year.length),
               max: '31.12.' + this.year.substr(2, this.year.length),
               displayFormats: {
-                'day': 'DD.MM',
-                'week': 'DD.MM',
-                'month': 'DD.MM',
+                'day': 'DD.MM.YY',
+                'week': 'DD.MM.YY',
+                'month': 'DD.MM.YY',
               },
               parser: 'DD.MM.YY',
               stepSize: 1,
