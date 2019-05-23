@@ -23,8 +23,21 @@ export class ChartsComponent implements OnInit {
     responsive: true,
     maintainAspectRatio: false,
     scales: {
-      // We use this empty structure as a placeholder for dynamic theming.
-      xAxes: [{}],
+      xAxes: [
+        {
+          type: 'time',
+          time: {
+            displayFormats: {
+              'day': 'DD.MM',
+              'week': 'DD.MM',
+              'month': 'DD.MM',
+            },
+            parser: 'DD.MM.YY',
+            stepSize: 1,
+            // unit: 'week', // default is false resp. month
+          }
+        }
+      ],
       yAxes: [
         {
           id: 'y-axis-0',
@@ -42,7 +55,33 @@ export class ChartsComponent implements OnInit {
             } else if (this.selectedChart0 && this.selectedChart0.indexOf('Züge') !== -1) {
               axis.min = 0;
               axis.max = Math.max(this.maxZuege0, this.maxZuege1);
-              //console.log('maxZüge0: ' + axis.max);
+            } else if (this.selectedChart0 && this.selectedChart0.indexOf('Anzahl Trainings') !== -1) {
+              axis.min = 0;
+              axis.max = 12;
+            } else if (this.selectedChart0 && this.selectedChart0.indexOf('Trainingszeit') !== -1) {
+              axis.min = 0;
+              axis.max = 240;
+            } else if (this.selectedChart0 && this.selectedChart0.indexOf('Schlaf (Mittelwert)') !== -1) {
+              axis.min = 3;
+              axis.max = 13;
+            } else if (this.selectedChart0 && this.selectedChart0.indexOf('Anzahl Nächte mit wenig Schlaf') !== -1) {
+              axis.min = 0;
+              axis.max = 4;
+            } else if (this.selectedChart0 && this.selectedChart0.indexOf('Gefühl (Mittelwert') !== -1) {
+              axis.min = 1;
+              axis.max = 4;
+            } else if (this.selectedChart0 && this.selectedChart0.indexOf('Anzahl schlechtes Gefühl') !== -1) {
+              axis.min = 0;
+              axis.max = 7;
+            } else if (this.selectedChart0 && (this.selectedChart0.indexOf('Lead') !== -1
+              || this.selectedChart0.indexOf('Bouldern') !== -1
+              || this.selectedChart0.indexOf('Campusboard')
+              || this.selectedChart0.indexOf('Krafttrainings')
+              || this.selectedChart0.indexOf('Stretching')
+              || this.selectedChart0.indexOf('Mentaltraining')
+              || this.selectedChart0.indexOf('Jogging'))) {
+              axis.min = 0;
+              axis.max = 12;
             }
           }
         },
@@ -62,7 +101,33 @@ export class ChartsComponent implements OnInit {
             } else if (this.selectedChart1 && this.selectedChart1.indexOf('Züge') !== -1) {
               axis.min = 0;
               axis.max = Math.max(this.maxZuege0, this.maxZuege1);
-              //console.log('maxZüge1: ' + axis.max);
+            } else if (this.selectedChart1 && this.selectedChart1.indexOf('Anzahl Trainings') !== -1) {
+              axis.min = 0;
+              axis.max = 12;
+            } else if (this.selectedChart1 && this.selectedChart1.indexOf('Trainingszeit') !== -1) {
+              axis.min = 0;
+              axis.max = 240;
+            } else if (this.selectedChart1 && this.selectedChart1.indexOf('Schlaf (Mittelwert)') !== -1) {
+              axis.min = 3;
+              axis.max = 13;
+            } else if (this.selectedChart1 && this.selectedChart1.indexOf('Anzahl Nächte mit wenig Schlaf') !== -1) {
+              axis.min = 0;
+              axis.max = 4;
+            } else if (this.selectedChart1 && this.selectedChart1.indexOf('Gefühl (Mittelwert') !== -1) {
+              axis.min = 1;
+              axis.max = 4;
+            } else if (this.selectedChart1 && this.selectedChart1.indexOf('Anzahl schlechtes Gefühl') !== -1) {
+              axis.min = 0;
+              axis.max = 7;
+            } else if (this.selectedChart1 && (this.selectedChart1.indexOf('Lead') !== -1
+              || this.selectedChart1.indexOf('Bouldern') !== -1
+              || this.selectedChart1.indexOf('Campusboard')
+              || this.selectedChart1.indexOf('Krafttrainings')
+              || this.selectedChart1.indexOf('Stretching')
+              || this.selectedChart1.indexOf('Mentaltraining')
+              || this.selectedChart1.indexOf('Jogging'))) {
+              axis.min = 0;
+              axis.max = 12;
             }
           }
         }
@@ -74,13 +139,38 @@ export class ChartsComponent implements OnInit {
           type: 'line',
           mode: 'vertical',
           scaleID: 'x-axis-0',
-          value: 'March',
-          borderColor: 'orange',
-          borderWidth: 2,
+          value: '02.05.19',
+          borderColor: 'blue',
+          borderWidth: 1,
           label: {
             enabled: true,
-            fontColor: 'orange',
-            content: 'LineAnno'
+            fontColor: 'blue',
+            fontSize: 10,
+            fontStyle: 'normal',
+            position: 'top',
+            backgroundColor: 'white',
+            yPadding: 2,
+            yAdjust: -1,
+            content: 'SM'
+          }
+        },
+        {
+          type: 'line',
+          mode: 'vertical',
+          scaleID: 'x-axis-0',
+          value: '20.03.19',
+          borderColor: 'green',
+          borderWidth: 1,
+          label: {
+            enabled: true,
+            fontColor: 'green',
+            fontSize: 10,
+            fontStyle: 'normal',
+            position: 'top',
+            backgroundColor: 'white',
+            yPadding: 2,
+            yAdjust: -1,
+            content: 'EM'
           }
         },
       ],
@@ -176,19 +266,21 @@ export class ChartsComponent implements OnInit {
         data: res.chartData[this.selectedChart0],
         label: this.selectedChart0 !== this.chooseParam ? this.selectedChart0.substring(3) : this.chooseParam,
         yAxisID: 'y-axis-0'
-      }
+      };
       const set2 = <ChartDataSets>{
         data: res.chartData[this.selectedChart1],
         label: this.selectedChart1 !== this.chooseParam ? this.selectedChart1.substring(3) : this.chooseParam,
         yAxisID: 'y-axis-1'
       }
 
-      let optionValues: string[] = Array.from(Object.keys(res.chartData));
+      this.chartOptions0 = [{ label: this.chooseParam, value: null }];
+      const optionValues: string[] = Array.from(Object.keys(res.chartData));
       optionValues.sort();
       console.log('optionValues: ' + optionValues);
       optionValues.forEach((optVal) => {
         this.chartOptions0.push({ label: optVal.substring(3), value: optVal });
       });
+      this.chartOptions1 = [{ label: this.chooseParam, value: null }];
       console.log(this.chartOptions0);
       optionValues.forEach((optVal) => {
         this.chartOptions1.push({ label: optVal.substring(3), value: optVal });
@@ -292,18 +384,4 @@ export class ChartsComponent implements OnInit {
     console.log(event, active);
   }
 
-  public hideOne() {
-    const isHidden = this.chart.isDatasetHidden(1);
-    this.chart.hideDataset(1, !isHidden);
-  }
-
-  public changeColor() {
-    this.lineChartColors[2].borderColor = 'green';
-    this.lineChartColors[2].backgroundColor = `rgba(0, 255, 0, 0.3)`;
-  }
-
-  public changeLabel() {
-    this.lineChartLabels[2] = ['1st Line', '2nd Line'];
-    // this.chart.update();
-  }
 }
