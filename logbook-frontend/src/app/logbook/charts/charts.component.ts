@@ -19,163 +19,11 @@ export class ChartsComponent implements OnInit {
   public aboutMessage: string;
   public messages: Array<Message> = [];
 
-  public lineChartOptions: (ChartOptions & { annotation: any }) = {
-    responsive: true,
-    maintainAspectRatio: false,
-    scales: {
-      xAxes: [
-        {
-          type: 'time',
-          time: {
-            displayFormats: {
-              'day': 'DD.MM',
-              'week': 'DD.MM',
-              'month': 'DD.MM',
-            },
-            parser: 'DD.MM.YY',
-            stepSize: 1,
-            // unit: 'week', // default is false resp. month
-          }
-        }
-      ],
-      yAxes: [
-        {
-          id: 'y-axis-0',
-          position: 'left',
-          gridLines: {
-            color: 'rgba(77,83,96,0.3)',
-          },
-          ticks: {
-            fontColor: 'black',
-          },
-          afterDataLimits: axis => {
-            if (this.selectedChart0 && this.selectedChart0.indexOf('Belastung') !== -1) {
-              axis.min = 6;
-              axis.max = 20;
-            } else if (this.selectedChart0 && this.selectedChart0.indexOf('Züge') !== -1) {
-              axis.min = 0;
-              axis.max = Math.max(this.maxZuege0, this.maxZuege1);
-            } else if (this.selectedChart0 && this.selectedChart0.indexOf('Anzahl Trainings') !== -1) {
-              axis.min = 0;
-              axis.max = 12;
-            } else if (this.selectedChart0 && this.selectedChart0.indexOf('Trainingszeit') !== -1) {
-              axis.min = 0;
-              axis.max = 240;
-            } else if (this.selectedChart0 && this.selectedChart0.indexOf('Schlaf (Mittelwert)') !== -1) {
-              axis.min = 3;
-              axis.max = 13;
-            } else if (this.selectedChart0 && this.selectedChart0.indexOf('Anzahl Nächte mit wenig Schlaf') !== -1) {
-              axis.min = 0;
-              axis.max = 4;
-            } else if (this.selectedChart0 && this.selectedChart0.indexOf('Gefühl (Mittelwert') !== -1) {
-              axis.min = 1;
-              axis.max = 4;
-            } else if (this.selectedChart0 && this.selectedChart0.indexOf('Anzahl schlechtes Gefühl') !== -1) {
-              axis.min = 0;
-              axis.max = 7;
-            } else if (this.selectedChart0 && (this.selectedChart0.indexOf('Lead') !== -1
-              || this.selectedChart0.indexOf('Bouldern') !== -1
-              || this.selectedChart0.indexOf('Campusboard')
-              || this.selectedChart0.indexOf('Krafttrainings')
-              || this.selectedChart0.indexOf('Stretching')
-              || this.selectedChart0.indexOf('Mentaltraining')
-              || this.selectedChart0.indexOf('Jogging'))) {
-              axis.min = 0;
-              axis.max = 12;
-            }
-          }
-        },
-        {
-          id: 'y-axis-1',
-          position: 'right',
-          gridLines: {
-            color: 'rgba(255,0,0,0.3)',
-          },
-          ticks: {
-            fontColor: 'red',
-          },
-          afterDataLimits: axis => {
-            if (this.selectedChart1 && this.selectedChart1.indexOf('Belastung') !== -1) {
-              axis.min = 6;
-              axis.max = 20;
-            } else if (this.selectedChart1 && this.selectedChart1.indexOf('Züge') !== -1) {
-              axis.min = 0;
-              axis.max = Math.max(this.maxZuege0, this.maxZuege1);
-            } else if (this.selectedChart1 && this.selectedChart1.indexOf('Anzahl Trainings') !== -1) {
-              axis.min = 0;
-              axis.max = 12;
-            } else if (this.selectedChart1 && this.selectedChart1.indexOf('Trainingszeit') !== -1) {
-              axis.min = 0;
-              axis.max = 240;
-            } else if (this.selectedChart1 && this.selectedChart1.indexOf('Schlaf (Mittelwert)') !== -1) {
-              axis.min = 3;
-              axis.max = 13;
-            } else if (this.selectedChart1 && this.selectedChart1.indexOf('Anzahl Nächte mit wenig Schlaf') !== -1) {
-              axis.min = 0;
-              axis.max = 4;
-            } else if (this.selectedChart1 && this.selectedChart1.indexOf('Gefühl (Mittelwert') !== -1) {
-              axis.min = 1;
-              axis.max = 4;
-            } else if (this.selectedChart1 && this.selectedChart1.indexOf('Anzahl schlechtes Gefühl') !== -1) {
-              axis.min = 0;
-              axis.max = 7;
-            } else if (this.selectedChart1 && (this.selectedChart1.indexOf('Lead') !== -1
-              || this.selectedChart1.indexOf('Bouldern') !== -1
-              || this.selectedChart1.indexOf('Campusboard')
-              || this.selectedChart1.indexOf('Krafttrainings')
-              || this.selectedChart1.indexOf('Stretching')
-              || this.selectedChart1.indexOf('Mentaltraining')
-              || this.selectedChart1.indexOf('Jogging'))) {
-              axis.min = 0;
-              axis.max = 12;
-            }
-          }
-        }
-      ]
-    },
-    annotation: {
-      annotations: [
-        {
-          type: 'line',
-          mode: 'vertical',
-          scaleID: 'x-axis-0',
-          value: '02.05.19',
-          borderColor: 'blue',
-          borderWidth: 1,
-          label: {
-            enabled: true,
-            fontColor: 'blue',
-            fontSize: 10,
-            fontStyle: 'normal',
-            position: 'top',
-            backgroundColor: 'white',
-            yPadding: 2,
-            yAdjust: -1,
-            content: 'SM'
-          }
-        },
-        {
-          type: 'line',
-          mode: 'vertical',
-          scaleID: 'x-axis-0',
-          value: '20.03.19',
-          borderColor: 'green',
-          borderWidth: 1,
-          label: {
-            enabled: true,
-            fontColor: 'green',
-            fontSize: 10,
-            fontStyle: 'normal',
-            position: 'top',
-            backgroundColor: 'white',
-            yPadding: 2,
-            yAdjust: -1,
-            content: 'EM'
-          }
-        },
-      ],
-    },
-  };
+  public showWettkaempfe = false;
+
+  public annotations = this.assembleAnnotations(this.showWettkaempfe);
+  public lineChartOptions: (ChartOptions & { annotation: any }) = this.assembleLineChartOptions(this.annotations);
+
   public lineChartColors: Color[] = [
     { // dark grey
       backgroundColor: 'rgba(77,83,96,0.1)',
@@ -396,4 +244,257 @@ export class ChartsComponent implements OnInit {
     console.log(event, active);
   }
 
+  public toggleWettkaempfe() {
+    let annotations;
+    if (this.showWettkaempfe) {
+      annotations = this.assembleAnnotations(false);
+    } else {
+      annotations = this.assembleAnnotations(true);
+    }
+    this.showWettkaempfe = !this.showWettkaempfe;
+    this.lineChartOptions = this.assembleLineChartOptions(annotations);
+    this.chart.chart.update();
+  }
+
+  public assembleAnnotations(isShown) {
+    return {
+      // drawTime: 'afterDatasetsDraw',
+      drawTime: isShown ? 'afterDatasetsDraw' : null,
+      annotations: [
+        {
+          type: 'line',
+          mode: 'vertical',
+          scaleID: 'x-axis-0',
+          value: '23.06.18',
+          borderColor: 'blue',
+          borderWidth: 1,
+          label: {
+            enabled: true,
+            fontColor: 'blue',
+            fontSize: 10,
+            fontStyle: 'normal',
+            position: 'top',
+            backgroundColor: 'white',
+            yPadding: 2,
+            yAdjust: -1,
+            content: 'SM'
+          }
+        },
+        {
+          type: 'line',
+          mode: 'vertical',
+          scaleID: 'x-axis-0',
+          value: '26.05.18',
+          borderColor: 'blue',
+          borderWidth: 1,
+          label: {
+            enabled: true,
+            fontColor: 'blue',
+            fontSize: 10,
+            fontStyle: 'normal',
+            position: 'top',
+            backgroundColor: 'white',
+            yPadding: 2,
+            yAdjust: -1,
+            content: 'EM'
+          }
+        },
+        {
+          type: 'line',
+          mode: 'vertical',
+          scaleID: 'x-axis-0',
+          value: '16.08.18',
+          borderColor: 'blue',
+          borderWidth: 1,
+          label: {
+            enabled: true,
+            fontColor: 'blue',
+            fontSize: 10,
+            fontStyle: 'normal',
+            position: 'top',
+            backgroundColor: 'white',
+            yPadding: 2,
+            yAdjust: -1,
+            content: 'WM'
+          }
+        },
+        {
+          type: 'line',
+          mode: 'vertical',
+          scaleID: 'x-axis-0',
+          value: '14.03.18',
+          borderColor: 'green',
+          borderWidth: 1,
+          label: {
+            enabled: true,
+            fontColor: 'green',
+            fontSize: 10,
+            fontStyle: 'normal',
+            position: 'top',
+            backgroundColor: 'white',
+            yPadding: 2,
+            yAdjust: -1,
+            content: 'SM'
+          }
+        },
+        {
+          type: 'line',
+          mode: 'vertical',
+          scaleID: 'x-axis-0',
+          value: '01.09.18',
+          borderColor: 'green',
+          borderWidth: 1,
+          label: {
+            enabled: true,
+            fontColor: 'green',
+            fontSize: 10,
+            fontStyle: 'normal',
+            position: 'top',
+            backgroundColor: 'white',
+            yPadding: 2,
+            yAdjust: -1,
+            content: 'EM'
+          }
+        },
+        {
+          type: 'line',
+          mode: 'vertical',
+          scaleID: 'x-axis-0',
+          value: '12.08.18',
+          borderColor: 'green',
+          borderWidth: 1,
+          label: {
+            enabled: true,
+            fontColor: 'green',
+            fontSize: 10,
+            fontStyle: 'normal',
+            position: 'top',
+            backgroundColor: 'white',
+            yPadding: 2,
+            yAdjust: -1,
+            content: 'WM'
+          }
+        },
+      ],
+    };
+  }
+
+  public assembleLineChartOptions(annotations) {
+    return {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        xAxes: [
+          {
+            type: 'time',
+            time: {
+              displayFormats: {
+                'day': 'DD.MM',
+                'week': 'DD.MM',
+                'month': 'DD.MM',
+              },
+              parser: 'DD.MM.YY',
+              stepSize: 1,
+              // unit: 'week', // default is false resp. month
+            }
+          }
+        ],
+        yAxes: [
+          {
+            id: 'y-axis-0',
+            position: 'left',
+            gridLines: {
+              color: 'rgba(77,83,96,0.3)',
+            },
+            ticks: {
+              fontColor: 'black',
+            },
+            afterDataLimits: axis => {
+              if (this.selectedChart0 && this.selectedChart0.indexOf('Belastung') !== -1) {
+                axis.min = 6;
+                axis.max = 20;
+              } else if (this.selectedChart0 && this.selectedChart0.indexOf('Züge') !== -1) {
+                axis.min = 0;
+                axis.max = Math.max(this.maxZuege0, this.maxZuege1);
+              } else if (this.selectedChart0 && this.selectedChart0.indexOf('Anzahl Trainings') !== -1) {
+                axis.min = 0;
+                axis.max = 12;
+              } else if (this.selectedChart0 && this.selectedChart0.indexOf('Trainingszeit') !== -1) {
+                axis.min = 0;
+                axis.max = 280;
+              } else if (this.selectedChart0 && this.selectedChart0.indexOf('Schlaf (Mittelwert)') !== -1) {
+                axis.min = 3;
+                axis.max = 13;
+              } else if (this.selectedChart0 && this.selectedChart0.indexOf('Anzahl Nächte mit wenig Schlaf') !== -1) {
+                axis.min = 0;
+                axis.max = 4;
+              } else if (this.selectedChart0 && this.selectedChart0.indexOf('Gefühl (Mittelwert') !== -1) {
+                axis.min = 1;
+                axis.max = 4;
+              } else if (this.selectedChart0 && this.selectedChart0.indexOf('Anzahl schlechtes Gefühl') !== -1) {
+                axis.min = 0;
+                axis.max = 7;
+              } else if (this.selectedChart0 && (this.selectedChart0.indexOf('Lead') !== -1
+                || this.selectedChart0.indexOf('Bouldern') !== -1
+                || this.selectedChart0.indexOf('Campusboard')
+                || this.selectedChart0.indexOf('Krafttrainings')
+                || this.selectedChart0.indexOf('Stretching')
+                || this.selectedChart0.indexOf('Mentaltraining')
+                || this.selectedChart0.indexOf('Jogging'))) {
+                axis.min = 0;
+                axis.max = 12;
+              }
+            }
+          },
+          {
+            id: 'y-axis-1',
+            position: 'right',
+            gridLines: {
+              color: 'rgba(255,0,0,0.3)',
+            },
+            ticks: {
+              fontColor: 'red',
+            },
+            afterDataLimits: axis => {
+              if (this.selectedChart1 && this.selectedChart1.indexOf('Belastung') !== -1) {
+                axis.min = 6;
+                axis.max = 20;
+              } else if (this.selectedChart1 && this.selectedChart1.indexOf('Züge') !== -1) {
+                axis.min = 0;
+                axis.max = Math.max(this.maxZuege0, this.maxZuege1);
+              } else if (this.selectedChart1 && this.selectedChart1.indexOf('Anzahl Trainings') !== -1) {
+                axis.min = 0;
+                axis.max = 12;
+              } else if (this.selectedChart1 && this.selectedChart1.indexOf('Trainingszeit') !== -1) {
+                axis.min = 0;
+                axis.max = 280;
+              } else if (this.selectedChart1 && this.selectedChart1.indexOf('Schlaf (Mittelwert)') !== -1) {
+                axis.min = 3;
+                axis.max = 13;
+              } else if (this.selectedChart1 && this.selectedChart1.indexOf('Anzahl Nächte mit wenig Schlaf') !== -1) {
+                axis.min = 0;
+                axis.max = 4;
+              } else if (this.selectedChart1 && this.selectedChart1.indexOf('Gefühl (Mittelwert') !== -1) {
+                axis.min = 1;
+                axis.max = 4;
+              } else if (this.selectedChart1 && this.selectedChart1.indexOf('Anzahl schlechtes Gefühl') !== -1) {
+                axis.min = 0;
+                axis.max = 7;
+              } else if (this.selectedChart1 && (this.selectedChart1.indexOf('Lead') !== -1
+                || this.selectedChart1.indexOf('Bouldern') !== -1
+                || this.selectedChart1.indexOf('Campusboard')
+                || this.selectedChart1.indexOf('Krafttrainings')
+                || this.selectedChart1.indexOf('Stretching')
+                || this.selectedChart1.indexOf('Mentaltraining')
+                || this.selectedChart1.indexOf('Jogging'))) {
+                axis.min = 0;
+                axis.max = 12;
+              }
+            }
+          }
+        ]
+      },
+      annotation: annotations,
+    };
+  }
 }
