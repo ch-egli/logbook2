@@ -251,6 +251,9 @@ export class ChartsComponent implements OnInit {
         onMouseover: function (e) {
           const fontColor = w.disziplin === 'lead' ? 'blue' : 'green';
           document.getElementById('wettkampfTooltip').innerHTML = '<font color="' + fontColor + '">' + w.beschreibung + '</font>';
+          setTimeout(function () {
+            document.getElementById('wettkampfTooltip').innerHTML = '';
+          }, 1500);
         },
         onMouseout: function (e) {
           document.getElementById('wettkampfTooltip').innerHTML = '';
