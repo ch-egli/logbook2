@@ -22,7 +22,7 @@ public class Wettkampf {
 
     @Column
     @NotNull
-    private Date datum;
+    private String datum;
 
     @Column
     @NotNull
@@ -50,11 +50,11 @@ public class Wettkampf {
         this.id = id;
     }
 
-    public Date getDatum() {
+    public String getDatum() {
         return datum;
     }
 
-    public void setDatum(Date datum) {
+    public void setDatum(String datum) {
         this.datum = datum;
     }
 

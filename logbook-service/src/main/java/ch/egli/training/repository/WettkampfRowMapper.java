@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 
 /**
  * @author Christian Egli
@@ -16,7 +17,9 @@ public class WettkampfRowMapper implements RowMapper<Wettkampf> {
     public Wettkampf mapRow(ResultSet rs, int i) throws SQLException {
         Wettkampf result = new Wettkampf();
         result.setId(rs.getLong("id"));
-        result.setDatum(rs.getDate("datum"));
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yy");
+        String dateString = format.format(rs.getDate("datum"));
+        result.setDatum(dateString);
         result.setBeschreibung(rs.getString("beschreibung"));
         result.setAbkuerzung(rs.getString("abkuerzung"));
         result.setDisziplin(rs.getString("disziplin"));

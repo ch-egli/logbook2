@@ -19,43 +19,10 @@ export class ChartsComponent implements OnInit {
   public aboutMessage: string;
   public messages: Array<Message> = [];
 
-  public showWettkaempfe = true;
-
   public annotations;
   public lineChartOptions: (ChartOptions & { annotation: any });
 
-  public lineChartColors: Color[] = [
-    { // dark grey
-      backgroundColor: 'rgba(77,83,96,0.1)',
-      borderWidth: 1,
-      borderColor: 'rgba(77,83,96,1)',
-      pointBackgroundColor: 'rgba(77,83,96,1)',
-      pointBorderColor: '#fff',
-      pointRadius: 2,
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(77,83,96,1)'
-    },
-    { // red
-      backgroundColor: 'rgba(255,0,0,0.2)',
-      borderWidth: 1,
-      borderColor: 'red',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
-      pointRadius: 2,
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    },
-    { // grey
-      backgroundColor: 'rgba(148,159,177,0.2)',
-      borderWidth: 1,
-      borderColor: 'rgba(148,159,177,1)',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
-      pointRadius: 2,
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    }
-  ];
+  public lineChartColors: Color[] = this.assembleLineChartColors();
   public lineChartLegend = false;
   public lineChartType = 'line';
   public lineChartPlugins = [pluginAnnotations];
@@ -84,18 +51,20 @@ export class ChartsComponent implements OnInit {
   public chartOptions1: SelectItem[] = [{ label: this.chooseParam, value: null }];
   public selectedChart1 = this.chooseParam;
 
+  public wettkaempfe: Wettkampf[] = [];
+
   public maxZuege0 = 0;
   public maxZuege1 = 0;
 
   constructor(private chartService: ChartService) {
     this.aboutMessage = 'Climbing Logbook 2';
-    for (let i = 2016; i <= (new Date()).getFullYear(); i++) {
+    for (let i = (new Date()).getFullYear(); i >= 2016; i--) {
       this.yearOptions.push({ label: '' + i, value: '' + i });
     }
   }
 
   ngOnInit(): any {
-    this.annotations = this.assembleAnnotations(this.showWettkaempfe);
+    this.annotations = this.assembleAnnotations(this.wettkaempfe);
     this.lineChartOptions = this.assembleLineChartOptions(this.annotations);
 
     this.loadDataFromServer();
@@ -105,7 +74,7 @@ export class ChartsComponent implements OnInit {
     const me = this;
     this.userObservable = this.chartService.getAthletes();
     this.userObservable.subscribe((users) => {
-      this.userOptions = []
+      this.userOptions = [];
       users.forEach((user) => {
         this.userOptions.push({ label: user, value: user });
       });
@@ -114,9 +83,12 @@ export class ChartsComponent implements OnInit {
     this.chartDataObservable = this.chartService.getChartsData(this.user, this.year);
     this.chartDataObservable.subscribe((res) => {
       me.myChartData = res.chartData;
-      //console.log(res.chartData);
+      // console.log(res.chartData);
       console.log(res.wettkaempfe);
-      console.log(res.wettkaempfe[0].beschreibung);
+      this.wettkaempfe = res.wettkaempfe;
+
+      this.annotations = this.assembleAnnotations(this.wettkaempfe);
+      this.lineChartOptions = this.assembleLineChartOptions(this.annotations);
 
       const set1 = <ChartDataSets>{
         data: res.chartData[this.selectedChart0],
@@ -238,8 +210,6 @@ export class ChartsComponent implements OnInit {
     console.log('selected user: ' + event.value);
     this.user = event.value;
     this.loadDataFromServer();
-    this.annotations = this.assembleAnnotations(this.showWettkaempfe);
-    this.lineChartOptions = this.assembleLineChartOptions(this.annotations);
   }
 
   public onSelectYear(event) {
@@ -247,8 +217,6 @@ export class ChartsComponent implements OnInit {
     this.year = event.value;
     this.numericYear = (+event.value) % 100;
     this.loadDataFromServer();
-    this.annotations = this.assembleAnnotations(this.showWettkaempfe);
-    this.lineChartOptions = this.assembleLineChartOptions(this.annotations);
   }
 
   public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
@@ -259,138 +227,42 @@ export class ChartsComponent implements OnInit {
     console.log(event, active);
   }
 
-  public toggleWettkaempfe() {
-    let annotations;
-    if (this.showWettkaempfe) {
-      annotations = this.assembleAnnotations(false);
-    } else {
-      annotations = this.assembleAnnotations(true);
-    }
-    this.showWettkaempfe = !this.showWettkaempfe;
-    this.lineChartOptions = this.assembleLineChartOptions(annotations);
-    this.chart.chart.update();
-  }
+  public assembleAnnotations(wettkaempfe: Wettkampf[]) {
+    let dynamicAnnotations = [];
+    wettkaempfe.forEach((w) => {
+      const wettkampf = {
+        type: 'line',
+        mode: 'vertical',
+        scaleID: 'x-axis-0',
+        value: w.datum,
+        borderColor: w.disziplin === 'lead' ? 'blue' : 'green',
+        borderWidth: 1,
+        label: {
+          enabled: true,
+          fontColor: w.disziplin === 'lead' ? 'blue' : 'green',
+          fontSize: 10,
+          fontStyle: 'normal',
+          position: 'top',
+          backgroundColor: 'white',
+          yPadding: 2,
+          yAdjust: -1,
+          content: w.abkuerzung,
+        },
+        onMouseover: function (e) {
+          const fontColor = w.disziplin === 'lead' ? 'blue' : 'green';
+          document.getElementById('wettkampfTooltip').innerHTML = '<font color="' + fontColor + '">' + w.beschreibung + '</font>';
+        },
+        onMouseout: function (e) {
+          document.getElementById('wettkampfTooltip').innerHTML = '';
+        },
+      };
+      dynamicAnnotations.push(wettkampf);
+    });
 
-  public assembleAnnotations(isShown) {
     return {
-      // drawTime: 'afterDatasetsDraw',
-      drawTime: isShown ? 'afterDatasetsDraw' : null,
-      annotations: [
-        {
-          type: 'line',
-          mode: 'vertical',
-          scaleID: 'x-axis-0',
-          value: '23.06.18',
-          borderColor: 'blue',
-          borderWidth: 1,
-          label: {
-            enabled: true,
-            fontColor: 'blue',
-            fontSize: 10,
-            fontStyle: 'normal',
-            position: 'top',
-            backgroundColor: 'white',
-            yPadding: 2,
-            yAdjust: -1,
-            content: 'SM'
-          }
-        },
-        {
-          type: 'line',
-          mode: 'vertical',
-          scaleID: 'x-axis-0',
-          value: '26.05.18',
-          borderColor: 'blue',
-          borderWidth: 1,
-          label: {
-            enabled: true,
-            fontColor: 'blue',
-            fontSize: 10,
-            fontStyle: 'normal',
-            position: 'top',
-            backgroundColor: 'white',
-            yPadding: 2,
-            yAdjust: -1,
-            content: 'EM'
-          }
-        },
-        {
-          type: 'line',
-          mode: 'vertical',
-          scaleID: 'x-axis-0',
-          value: '16.08.18',
-          borderColor: 'blue',
-          borderWidth: 1,
-          label: {
-            enabled: true,
-            fontColor: 'blue',
-            fontSize: 10,
-            fontStyle: 'normal',
-            position: 'top',
-            backgroundColor: 'white',
-            yPadding: 2,
-            yAdjust: -1,
-            content: 'WM'
-          }
-        },
-        {
-          type: 'line',
-          mode: 'vertical',
-          scaleID: 'x-axis-0',
-          value: '14.03.18',
-          borderColor: 'green',
-          borderWidth: 1,
-          label: {
-            enabled: true,
-            fontColor: 'green',
-            fontSize: 10,
-            fontStyle: 'normal',
-            position: 'top',
-            backgroundColor: 'white',
-            yPadding: 2,
-            yAdjust: -1,
-            content: 'SM'
-          }
-        },
-        {
-          type: 'line',
-          mode: 'vertical',
-          scaleID: 'x-axis-0',
-          value: '01.09.18',
-          borderColor: 'green',
-          borderWidth: 1,
-          label: {
-            enabled: true,
-            fontColor: 'green',
-            fontSize: 10,
-            fontStyle: 'normal',
-            position: 'top',
-            backgroundColor: 'white',
-            yPadding: 2,
-            yAdjust: -1,
-            content: 'EM'
-          }
-        },
-        {
-          type: 'line',
-          mode: 'vertical',
-          scaleID: 'x-axis-0',
-          value: '12.08.18',
-          borderColor: 'green',
-          borderWidth: 1,
-          label: {
-            enabled: true,
-            fontColor: 'green',
-            fontSize: 10,
-            fontStyle: 'normal',
-            position: 'top',
-            backgroundColor: 'white',
-            yPadding: 2,
-            yAdjust: -1,
-            content: 'WM'
-          }
-        },
-      ],
+      drawTime: 'beforeDatasetsDraw',
+      events: ['click', 'dblclick', 'mouseover', 'mouseout'],
+      annotations: dynamicAnnotations
     };
   }
 
@@ -513,5 +385,40 @@ export class ChartsComponent implements OnInit {
       },
       annotation: annotations,
     };
+  }
+
+  public assembleLineChartColors() {
+    return [
+      { // dark grey
+        backgroundColor: 'rgba(77,83,96,0.1)',
+        borderWidth: 1,
+        borderColor: 'rgba(77,83,96,1)',
+        pointBackgroundColor: 'rgba(77,83,96,1)',
+        pointBorderColor: '#fff',
+        pointRadius: 2,
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: 'rgba(77,83,96,1)'
+      },
+      { // red
+        backgroundColor: 'rgba(255,0,0,0.2)',
+        borderWidth: 1,
+        borderColor: 'red',
+        pointBackgroundColor: 'rgba(148,159,177,1)',
+        pointBorderColor: '#fff',
+        pointRadius: 2,
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+      },
+      { // grey
+        backgroundColor: 'rgba(148,159,177,0.2)',
+        borderWidth: 1,
+        borderColor: 'rgba(148,159,177,1)',
+        pointBackgroundColor: 'rgba(148,159,177,1)',
+        pointBorderColor: '#fff',
+        pointRadius: 2,
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+      }
+    ];
   }
 }
