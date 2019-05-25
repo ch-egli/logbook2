@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -30,5 +31,18 @@ public class StatisticsRepositoryTest {
         assertThat(result).isNotNull();
     }
 
+    @Ignore
+    @Test
+    public void testGetTrainingsortStatistics() {
+        Map<String, Integer> result = statisticsRepository.getTrainingsorteByUserAndYear("zoe", 2019);
+        assertThat(result).isNotNull();
+    }
+
+    @Ignore
+    @Test
+    public void testGetDisziplinenStatistics() {
+        Map<String, Integer> result = statisticsRepository.getDisziplinenByUserAndYear("zoe", 2019);
+        assertThat(result).isNotNull();
+    }
 
 }
