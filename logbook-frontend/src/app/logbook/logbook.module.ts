@@ -24,6 +24,7 @@ import { AboutComponent } from './about/about.component';
 import { ThemeComponent } from './theme/theme.component';
 import { HomeComponent } from './home/home.component';
 import { ChartsComponent } from './charts/charts.component';
+import { Charts2Component } from './charts/charts2.component';
 
 import { ChartsModule } from 'ng2-charts';
 
@@ -32,7 +33,8 @@ import { ChartsModule } from 'ng2-charts';
         HomeComponent,
         AboutComponent,
         ThemeComponent,
-        ChartsComponent
+        ChartsComponent,
+        Charts2Component
     ],
     imports: [
         CommonModule,

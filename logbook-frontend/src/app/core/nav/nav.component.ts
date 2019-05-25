@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {Observable} from 'rxjs';
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 
 interface NavItem {
     displayName: string;
@@ -13,10 +13,11 @@ interface NavItem {
 export class NavComponent {
 
     public navItems: Array<NavItem> = [
-        {displayName: 'Home', routerLink: 'home'},
-        {displayName: 'Theme', routerLink: 'theme'},
-        {displayName: 'Charts', routerLink: 'charts'},
-        {displayName: 'About', routerLink: 'about'}
+        { displayName: 'Home', routerLink: 'home' },
+        { displayName: 'Theme', routerLink: 'theme' },
+        { displayName: 'Statistik1', routerLink: 'stat1' },
+        { displayName: 'Statistik2', routerLink: 'stat2' },
+        { displayName: 'About', routerLink: 'about' }
     ];
 
     constructor() {

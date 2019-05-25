@@ -32,6 +32,7 @@
     "bootstrap": "^4.3.1",
     "chart.js": "^2.8.0",
     "chartjs-plugin-annotation": "^0.5.7",
+    "chartjs-plugin-datalabels": "^0.6.0",
     "core-js": "^2.6.5",
     "esta-webjs-extensions": "^7.0.0",
     "font-awesome": "^4.7.0",
