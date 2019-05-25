@@ -274,6 +274,11 @@ export class ChartsComponent implements OnInit {
     return {
       responsive: true,
       maintainAspectRatio: false,
+      plugins: {
+        datalabels: {
+          display: false,
+        },
+      },
       scales: {
         xAxes: [
           {
