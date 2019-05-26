@@ -1,5 +1,6 @@
 package ch.egli.training.controller;
 
+import ch.egli.training.model.BarChartData;
 import ch.egli.training.model.ChartDataSet;
 import ch.egli.training.model.StatsData;
 import ch.egli.training.model.Wettkampf;
@@ -116,5 +117,20 @@ public class ChartDataController {
         return ResponseEntity.ok(chartDataSet);
     }
 
+    @GetMapping(value = "/charts2/{benutzername}/{year}")
+    public ResponseEntity<Map<String, BarChartData>> getBarChartData(@PathVariable String benutzername, @PathVariable Integer year) {
+
+        final Map<String, Integer> disziplinen = statisticsRepository.getDisziplinenByUserAndYear(benutzername, year);
+        final BarChartData disziplinenData = new BarChartData(disziplinen.values(), disziplinen.keySet());
+
+        final Map<String, Integer> trainingsorte = statisticsRepository.getTrainingsorteByUserAndYear(benutzername, year);
+        final BarChartData trainingsorteData = new BarChartData(trainingsorte.values(), trainingsorte.keySet());
+
+        Map<String, BarChartData> result = new HashMap<>();
+        result.put("disziplinen", disziplinenData);
+        result.put("trainingsorte", trainingsorteData);
+
+        return ResponseEntity.ok(result);
+    }
 }
 

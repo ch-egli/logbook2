@@ -66,10 +66,12 @@ public class StatisticsRepository {
                         "GROUP BY ort\n" +
                         "ORDER BY COUNT(ort) desc", new Object[]{user, year},
                 (ResultSet rs, int i) -> {
-                    return Pair.of(rs.getString("ort"), rs.getInt("count"));
+                    return Pair.of(rs.getString("ort") != null ? rs.getString("ort") : "", rs.getInt("count"));
                 });
 
-        Map<String, Integer> completeResult = result.stream().collect(Collectors.toMap(Pair::getFirst, Pair::getSecond));
+        Map<String, Integer> completeResult = result.stream()
+                .filter(n -> n.getFirst().length() > 0)
+                .collect(Collectors.toMap(Pair::getFirst, Pair::getSecond));
         Map<String, Integer> filteredResult = completeResult.entrySet().stream()
                 .filter(n -> n.getValue() > 2)
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
@@ -89,7 +91,9 @@ public class StatisticsRepository {
                 (ResultSet rs, int i) -> {
                     return Pair.of(rs.getString("sonstiges") != null ? rs.getString("sonstiges") : "", rs.getInt("count"));
                 });
-        Map<String, Integer> resultSonstiges = queryResultSonstiges.stream().collect(Collectors.toMap(Pair::getFirst, Pair::getSecond));
+        Map<String, Integer> resultSonstiges = queryResultSonstiges.stream()
+                .filter(n -> n.getFirst().length() > 0)
+                .collect(Collectors.toMap(Pair::getFirst, Pair::getSecond));
 
         List<Map<String, Integer>> queryResultDisziplinen = jdbcTemplate.query("SELECT COUNT(lead) as lead, " +
                         "COUNT(bouldern) as bouldern, " +

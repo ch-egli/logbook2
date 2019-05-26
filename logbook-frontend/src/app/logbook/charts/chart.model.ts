@@ -12,3 +12,8 @@ export interface Wettkampf {
     kategorie: string;
     benutzer: string;
 }
+
+export interface BarChartData {
+    data: number[];
+    labels: string[];
+}
