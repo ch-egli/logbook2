@@ -2,11 +2,10 @@
   <p-growl [(value)]="messages" sticky="sticky"></p-growl>
   <h4>Wochen-Statistik für </h4>
   <div>
-    <p-dropdown [dropdownIcon]="angleDown" [options]="userOptions" [(ngModel)]="selectedUser"
-      (onChange)="onSelectUser($event)">
+    <p-dropdown [dropdownIcon]="angleDown" [options]="userOptions" [(ngModel)]="user" (onChange)="onSelectUser($event)">
     </p-dropdown>
-    <p-dropdown [dropdownIcon]="angleDown" [options]="yearOptions" [(ngModel)]="selectedYear"
-      (onChange)="onSelectYear($event)"></p-dropdown>
+    <p-dropdown [dropdownIcon]="angleDown" [options]="yearOptions" [(ngModel)]="year" (onChange)="onSelectYear($event)">
+    </p-dropdown>
   </div>
   <div>
     <p-dropdown [dropdownIcon]="angleDown" [options]="chartOptions0" [(ngModel)]="selectedChart0"
@@ -19,9 +18,9 @@
 <div class="flex">
   <div class="flex-item">
     <div style="display: block;">
-      <canvas baseChart width="400" height="400" [datasets]="lineChartData" [labels]="lineChartLabels"
-        [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"
-        [plugins]="lineChartPlugins" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+      <canvas baseChart height="400" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+        [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" [plugins]="lineChartPlugins"
+        (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
     </div>
   </div>
 </div>

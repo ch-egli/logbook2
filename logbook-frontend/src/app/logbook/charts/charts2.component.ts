@@ -18,7 +18,7 @@ import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 export class Charts2Component implements OnInit {
   public barChartOptions: ChartOptions = {
     responsive: true,
-    maintainAspectRatio: true,
+    maintainAspectRatio: false,
     // We use these empty structures as placeholders for dynamic theming.
     scales: { xAxes: [{}], yAxes: [{}] },
     plugins: {
@@ -38,6 +38,7 @@ export class Charts2Component implements OnInit {
   public barChartData2: ChartDataSets[] = [{ data: [] }];
 
   public aboutMessage: string;
+  public messages: Array<Message> = [];
 
   public angleDown = 'fa fa-angle-down';
 

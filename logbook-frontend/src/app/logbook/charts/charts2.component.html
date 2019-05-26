@@ -2,11 +2,9 @@
   <p-growl [(value)]="messages" sticky="sticky"></p-growl>
   <h4>Jahres-Statistik für </h4>
   <div>
-    <p-dropdown [dropdownIcon]="angleDown" [options]="userOptions" [(ngModel)]="selectedUser"
-      (onChange)="onSelectUser($event)">
+    <p-dropdown [dropdownIcon]="angleDown" [options]="userOptions" [(ngModel)]="user" (onChange)="onSelectUser($event)">
     </p-dropdown>
-    <p-dropdown [dropdownIcon]="angleDown" [options]="yearOptions" [(ngModel)]="selectedYear"
-      (onChange)="onSelectYear($event)">
+    <p-dropdown [dropdownIcon]="angleDown" [options]="yearOptions" [(ngModel)]="year" (onChange)="onSelectYear($event)">
     </p-dropdown>
   </div>
 </div>
@@ -14,12 +12,13 @@
 <div>
   <div>
     <div style="display: block">
-      <canvas baseChart [datasets]="barChartData1" [labels]="barChartLabels1" [options]="barChartOptions"
-        [plugins]="barChartPlugins" [legend]="barChartLegend1" [chartType]="barChartType">
+      <canvas baseChart height="240" [datasets]="barChartData1" [labels]="barChartLabels1" [options]="barChartOptions"
+        [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
       </canvas>
     </div>
+    <p></p>
     <div style="display: block">
-      <canvas baseChart [datasets]="barChartData2" [labels]="barChartLabels2" [options]="barChartOptions"
+      <canvas baseChart height="240" [datasets]="barChartData2" [labels]="barChartLabels2" [options]="barChartOptions"
         [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
       </canvas>
     </div>
