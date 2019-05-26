@@ -73,7 +73,7 @@ public class StatisticsRepository {
                 .filter(n -> n.getFirst().length() > 0)
                 .collect(Collectors.toMap(Pair::getFirst, Pair::getSecond));
         Map<String, Integer> filteredResult = completeResult.entrySet().stream()
-                .filter(n -> n.getValue() > 2)
+                .filter(n -> n.getValue() > 3)
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
         filteredResult.put("Diverse", completeResult.size() - filteredResult.size());

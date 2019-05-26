@@ -69,14 +69,17 @@ public class ChartDataController {
             String dateString = format.format(data.getWeekDate());
             labels.add(dateString);
 
-            countTrainingsData.add(data.getCountTrainings());
+            Double countTrainings = data.getCountTrainings();
+            countTrainingsData.add(countTrainings);
             maxBelastungData.add(data.getMaxBelastung());
             avgBelastungData.add(data.getAvgBelastung());
             trainingszeitData.add(data.getAvgTrainingszeit());
-            totalZuegeData.add(data.getTotalZuege());
-            zuege12Data.add(data.getZuege12());
-            zuege23Data.add(data.getZuege23());
-            zuege34Data.add(data.getZuege34());
+
+            totalZuegeData.add(normalizeZuege(data.getTotalZuege(), countTrainings));
+            zuege12Data.add(normalizeZuege(data.getZuege12(), countTrainings));
+            zuege23Data.add(normalizeZuege(data.getZuege23(), countTrainings));
+            zuege34Data.add(normalizeZuege(data.getZuege34(), countTrainings));
+
             avgSchlaf.add(data.getAvgSchlaf());
             countSchlafLessThan7Data.add(data.getCountSchlafLessThan7());
             avgGefuehl.add(5 - data.getAvgGefuehl()); // in der Graphik ist es logischer, wenn "gut" oben ist...
@@ -131,6 +134,16 @@ public class ChartDataController {
         result.put("trainingsorte", trainingsorteData);
 
         return ResponseEntity.ok(result);
+    }
+
+    private Double normalizeZuege(Double totalZuege, Double countTrainings) {
+        if (totalZuege == null || totalZuege == 0) {
+            return 0.0;
+        } else if (countTrainings == null || countTrainings == 0) {
+            return 0.0;
+        } else {
+            return totalZuege / countTrainings;
+        }
     }
 }
 
