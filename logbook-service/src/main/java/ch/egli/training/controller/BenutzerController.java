@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -79,6 +80,7 @@ public class BenutzerController {
         return new ResponseEntity<>(benutzer, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('admin')")
     @RequestMapping(value="/users", method= RequestMethod.POST)
     public ResponseEntity<?> createUser(@Valid @RequestBody Benutzer benutzer) {
         final HttpHeaders responseHeaders = new HttpHeaders();
@@ -96,6 +98,7 @@ public class BenutzerController {
         return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasAuthority('admin')")
     @RequestMapping(value="/users/{benutzername}", method= RequestMethod.PUT)
     public ResponseEntity<?> updateUser(@Valid @RequestBody Benutzer benutzer, @PathVariable String benutzername) {
         resourceValidator.validateUser(benutzername);
@@ -108,6 +111,7 @@ public class BenutzerController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @PreAuthorize("hasAuthority('admin')")
     @RequestMapping(value="/users/{benutzername}", method= RequestMethod.DELETE)
     public ResponseEntity<?> deleteUser(@PathVariable String benutzername) {
         resourceValidator.validateUser(benutzername);

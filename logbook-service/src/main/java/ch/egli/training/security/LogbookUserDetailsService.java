@@ -40,9 +40,10 @@ public class LogbookUserDetailsService implements UserDetailsService {
                 authorities.add(new SimpleGrantedAuthority(role));
             }
 		}
-		
+
 		// Create a UserDetails object from the data 
-		UserDetails userDetails = new org.springframework.security.core.userdetails.User(benutzer.getBenutzername(), benutzer.getPasswort(), authorities);
+		UserDetails userDetails = new org.springframework.security.core.userdetails.User(benutzer.getBenutzername(),
+				benutzer.getPasswort(), authorities);
 		
 		return userDetails;
 	}
