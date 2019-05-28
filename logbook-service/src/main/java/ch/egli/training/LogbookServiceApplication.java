@@ -9,5 +9,4 @@ public class LogbookServiceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(LogbookServiceApplication.class, args);
 	}
-
 }

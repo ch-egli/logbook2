@@ -9,10 +9,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.ResultSet;
-import java.util.Comparator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -102,7 +100,7 @@ public class StatisticsRepository {
                         "COUNT(dehnen) as stretching, " +
                         "COUNT(mentaltraining) as mentaltraining, " +
                         "COUNT(jogging) as jogging\n" +
-                        "FROM workout  where benutzername = ? and date_part('year', datum::date) = ?", new Object[]{user, year},
+                        "FROM workout where benutzername = ? and date_part('year', datum::date) = ?", new Object[]{user, year},
                 (ResultSet rs, int i) -> {
                     Map<String, Integer> disziplinenMap = new LinkedHashMap<>();
                     disziplinenMap.put("Lead", rs.getInt("lead"));
@@ -120,13 +118,37 @@ public class StatisticsRepository {
         completeResult.putAll(resultSonstiges);
         completeResult.putAll(resultDisziplinen);
 
-        Map<String, Integer> filteredResult = completeResult.entrySet().stream()
+        Map<String, Integer> intermediate1 = assembleSimilarResults(completeResult, "Jogging",
+                map -> map.getKey().toLowerCase().contains("jogg") || map.getKey().toLowerCase().contains("laufen"));
+        Map<String, Integer> intermediate2 = assembleSimilarResults(intermediate1, "Ski/Snowboard",
+                map -> map.getKey().toLowerCase().contains("ski") || map.getKey().toLowerCase().contains("snowboard"));
+        Map<String, Integer> intermediate3 = assembleSimilarResults(intermediate2, "Velo/Bike",
+                map -> map.getKey().toLowerCase().contains("velo") || map.getKey().toLowerCase().contains("bike"));
+        Map<String, Integer> intermediate4 = assembleSimilarResults(intermediate3, "Speed",
+                map -> map.getKey().toLowerCase().contains("speed"));
+        Map<String, Integer> intermediate5 = assembleSimilarResults(intermediate4, "Langlauf",
+                map -> map.getKey().toLowerCase().contains("langlauf"));
+
+        Map<String, Integer> filteredResult = intermediate5.entrySet().stream()
                 .filter(n -> n.getValue() > 1)
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
-        filteredResult.put("Diverse", completeResult.size() - filteredResult.size());
+        filteredResult.put("Diverse", intermediate5.size() - filteredResult.size());
 
         log.info(filteredResult.toString());
         return filteredResult;
+    }
+
+    Map<String, Integer> assembleSimilarResults(Map<String, Integer> origMap,
+                                                String label,
+                                                Predicate<Map.Entry<String, Integer>> predicate) {
+        Map.Entry<String, Integer> assembledJoggingEntry = origMap.entrySet().stream()
+                .filter(predicate)
+                .reduce(new AbstractMap.SimpleEntry(label, 0), (a, b) -> new AbstractMap.SimpleEntry(label, a.getValue() + b.getValue()));
+        Map<String, Integer> filteredMap = origMap.entrySet().stream()
+                .filter(predicate.negate())
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        filteredMap.put(assembledJoggingEntry.getKey(), assembledJoggingEntry.getValue());
+        return filteredMap;
     }
 }

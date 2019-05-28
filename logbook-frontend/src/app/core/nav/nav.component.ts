@@ -17,7 +17,8 @@ export class NavComponent {
         { displayName: 'Theme', routerLink: 'theme' },
         { displayName: 'Statistik1', routerLink: 'stat1' },
         { displayName: 'Statistik2', routerLink: 'stat2' },
-        { displayName: 'About', routerLink: 'about' }
+        { displayName: 'About', routerLink: 'about' },
+        { displayName: 'Login', routerLink: 'login' },
     ];
 
     constructor() {

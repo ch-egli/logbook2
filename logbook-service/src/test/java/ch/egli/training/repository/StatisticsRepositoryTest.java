@@ -38,7 +38,6 @@ public class StatisticsRepositoryTest {
         assertThat(result).isNotNull();
     }
 
-    @Ignore
     @Test
     public void testGetDisziplinenStatistics() {
         Map<String, Integer> result = statisticsRepository.getDisziplinenByUserAndYear("zoe", 2019);
