@@ -1,18 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { SwUpdate } from '@angular/service-worker';
 
-import { AuthenticationService } from './_services';
-import { User } from './_models';
-
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
-    currentUser: User;
 
-    constructor(private swUpdate: SwUpdate, private authenticationService: AuthenticationService) {
-        this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+    constructor(private swUpdate: SwUpdate) {
     }
 
     ngOnInit() {

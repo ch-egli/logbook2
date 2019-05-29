@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
-
 import { AuthenticationService } from '../../_services';
-import { User } from '../../_models';
+
 
 interface NavItem {
     displayName: string;
@@ -14,7 +12,7 @@ interface NavItem {
     templateUrl: './nav.component.html'
 })
 export class NavComponent {
-    currentUser: User;
+    currentUser = 'chrigu';
 
     public navItems: Array<NavItem> = [
         { displayName: 'Home', routerLink: 'home' },
@@ -26,7 +24,6 @@ export class NavComponent {
     ];
 
     constructor(private authenticationService: AuthenticationService) {
-        this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     }
 
 }

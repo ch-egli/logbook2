@@ -35,9 +35,6 @@ export class LoginComponent implements OnInit {
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
 
-    // convenience getter for easy access to form fields
-    get f() { return this.loginForm.controls; }
-
     login() {
         this.submitted = true;
 
@@ -54,7 +51,6 @@ export class LoginComponent implements OnInit {
                 .subscribe(
                     () => {
                         console.log('User is logged in, navigateTo: ' + this.returnUrl);
-                        //location.reload(true);
                         this.router.navigate([this.returnUrl]);
                     },
                     error => {
