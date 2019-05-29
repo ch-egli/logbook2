@@ -7,8 +7,10 @@ import { CoreModule } from './core/core.module';
 import { LogbookModule } from './logbook/logbook.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
-import { HttpClientModule } from '@angular/common/http';
-import { AuthInterceptor } from './logbook/login/auth.interceptor';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
+import { JwtInterceptor, ErrorInterceptor } from './_helpers';
+
 
 import { environment } from '../environments/environment';
 
@@ -22,7 +24,10 @@ import { environment } from '../environments/environment';
         HttpClientModule,
         ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
     ],
-    providers: [AuthInterceptor],
+    providers: [
+        { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {
