@@ -53,7 +53,8 @@ export class LoginComponent implements OnInit {
             this.authenticationService.login(val.username, val.password)
                 .subscribe(
                     () => {
-                        console.log('User is logged in, returnUrl: ' + this.returnUrl);
+                        console.log('User is logged in, navigateTo: ' + this.returnUrl);
+                        //location.reload(true);
                         this.router.navigate([this.returnUrl]);
                     },
                     error => {

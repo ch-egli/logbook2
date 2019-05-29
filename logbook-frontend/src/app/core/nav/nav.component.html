@@ -22,7 +22,7 @@
         </a>
       </li>
       <li *ngIf="authenticationService.isLoggedIn()" class="nav-item">
-        <a class="nav-link" (click)="authenticationService.logout(); routerLink='home'">
+        <a class="nav-link" (click)="authenticationService.logout(); location.reload(true);">
           <i class="fa fa-sign-out fa-lg user-icon" aria-hidden="true"></i>Hallo {{ currentUser.username }}
           -
           <span>Logout</span>

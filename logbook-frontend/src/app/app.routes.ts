@@ -9,13 +9,14 @@ import { Charts2Component } from './logbook/charts/charts2.component';
 import { AuthGuard } from './_guards';
 
 export const appRoutes: Routes = [
-    { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+    { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
     { path: 'login', component: LoginComponent },
     { path: 'theme', component: ThemeComponent },
-    { path: 'stat1', component: ChartsComponent, canActivate: [AuthGuard] },
-    { path: 'stat2', component: Charts2Component, canActivate: [AuthGuard] },
-    { path: 'about', component: AboutComponent, canActivate: [AuthGuard] },
-    { path: '**', component: HomeComponent, canActivate: [AuthGuard] },
+    { path: 'stat1', component: ChartsComponent },
+    { path: 'stat2', component: Charts2Component },
+    { path: 'about', component: AboutComponent },
+    { path: '', redirectTo: '/home', pathMatch: 'full' },
+    { path: '**', component: HomeComponent },
 ];
 
-export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes, { useHash: true });
+export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes, { useHash: true, enableTracing: false });
