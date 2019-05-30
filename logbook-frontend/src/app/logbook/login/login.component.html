@@ -1,16 +1,29 @@
-<form [formGroup]="loginForm">
-    <fieldset>
-        <legend>Login</legend>
-        <div class="form-field">
-            <label>Benutzername:</label>
-            <input pInputText type="text" name="username" formControlName="username" />
+<div class="jumbotron">
+    <h1>RZ-BeO Trainings-Logbook</h1>
+    <p>Bitte logge dich ein...</p>
+</div>
+<div>
+    <form [formGroup]="loginForm">
+        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12 ui-md-12">
+                    <input pInputText placeholder="Benutzername" type="text" name="username"
+                        formControlName="username" />
+                </div>
+            </div>
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12 ui-md-12">
+                    <input pInputText placeholder="Passwort" type="password" name="password" formControlName="password">
+                </div>
+            </div>
         </div>
-        <div class="form-field">
-            <label>Passwort:</label>
-            <input pInputText name="password" formControlName="password" type="password">
+        <div class="form-buttons">
+            <button pButton type="button" class="ui-button-primary" (click)="login()" label="Login"></button>
         </div>
-    </fieldset>
-    <div class="form-buttons">
-        <button class="button button-primary" (click)="login()">Login</button>
-    </div>
-</form>
+
+        <div>&nbsp;</div>
+        <div>
+            <font color="red">{{ loginErrorMessage }}</font>
+        </div>
+    </form>
+</div>

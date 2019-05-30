@@ -30,11 +30,10 @@ export class AuthenticationService {
     public isLoggedIn() {
         const currentUser = localStorage.getItem('currentUser');
         if (currentUser) {
-            // logged in so return true
-            console.log('AuthenticationService: isLoggedIn: true');
+            // console.log('AuthenticationService: isLoggedIn: true');
             return true;
         } else {
-            console.log('AuthenticationService: isLoggedIn: false');
+            // console.log('AuthenticationService: isLoggedIn: false');
             return false;
         }
     }
@@ -42,6 +41,6 @@ export class AuthenticationService {
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
-        location.reload(true);
+        //location.reload();
     }
 }

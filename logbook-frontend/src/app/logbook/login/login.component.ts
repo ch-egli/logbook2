@@ -11,10 +11,10 @@ import { AuthenticationService } from '../../_services';
 })
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
-    loading = false;
     submitted = false;
     returnUrl: string;
-    error = '';
+
+    loginErrorMessage = '';
 
     constructor(private fb: FormBuilder,
         private authenticationService: AuthenticationService,
@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
 
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        console.log('ngOnInit Login - returnUrl: ' + this.returnUrl);
     }
 
     login() {
@@ -43,19 +44,27 @@ export class LoginComponent implements OnInit {
             return;
         }
 
-        this.loading = true;
-
         const val = this.loginForm.value;
         if (val.username && val.password) {
             this.authenticationService.login(val.username, val.password)
                 .subscribe(
                     () => {
                         console.log('User is logged in, navigateTo: ' + this.returnUrl);
-                        this.router.navigate([this.returnUrl]);
+                        this.route.queryParams.subscribe(
+                            params => {
+                                const retUrl = params['returnUrl'];
+                                console.log('queryParams', retUrl);
+                                this.router.navigate([(retUrl) ? retUrl : '/']);
+                            }
+                        );
                     },
                     error => {
-                        this.error = error;
-                        this.loading = false;
+                        console.log('Authentication error: ' + error);
+                        this.loginErrorMessage = 'Fehler beim Login: Bitte versuche noch mal...';
+                        this.loginForm.reset();
+                        setTimeout(() => {
+                            this.loginErrorMessage = '';
+                        }, 3000);
                     }
                 );
         }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthenticationService } from '../../_services';
-
+import { Router } from '@angular/router';
 
 interface NavItem {
     displayName: string;
@@ -20,10 +20,12 @@ export class NavComponent {
         { displayName: 'Statistik1', routerLink: 'stat1' },
         { displayName: 'Statistik2', routerLink: 'stat2' },
         { displayName: 'About', routerLink: 'about' },
-        { displayName: 'Login', routerLink: 'login' },
     ];
 
-    constructor(private authenticationService: AuthenticationService) {
+    constructor(private authenticationService: AuthenticationService, private router: Router) {
     }
 
+    public goToLoginPage() {
+        this.router.navigate(['/login']);
+    }
 }

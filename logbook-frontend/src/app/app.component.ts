@@ -16,9 +16,9 @@ export class AppComponent implements OnInit {
                 console.log('load new version of logbook app...');
                 window.location.reload();
                 /*
-                                if (confirm('Eine neue Version von Logbook ist verfügbar. Willst du sie laden?')) {
-                                    window.location.reload();
-                                }
+                    if (confirm('Eine neue Version von Logbook ist verfügbar. Willst du sie laden?')) {
+                        window.location.reload();
+                    }
                 */
             });
         }
