@@ -17,7 +17,12 @@
                 </div>
             </div>
         </div>
-        <div class="form-buttons">
+        <div style="margin-left: 0.5em">
+            <input type="checkbox" [(ngModel)]="rememberMe" [ngModelOptions]="{standalone: true}" name="rememberMe" />
+            Login Daten speichern
+        </div>
+        <div>&nbsp;</div>
+        <div class="form-buttons" style="margin-left: 0.5em">
             <button pButton type="button" class="ui-button-primary" (click)="login()" label="Login"></button>
         </div>
 

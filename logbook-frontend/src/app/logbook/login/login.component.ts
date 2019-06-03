@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
     loginForm: FormGroup;
     submitted = false;
     returnUrl: string;
+    rememberMe = false;
 
     loginErrorMessage = '';
 
@@ -24,25 +25,21 @@ export class LoginComponent implements OnInit {
 
     ngOnInit(): void {
         // restore login values if user have previously logged in
-        let rememberMe = false;
         let bn = '';
         let pw = '';
 
         const storedBenutzername = localStorage.getItem('bn');
         const storedRememberMe = (localStorage.getItem('rememberMe') === 'true');
         if (storedRememberMe && storedBenutzername) {
-            rememberMe = true;
             bn = storedBenutzername;
-            pw = localStorage.getItem('pw');
+            pw = atob(localStorage.getItem('pw')); // base64: decode
+            this.rememberMe = storedRememberMe;
         }
 
         this.loginForm = this.fb.group({
             username: [bn, Validators.required],
             password: [pw, Validators.required],
-            rememberMe: new FormControl(storedRememberMe),
         });
-
-        console.log('ngInit: ' + rememberMe + ' ' + bn + ' ' + pw);
 
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
@@ -58,12 +55,11 @@ export class LoginComponent implements OnInit {
             return;
         }
 
-        console.log('rememberMe: ' + val.rememberMe);
         // save login in localStorage for next access
-        if (val.rememberMe === true) {
+        if (this.rememberMe === true) {
             localStorage.setItem('rememberMe', 'true');
             localStorage.setItem('bn', val.username);
-            localStorage.setItem('pw', val.password);
+            localStorage.setItem('pw', btoa(val.password)); // base64 encode
         } else {
             localStorage.setItem('rememberMe', 'false');
             localStorage.setItem('bn', '');
