@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { AuthenticationService } from '../../_services';
@@ -23,13 +23,26 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        // restore login values if user have previously logged in
+        let rememberMe = false;
+        let bn = '';
+        let pw = '';
+
+        const storedBenutzername = localStorage.getItem('bn');
+        const storedRememberMe = (localStorage.getItem('rememberMe') === 'true');
+        if (storedRememberMe && storedBenutzername) {
+            rememberMe = true;
+            bn = storedBenutzername;
+            pw = localStorage.getItem('pw');
+        }
+
         this.loginForm = this.fb.group({
-            username: ['', Validators.required],
-            password: ['', Validators.required]
+            username: [bn, Validators.required],
+            password: [pw, Validators.required],
+            rememberMe: new FormControl(storedRememberMe),
         });
 
-        // reset login status
-        // this.authenticationService.logout();
+        console.log('ngInit: ' + rememberMe + ' ' + bn + ' ' + pw);
 
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
@@ -38,13 +51,25 @@ export class LoginComponent implements OnInit {
 
     login() {
         this.submitted = true;
+        const val = this.loginForm.value;
 
         // stop here if form is invalid
         if (this.loginForm.invalid) {
             return;
         }
 
-        const val = this.loginForm.value;
+        console.log('rememberMe: ' + val.rememberMe);
+        // save login in localStorage for next access
+        if (val.rememberMe === true) {
+            localStorage.setItem('rememberMe', 'true');
+            localStorage.setItem('bn', val.username);
+            localStorage.setItem('pw', val.password);
+        } else {
+            localStorage.setItem('rememberMe', 'false');
+            localStorage.setItem('bn', '');
+            localStorage.setItem('pw', '');
+        }
+
         if (val.username && val.password) {
             this.authenticationService.login(val.username, val.password)
                 .subscribe(
