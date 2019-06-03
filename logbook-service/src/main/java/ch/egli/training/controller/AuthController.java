@@ -50,6 +50,7 @@ public class AuthController {
             Map<Object, Object> model = new HashMap<>();
             model.put("username", username);
             model.put("token", token);
+            model.put("roles", roles.stream().collect(Collectors.joining(",")));
             return ok(model);
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid username/password");
