@@ -22,7 +22,7 @@ export class NavComponent {
         { displayName: 'About', routerLink: 'about' },
     ];
 
-    constructor(private authenticationService: AuthenticationService, private router: Router) {
+    constructor(public authenticationService: AuthenticationService, private router: Router) {
     }
 
     public goToLoginPage() {
