@@ -5,7 +5,8 @@
 <div>
   <p-tabView>
     <p-tabPanel header="Trainings" leftIcon="fa fa-list" [selected]="true">
-      <p-table [value]="workouts">
+      <p-table [value]="workouts" [rows]="workoutPageSize" [paginator]="true" [lazy]="true" [filterDelay]="500"
+        [totalRecords]="totalWorkouts" (onLazyLoad)="loadWorkoutsLazy($event)">
         <ng-template pTemplate="header">
           <tr>
             <th class="colMinWithForDate">Datum</th>

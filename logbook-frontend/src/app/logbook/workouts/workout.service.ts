@@ -14,7 +14,8 @@ export class WorkoutService {
         return this.http.get<Workout[]>(this.ENDPOINT_URL_BASE + 'users/' + username + '/workouts/top/' + 8);
     }
 
-    getPagedWorkouts(username: string): Observable<WorkoutPageable> {
-        return this.http.get<WorkoutPageable>(this.ENDPOINT_URL_BASE + 'users/' + username + '/workouts');
+    getPagedWorkouts(username: string, page: number, pageSize: number): Observable<WorkoutPageable> {
+        return this.http.get<WorkoutPageable>(this.ENDPOINT_URL_BASE + 'users/' + username
+            + '/workouts?page=' + page + '&size=' + pageSize);
     }
 }
