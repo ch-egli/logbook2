@@ -9,8 +9,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { JwtInterceptor } from './core/_helpers/jwt.interceptor'  
-
+import { JwtInterceptor } from './core/_helpers/jwt.interceptor'
 
 import { environment } from '../environments/environment';
 
