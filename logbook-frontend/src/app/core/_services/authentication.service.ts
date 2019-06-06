@@ -9,7 +9,7 @@ export class AuthenticationService {
     constructor(private http: HttpClient) {
     }
 
-    login(username: string, password: string) {
+    public login(username: string, password: string) {
         return this.http.post<any>(this.ENDPOINT_URL_BASE + 'auth/token', { username, password })
             .pipe(map(user => {
                 console.log('user: ' + user);
@@ -38,7 +38,35 @@ export class AuthenticationService {
         }
     }
 
-    logout() {
+    public isAdmin() {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (currentUser && currentUser.roles) {
+            return currentUser.roles.indexOf('admin') > -1;
+        }
+    }
+
+    public isTrainer() {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (currentUser && currentUser.roles) {
+            return currentUser.roles.indexOf('trainer') > -1;
+        }
+    }
+
+    public isEgliSister() {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (currentUser && currentUser.roles) {
+            return currentUser.roles.indexOf('egliSisters') > -1;
+        }
+    }
+
+    public isAthlet() {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (currentUser && currentUser.roles) {
+            return currentUser.roles.indexOf('athlet') > -1;
+        }
+    }
+
+    public logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
         //location.reload();
