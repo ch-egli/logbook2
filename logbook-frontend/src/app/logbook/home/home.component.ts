@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Workout } from '../workouts/workout.model';
+import { Workout, WorkoutPageable } from '../workouts/workout.model';
 import { Observable } from 'rxjs';
 import { WorkoutService } from '../workouts/workout.service';
 
@@ -16,8 +16,8 @@ export class HomeComponent implements OnInit {
   currentUser: string;
   currentUserCapitalized: string;
 
-  public workoutObservable: Observable<Workout[]>;
   workouts: Workout[];
+  pagedWorkoutObservable: Observable<WorkoutPageable>;
 
   constructor(private workoutService: WorkoutService, private authenticationService: AuthenticationService) {
     this.title = 'Climbing Logbook 2';
@@ -28,10 +28,21 @@ export class HomeComponent implements OnInit {
     this.currentUserCapitalized = this.currentUser.charAt(0).toUpperCase() + this.currentUser.slice(1);
     this.welcomeMessage = 'Herzlich Willkommen, ' + this.currentUserCapitalized;
 
-    this.workoutObservable = this.workoutService.getWorkoutsByUser(this.currentUser);
-    this.workoutObservable.subscribe((res) => {
+    const userDiscriminator = this.getUserDiscriminator();
+    this.pagedWorkoutObservable = this.workoutService.getPagedWorkouts(userDiscriminator);
+    this.pagedWorkoutObservable.subscribe((res) => {
       console.log(res);
-      this.workouts = res;
+      this.workouts = res.content;
     });
+  }
+
+  private getUserDiscriminator() {
+    if (this.authenticationService.isTrainer()) {
+      return 'all';
+    } else if (this.authenticationService.isEgliSister()) {
+      return 'groupEgliSisters';
+    } else {
+      return this.authenticationService.getUsername();
+    }
   }
 }

@@ -4,3 +4,11 @@ export class Workout {
     ort: string;
     trainingszeit: number;
 }
+
+export class WorkoutPageable {
+    content: Workout[];
+    pageable: any;
+    last: boolean;
+    totalElements: number;
+    totalPages: number;
+}

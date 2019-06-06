@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Workout } from './workout.model';
+import { Workout, WorkoutPageable } from './workout.model';
 
 @Injectable()
 export class WorkoutService {
@@ -12,5 +12,9 @@ export class WorkoutService {
 
     getWorkoutsByUser(username: string): Observable<Workout[]> {
         return this.http.get<Workout[]>(this.ENDPOINT_URL_BASE + 'users/' + username + '/workouts/top/' + 8);
+    }
+
+    getPagedWorkouts(username: string): Observable<WorkoutPageable> {
+        return this.http.get<WorkoutPageable>(this.ENDPOINT_URL_BASE + 'users/' + username + '/workouts');
     }
 }
