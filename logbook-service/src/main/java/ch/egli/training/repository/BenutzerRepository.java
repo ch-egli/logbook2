@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * Repository for entity Benutzer.
  *
@@ -13,7 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public interface BenutzerRepository extends CrudRepository<Benutzer, Long> {
 
-    public Benutzer findByBenutzername(String benutzername);
+    Benutzer findByBenutzername(String benutzername);
+
+    List<Benutzer> findAllByOrderByIdAsc();
 
     @Modifying
     @Transactional

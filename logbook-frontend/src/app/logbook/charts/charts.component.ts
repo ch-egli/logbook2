@@ -10,10 +10,12 @@ import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, BaseChartDirective, Label } from 'ng2-charts';
 import * as pluginAnnotations from 'chartjs-plugin-annotation';
 
+import { AuthenticationService } from '../../core/_services/authentication.service';
+
 @Component({
   selector: 'app-charts',
   templateUrl: './charts.component.html',
-  providers: [ChartService]
+  providers: [ChartService, AuthenticationService]
 })
 export class ChartsComponent implements OnInit {
   public aboutMessage: string;
@@ -37,9 +39,9 @@ export class ChartsComponent implements OnInit {
   public lineChartLabels: Label[] = []
 
   public userObservable: Observable<string[]>;
-  public user = 'zoe';
-  public selectedUser = this.user;
-  public userOptions: SelectItem[] = [{ label: this.user, value: this.user }];
+  public user: string;
+  public selectedUser: string;
+  public userOptions: SelectItem[] = [{ label: '', value: '' }];
 
   public year = '' + (new Date()).getFullYear();
   public numericYear = (new Date()).getFullYear() % 100;
@@ -47,7 +49,7 @@ export class ChartsComponent implements OnInit {
 
   public myChartData: Map<string, any[]>;
   public chartOptions0: SelectItem[] = [{ label: this.chooseParam, value: null }];
-  public selectedChart0 = this.chooseParam;
+  public selectedChart0 = '03 Belastung (Mittelwert)';
   public chartOptions1: SelectItem[] = [{ label: this.chooseParam, value: null }];
   public selectedChart1 = this.chooseParam;
 
@@ -56,7 +58,7 @@ export class ChartsComponent implements OnInit {
   public maxZuege0 = 0;
   public maxZuege1 = 0;
 
-  constructor(private chartService: ChartService) {
+  constructor(private chartService: ChartService, private authenticationService: AuthenticationService) {
     this.aboutMessage = 'Climbing Logbook 2';
     for (let i = (new Date()).getFullYear(); i >= 2016; i--) {
       this.yearOptions.push({ label: '' + i, value: '' + i });
@@ -64,6 +66,14 @@ export class ChartsComponent implements OnInit {
   }
 
   ngOnInit(): any {
+    if (this.authenticationService.isTrainer()) {
+      this.user = 'zoe'; // TODO: dynamically load first user from server
+      this.selectedUser = this.user;
+    } else {
+      this.user = this.authenticationService.getUsername();
+      this.selectedUser = this.user;
+    }
+
     this.annotations = this.assembleAnnotations(this.wettkaempfe);
     this.lineChartOptions = this.assembleLineChartOptions(this.annotations);
 
@@ -75,9 +85,13 @@ export class ChartsComponent implements OnInit {
     this.userObservable = this.chartService.getAthletes();
     this.userObservable.subscribe((users) => {
       this.userOptions = [];
-      users.forEach((user) => {
-        this.userOptions.push({ label: user, value: user });
-      });
+      if (this.authenticationService.isTrainer()) {
+        users.forEach((user) => {
+          this.userOptions.push({ label: user, value: user });
+        });
+      } else {
+        this.userOptions.push({ label: this.user, value: this.user });
+      }
     });
 
     this.chartDataObservable = this.chartService.getChartsData(this.user, this.year);
@@ -254,7 +268,7 @@ export class ChartsComponent implements OnInit {
             + w.beschreibung + ', ' + w.kategorie + '</font>';
           setTimeout(function () {
             document.getElementById('wettkampfTooltip').innerHTML = '';
-          }, 1500);
+          }, 3000);
         },
         onMouseout: function (e) {
           document.getElementById('wettkampfTooltip').innerHTML = '';

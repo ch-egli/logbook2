@@ -10,10 +10,12 @@ import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { Label } from 'ng2-charts';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 
+import { AuthenticationService } from '../../core/_services/authentication.service';
+
 @Component({
   selector: 'app-bar-chart',
   templateUrl: './charts2.component.html',
-  providers: [ChartService]
+  providers: [ChartService, AuthenticationService]
 })
 export class Charts2Component implements OnInit {
   public barChartOptions: ChartOptions = {
@@ -45,14 +47,14 @@ export class Charts2Component implements OnInit {
   public chartDataObservable: Observable<Map<string, BarChartData>>;
 
   public userObservable: Observable<string[]>;
-  public user = 'zoe';
-  public userOptions: SelectItem[] = [{ label: this.user, value: this.user }];
+  public user;
+  public userOptions: SelectItem[] = [{ label: '', value: '' }];
 
   public year = '' + (new Date()).getFullYear();
   public numericYear = (new Date()).getFullYear() % 100;
   public yearOptions: SelectItem[] = [];
 
-  constructor(private chartService: ChartService) {
+  constructor(private chartService: ChartService, private authenticationService: AuthenticationService) {
     this.aboutMessage = 'Climbing Logbook 2';
     for (let i = (new Date()).getFullYear(); i >= 2016; i--) {
       this.yearOptions.push({ label: '' + i, value: '' + i });
@@ -60,6 +62,12 @@ export class Charts2Component implements OnInit {
   }
 
   ngOnInit(): any {
+    if (this.authenticationService.isTrainer()) {
+      this.user = 'zoe'; // TODO: dynamically load first user from server
+    } else {
+      this.user = this.authenticationService.getUsername();
+    }
+
     this.loadDataFromServer();
   }
 
@@ -68,9 +76,13 @@ export class Charts2Component implements OnInit {
     this.userObservable = this.chartService.getAthletes();
     this.userObservable.subscribe((users) => {
       this.userOptions = [];
-      users.forEach((user) => {
-        this.userOptions.push({ label: user, value: user });
-      });
+      if (this.authenticationService.isTrainer()) {
+        users.forEach((user) => {
+          this.userOptions.push({ label: user, value: user });
+        });
+      } else {
+        this.userOptions.push({ label: this.user, value: this.user });
+      }
     });
 
     this.chartDataObservable = this.chartService.getBarChartData(this.user, this.year);

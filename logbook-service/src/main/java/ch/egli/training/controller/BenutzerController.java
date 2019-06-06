@@ -45,13 +45,13 @@ public class BenutzerController {
 
     @RequestMapping(value="/users", method= RequestMethod.GET)
     public ResponseEntity<Iterable<Benutzer>> getAllUsers() {
-        final Iterable<Benutzer> allUsers = benutzerRepository.findAll();
+        final Iterable<Benutzer> allUsers = benutzerRepository.findAllByOrderByIdAsc();
         return new ResponseEntity<Iterable<Benutzer>>(allUsers, HttpStatus.OK);
     }
 
     @RequestMapping(value="/athletes", method= RequestMethod.GET)
     public ResponseEntity<Iterable<String>> getUserNames() {
-        final Iterable<Benutzer> allUsers = benutzerRepository.findAll();
+        final Iterable<Benutzer> allUsers = benutzerRepository.findAllByOrderByIdAsc();
         final List<String> allAthletes = new ArrayList<>();
         for (Benutzer benutzer : allUsers) {
             if (benutzer.getRollen().contains(ROLE_ATHLETE)) {
