@@ -14,12 +14,11 @@ export class AuthGuard implements CanActivate {
         // check if the user is logged in
         const currentUser = localStorage.getItem('currentUser');
         if (currentUser) {
-            console.log('canActivate: currentUser: ' + currentUser);
+            // console.log('canActivate: currentUser: ' + currentUser);
             return true;
         }
 
         // not logged in so redirect to login page with the return url
-        console.log('canActivate: not logged in... navigate to login...');
         this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
         return false;
     }

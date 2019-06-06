@@ -38,6 +38,11 @@ export class AuthenticationService {
         }
     }
 
+    public getUsername() {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        return currentUser.username;
+    }
+
     public isAdmin() {
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
         if (currentUser && currentUser.roles) {
