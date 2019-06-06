@@ -8,18 +8,29 @@
       <p-table [value]="workouts">
         <ng-template pTemplate="header">
           <tr>
-            <th>Datum</th>
+            <th class="colMinWithForDate">Datum</th>
             <th>Benutzer</th>
             <th>Ort</th>
-            <th>Dauer</th>
+            <th class="d-none d-md-table-cell">Dauer</th>
+            <th class="d-none d-md-table-cell">Belastung</th>
+            <th class="d-none d-md-table-cell">Züge12</th>
+            <th class="d-none d-md-table-cell">Züge23</th>
+            <th class="d-none d-md-table-cell">Züge34</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-workouts>
           <tr>
-            <td>{{workouts.datum}}</td>
-            <td>{{workouts.benutzername}}</td>
-            <td>{{workouts.ort}}</td>
-            <td>{{workouts.trainingszeit}}</td>
+            <td class="colMinWithForDate">
+              <span class="weekday">{{ workouts.datum | date:'EE' }}</span>
+              <span>{{ workouts.datum | date:'dd.MM.yy' }}</span>
+            </td>
+            <td>{{ workouts.benutzername }}</td>
+            <td>{{ workouts.ort }}</td>
+            <td class="d-none d-md-table-cell">{{ workouts.trainingszeit }}</td>
+            <td class="d-none d-md-table-cell">{{ workouts.belastung }}</td>
+            <td class="d-none d-md-table-cell">{{ workouts.zuege12 }}</td>
+            <td class="d-none d-md-table-cell">{{ workouts.zuege23 }}</td>
+            <td class="d-none d-md-table-cell">{{ workouts.zuege34 }}</td>
           </tr>
         </ng-template>
       </p-table>

@@ -1,5 +1,8 @@
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+
+import { registerLocaleData } from '@angular/common';
+import localeCh from '@angular/common/locales/de-CH';
 
 import { AppComponent } from './app.component';
 import { routing } from './app.routes';
@@ -13,6 +16,8 @@ import { JwtInterceptor } from './core/_helpers/jwt.interceptor'
 
 import { environment } from '../environments/environment';
 
+registerLocaleData(localeCh, 'de');
+
 @NgModule({
     declarations: [AppComponent],
     imports: [
@@ -25,6 +30,7 @@ import { environment } from '../environments/environment';
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+        { provide: LOCALE_ID, useValue: 'de_CH' },
     ],
     bootstrap: [AppComponent]
 })

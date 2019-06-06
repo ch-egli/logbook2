@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
   pagedWorkoutObservable: Observable<WorkoutPageable>;
 
   constructor(private workoutService: WorkoutService, private authenticationService: AuthenticationService) {
-    this.title = 'Climbing Logbook 2';
+    this.title = 'Climbing Logbook';
   }
 
   ngOnInit() {
