@@ -6,7 +6,7 @@ import { HomeComponent } from './logbook/home/home.component';
 import { ThemeComponent } from './logbook/theme/theme.component';
 import { ChartsComponent } from './logbook/charts/charts.component';
 import { Charts2Component } from './logbook/charts/charts2.component';
-import { AuthGuard } from './_guards/auth.guard';
+import { AuthGuard } from './core/_guards/auth.guard';
 
 export const appRoutes: Routes = [
     { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
