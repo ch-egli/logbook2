@@ -21,10 +21,10 @@ export class HomeComponent implements OnInit {
   totalWorkouts: number;
   workoutPageSize = 10;
 
-  benutzerOptions: SelectItem[] = [
-    { label: null, value: null },
-    { label: 'zoe', value: 'zoe' },
-    { label: 'liv', value: 'liv' },
+  userObservable: Observable<string[]>;
+
+  userOptions: SelectItem[] = [
+    { label: null, value: null }
   ];
 
   workouts: Workout[];
@@ -38,6 +38,15 @@ export class HomeComponent implements OnInit {
     this.currentUser = this.authenticationService.getUsername();
     this.currentUserCapitalized = this.currentUser.charAt(0).toUpperCase() + this.currentUser.slice(1);
     this.welcomeMessage = 'Herzlich Willkommen, ' + this.currentUserCapitalized;
+
+    this.userObservable = this.backendService.getAthletes();
+    this.userObservable.subscribe((users) => {
+      console.log('users: ' + users);
+      users.forEach((user) => {
+        this.userOptions.push({ label: user, value: user });
+      });
+    });
+
 
     this.userDiscriminator = this.getUserDiscriminator();
     this.pagedWorkoutObservable = this.backendService.getPagedWorkouts(this.userDiscriminator, 0, this.workoutPageSize);
