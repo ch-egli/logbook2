@@ -68,34 +68,26 @@ export class ChartsComponent implements OnInit {
   }
 
   ngOnInit(): any {
-    if (this.authenticationService.isTrainer()) {
-      this.user = 'zoe'; // TODO: dynamically load first user from server
-      this.selectedUser = this.user;
-    } else {
-      this.user = this.authenticationService.getUsername();
-      this.selectedUser = this.user;
-    }
+    this.user = this.authenticationService.getUsername();
+    this.selectedUser = this.user;
 
     this.annotations = this.assembleAnnotations(this.wettkaempfe);
     this.lineChartOptions = this.assembleLineChartOptions(this.annotations);
 
-    this.loadDataFromServer();
+    this.userObservable = this.backendService.getAthletes();
+    this.userObservable.subscribe((users) => {
+      this.assembleUserOptions(users);
+
+      if (this.authenticationService.isTrainer()) {
+        this.user = users[0];
+        this.selectedUser = this.user;
+      }
+      this.loadDataFromServer();
+    });
   }
 
   loadDataFromServer() {
     const me = this;
-    this.userObservable = this.backendService.getAthletes();
-    this.userObservable.subscribe((users) => {
-      this.userOptions = [];
-      if (this.authenticationService.isTrainer()) {
-        users.forEach((user) => {
-          this.userOptions.push({ label: user, value: user });
-        });
-      } else {
-        this.userOptions.push({ label: this.user, value: this.user });
-      }
-    });
-
     this.chartDataObservable = this.chartService.getChartsData(this.user, this.year);
     this.chartDataObservable.subscribe((res) => {
       me.myChartData = res.chartData;
@@ -128,7 +120,6 @@ export class ChartsComponent implements OnInit {
         this.maxZuege1 = 0;
       }
 
-
       this.chartOptions0 = [{ label: this.chooseParam, value: null }];
       const optionValues: string[] = Array.from(Object.keys(res.chartData));
       optionValues.sort();
@@ -151,7 +142,18 @@ export class ChartsComponent implements OnInit {
     });
   }
 
-  createMessages() {
+  private assembleUserOptions(users) {
+    this.userOptions = [];
+    if (this.authenticationService.isTrainer()) {
+      users.forEach((user) => {
+        this.userOptions.push({ label: user, value: user });
+      });
+    } else {
+      this.userOptions.push({ label: this.user, value: this.user });
+    }
+  }
+
+  public createMessages() {
     this.messages.push({ severity: 'info', summary: 'Info Message', detail: 'PrimeNG rocks' });
     this.messages.push({ severity: 'warn', summary: 'Warn Message', detail: 'Sample warning' });
     this.messages.push({ severity: 'error', summary: 'Error Message', detail: 'Sample error' });

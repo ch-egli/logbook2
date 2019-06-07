@@ -5,7 +5,7 @@ import { SelectItem } from 'primeng/api';
 import { ChartService } from '../_services/chart.service';
 import { BackendService } from '../_services/backend.service';
 import { BarChartData } from '../_model/chart.model';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { Label } from 'ng2-charts';
@@ -64,52 +64,59 @@ export class Charts2Component implements OnInit {
   }
 
   ngOnInit(): any {
-    if (this.authenticationService.isTrainer()) {
-      this.user = 'zoe'; // TODO: dynamically load first user from server
-    } else {
-      this.user = this.authenticationService.getUsername();
-    }
+    this.user = this.authenticationService.getUsername();
 
-    this.loadDataFromServer();
+    this.userObservable = this.backendService.getAthletes();
+    this.userObservable.subscribe((users) => {
+      this.assembleUserOptions(users);
+
+      if (this.authenticationService.isTrainer()) {
+        this.user = users[0];
+      }
+
+      this.loadDataFromServer();
+    });
   }
 
   loadDataFromServer() {
-    const me = this;
-    this.userObservable = this.backendService.getAthletes();
-    this.userObservable.subscribe((users) => {
-      this.userOptions = [];
-      if (this.authenticationService.isTrainer()) {
-        users.forEach((user) => {
-          this.userOptions.push({ label: user, value: user });
-        });
-      } else {
-        this.userOptions.push({ label: this.user, value: this.user });
-      }
-    });
-
     this.chartDataObservable = this.chartService.getBarChartData(this.user, this.year);
-    this.chartDataObservable.subscribe((res) => {
-      console.log(res);
-      this.barChartData1 = [
-        {
-          data: res['disziplinen'].data,
-          label: 'Disziplinen',
-          backgroundColor: 'rgba(255,0,0,0.3)', borderColor: 'red', borderWidth: 1
-        }
-      ];
-      this.barChartLabels1 = res['disziplinen'].labels;
-      this.barChartData2 = [
-        {
-          data: res['trainingsorte'].data,
-          label: 'Trainingsorte',
-          backgroundColor: 'rgba(77,83,96,0.2)', borderColor: 'rgba(77,83,96,1)', borderWidth: 1
-        }
-      ];
-      this.barChartLabels2 = res['trainingsorte'].labels;
+    this.chartDataObservable.subscribe((barChartData) => {
+      this.assembleBarChartData(barChartData);
     });
   }
 
-  onSelectUser(event) {
+  private assembleUserOptions(users) {
+    this.userOptions = [];
+    if (this.authenticationService.isTrainer()) {
+      users.forEach((user) => {
+        this.userOptions.push({ label: user, value: user });
+      });
+    } else {
+      this.userOptions.push({ label: this.user, value: this.user });
+    }
+  }
+
+  private assembleBarChartData(barChartData) {
+    console.log(barChartData);
+    this.barChartData1 = [
+      {
+        data: barChartData['disziplinen'].data,
+        label: 'Disziplinen',
+        backgroundColor: 'rgba(255,0,0,0.3)', borderColor: 'red', borderWidth: 1
+      }
+    ];
+    this.barChartLabels1 = barChartData['disziplinen'].labels;
+    this.barChartData2 = [
+      {
+        data: barChartData['trainingsorte'].data,
+        label: 'Trainingsorte',
+        backgroundColor: 'rgba(77,83,96,0.2)', borderColor: 'rgba(77,83,96,1)', borderWidth: 1
+      }
+    ];
+    this.barChartLabels2 = barChartData['trainingsorte'].labels;
+  }
+
+  public onSelectUser(event) {
     console.log('selected user: ' + event.value);
     this.user = event.value;
     this.loadDataFromServer();

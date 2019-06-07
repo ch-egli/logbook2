@@ -4,6 +4,3 @@
   -> pay attention to xss (test input fields!)
   -> remove remember me?
 
-- Statistics default user is zoe -> should be dynamic
-  -> charts.components.ts
-  -> charts2.components.ts:
