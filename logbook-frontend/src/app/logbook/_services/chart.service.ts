@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ChartMetaType, BarChartData } from './chart.model';
+import { ChartMetaType, BarChartData } from '../_model/chart.model';
 
 @Injectable()
 export class ChartService {
@@ -15,11 +15,6 @@ export class ChartService {
     getChartsData(user: string, year: string): Observable<ChartMetaType> {
         console.log('getChartData with user ' + user + ' and year ' + year);
         return this.http.get<ChartMetaType>(this.ENDPOINT_URL_LOCAL + '/charts/' + user + '/' + year);
-    }
-
-    getAthletes(): Observable<string[]> {
-        console.log('getAthletes...');
-        return this.http.get<string[]>(this.ENDPOINT_URL_LOCAL + '/athletes');
     }
 
     getBarChartData(user: string, year: string): Observable<Map<string, BarChartData>> {

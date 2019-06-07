@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Workout, WorkoutPageable } from '../workouts/workout.model';
+import { Workout, WorkoutPageable } from '../_model/backend.models';
 import { Observable } from 'rxjs';
-import { WorkoutService } from '../workouts/workout.service';
+import { BackendService } from '../_services/backend.service';
 import { LazyLoadEvent } from 'primeng/primeng';
 import { SelectItem } from 'primeng/api';
 
@@ -10,7 +10,7 @@ import { AuthenticationService } from '../../core/_services/authentication.servi
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  providers: [WorkoutService, AuthenticationService]
+  providers: [BackendService, AuthenticationService]
 })
 export class HomeComponent implements OnInit {
   title: string;
@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit {
   workouts: Workout[];
   pagedWorkoutObservable: Observable<WorkoutPageable>;
 
-  constructor(private workoutService: WorkoutService, private authenticationService: AuthenticationService) {
+  constructor(private backendService: BackendService, private authenticationService: AuthenticationService) {
     this.title = 'Climbing Logbook';
   }
 
@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
     this.welcomeMessage = 'Herzlich Willkommen, ' + this.currentUserCapitalized;
 
     this.userDiscriminator = this.getUserDiscriminator();
-    this.pagedWorkoutObservable = this.workoutService.getPagedWorkouts(this.userDiscriminator, 0, this.workoutPageSize);
+    this.pagedWorkoutObservable = this.backendService.getPagedWorkouts(this.userDiscriminator, 0, this.workoutPageSize);
     this.pagedWorkoutObservable.subscribe((res) => {
       console.log(res);
       this.workouts = res.content;
@@ -51,7 +51,7 @@ export class HomeComponent implements OnInit {
   public loadWorkoutsLazy(event: LazyLoadEvent) {
     console.log('event: ' + event.first + ' ' + event.rows);
     const pageNumber = event.first / event.rows;
-    this.pagedWorkoutObservable = this.workoutService.getPagedWorkouts(this.userDiscriminator, pageNumber, this.workoutPageSize);
+    this.pagedWorkoutObservable = this.backendService.getPagedWorkouts(this.userDiscriminator, pageNumber, this.workoutPageSize);
     this.pagedWorkoutObservable.subscribe((res) => {
       console.log(res);
       this.workouts = res.content;
@@ -66,7 +66,7 @@ export class HomeComponent implements OnInit {
       this.userDiscriminator = 'all';
     }
 
-    this.pagedWorkoutObservable = this.workoutService.getPagedWorkouts(this.userDiscriminator, 0, this.workoutPageSize);
+    this.pagedWorkoutObservable = this.backendService.getPagedWorkouts(this.userDiscriminator, 0, this.workoutPageSize);
     this.pagedWorkoutObservable.subscribe((res) => {
       console.log(res);
       this.workouts = res.content;

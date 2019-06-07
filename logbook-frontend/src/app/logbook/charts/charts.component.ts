@@ -2,8 +2,9 @@ import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { Message, DropdownModule } from 'primeng/primeng';
 import { SelectItem } from 'primeng/api';
 
-import { ChartService } from './chart.service';
-import { ChartMetaType, Wettkampf } from './chart.model';
+import { ChartService } from '../_services/chart.service';
+import { BackendService } from '../_services/backend.service';
+import { ChartMetaType, Wettkampf } from '../_model/chart.model';
 import { Observable } from 'rxjs';
 
 import { ChartDataSets, ChartOptions } from 'chart.js';
@@ -15,7 +16,7 @@ import { AuthenticationService } from '../../core/_services/authentication.servi
 @Component({
   selector: 'app-charts',
   templateUrl: './charts.component.html',
-  providers: [ChartService, AuthenticationService]
+  providers: [ChartService, BackendService, AuthenticationService]
 })
 export class ChartsComponent implements OnInit {
   public aboutMessage: string;
@@ -58,7 +59,8 @@ export class ChartsComponent implements OnInit {
   public maxZuege0 = 0;
   public maxZuege1 = 0;
 
-  constructor(private chartService: ChartService, private authenticationService: AuthenticationService) {
+  constructor(private chartService: ChartService, private backendService: BackendService,
+    private authenticationService: AuthenticationService) {
     this.aboutMessage = 'Climbing Logbook 2';
     for (let i = (new Date()).getFullYear(); i >= 2016; i--) {
       this.yearOptions.push({ label: '' + i, value: '' + i });
@@ -82,7 +84,7 @@ export class ChartsComponent implements OnInit {
 
   loadDataFromServer() {
     const me = this;
-    this.userObservable = this.chartService.getAthletes();
+    this.userObservable = this.backendService.getAthletes();
     this.userObservable.subscribe((users) => {
       this.userOptions = [];
       if (this.authenticationService.isTrainer()) {

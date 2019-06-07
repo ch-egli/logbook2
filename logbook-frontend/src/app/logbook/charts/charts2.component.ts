@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Message, DropdownModule } from 'primeng/primeng';
 import { SelectItem } from 'primeng/api';
 
-import { ChartService } from './chart.service';
-import { BarChartData } from './chart.model';
+import { ChartService } from '../_services/chart.service';
+import { BackendService } from '../_services/backend.service';
+import { BarChartData } from '../_model/chart.model';
 import { Observable } from 'rxjs';
 
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
@@ -15,7 +16,7 @@ import { AuthenticationService } from '../../core/_services/authentication.servi
 @Component({
   selector: 'app-bar-chart',
   templateUrl: './charts2.component.html',
-  providers: [ChartService, AuthenticationService]
+  providers: [ChartService, BackendService, AuthenticationService]
 })
 export class Charts2Component implements OnInit {
   public barChartOptions: ChartOptions = {
@@ -54,7 +55,8 @@ export class Charts2Component implements OnInit {
   public numericYear = (new Date()).getFullYear() % 100;
   public yearOptions: SelectItem[] = [];
 
-  constructor(private chartService: ChartService, private authenticationService: AuthenticationService) {
+  constructor(private chartService: ChartService, private backendService: BackendService,
+    private authenticationService: AuthenticationService) {
     this.aboutMessage = 'Climbing Logbook 2';
     for (let i = (new Date()).getFullYear(); i >= 2016; i--) {
       this.yearOptions.push({ label: '' + i, value: '' + i });
@@ -73,7 +75,7 @@ export class Charts2Component implements OnInit {
 
   loadDataFromServer() {
     const me = this;
-    this.userObservable = this.chartService.getAthletes();
+    this.userObservable = this.backendService.getAthletes();
     this.userObservable.subscribe((users) => {
       this.userOptions = [];
       if (this.authenticationService.isTrainer()) {

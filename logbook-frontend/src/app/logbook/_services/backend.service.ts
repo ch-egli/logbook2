@@ -1,13 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Workout, WorkoutPageable } from './workout.model';
+import { Workout, WorkoutPageable } from '../_model/backend.models';
 
 @Injectable()
-export class WorkoutService {
+export class BackendService {
     readonly ENDPOINT_URL_BASE = 'http://192.168.1.121:8080/v1/';
 
     constructor(private http: HttpClient) {
+    }
+
+    getAthletes(): Observable<string[]> {
+        console.log('getAthletes...');
+        return this.http.get<string[]>(this.ENDPOINT_URL_BASE + 'athletes');
     }
 
     getWorkoutsByUser(username: string): Observable<Workout[]> {
