@@ -21,8 +21,7 @@
           <tr *ngIf="isTrainer()">
             <th></th>
             <th>
-              <p-dropdown [options]="benutzerOptions" [autoWidth]="false" [style]="{'width':'100%'}"
-                (onChange)="onBenutzerChange($event, dt)">
+              <p-dropdown [options]="userOptions" [style]="{'width':'100%'}" (onChange)="onUserChange($event, dt)">
               </p-dropdown>
             </th>
             <th></th>

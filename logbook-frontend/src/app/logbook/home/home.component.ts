@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Workout, WorkoutPageable } from '../_model/backend.models';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 import { BackendService } from '../_services/backend.service';
 import { LazyLoadEvent } from 'primeng/primeng';
 import { SelectItem } from 'primeng/api';
@@ -40,20 +40,21 @@ export class HomeComponent implements OnInit {
     this.welcomeMessage = 'Herzlich Willkommen, ' + this.currentUserCapitalized;
 
     this.userObservable = this.backendService.getAthletes();
-    this.userObservable.subscribe((users) => {
+
+    this.userDiscriminator = this.getUserDiscriminator();
+    this.pagedWorkoutObservable = this.backendService.getPagedWorkouts(this.userDiscriminator, 0, this.workoutPageSize);
+
+    forkJoin(this.userObservable, this.pagedWorkoutObservable).subscribe((res) => {
+      const users = res[0];
       console.log('users: ' + users);
       users.forEach((user) => {
         this.userOptions.push({ label: user, value: user });
       });
-    });
 
-
-    this.userDiscriminator = this.getUserDiscriminator();
-    this.pagedWorkoutObservable = this.backendService.getPagedWorkouts(this.userDiscriminator, 0, this.workoutPageSize);
-    this.pagedWorkoutObservable.subscribe((res) => {
-      console.log(res);
-      this.workouts = res.content;
-      this.totalWorkouts = res.totalElements;
+      const pagedWorkouts = res[1];
+      console.log('pagedWorkouts: ' + pagedWorkouts);
+      this.workouts = pagedWorkouts.content;
+      this.totalWorkouts = pagedWorkouts.totalElements;
     });
   }
 
@@ -68,7 +69,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  public onBenutzerChange(event) {
+  public onUserChange(event) {
     if (event.value) {
       this.userDiscriminator = event.value;
     } else {
