@@ -5,7 +5,7 @@
 <div>
   <p-tabView>
     <p-tabPanel header="Trainings" leftIcon="fa fa-list" [selected]="true">
-      <p-table [value]="workouts" [rows]="workoutPageSize" [paginator]="true" [lazy]="true" [filterDelay]="500"
+      <p-table #dt [value]="workouts" [rows]="workoutPageSize" [paginator]="true" [lazy]="true" [filterDelay]="500"
         [totalRecords]="totalWorkouts" (onLazyLoad)="loadWorkoutsLazy($event)">
         <ng-template pTemplate="header">
           <tr>
@@ -14,9 +14,23 @@
             <th>Ort</th>
             <th class="d-none d-md-table-cell">Dauer</th>
             <th class="d-none d-md-table-cell">Belastung</th>
-            <th class="d-none d-md-table-cell">Züge12</th>
-            <th class="d-none d-md-table-cell">Züge23</th>
-            <th class="d-none d-md-table-cell">Züge34</th>
+            <th class="d-none d-lg-table-cell">Züge12</th>
+            <th class="d-none d-lg-table-cell">Züge23</th>
+            <th class="d-none d-lg-table-cell">Züge34</th>
+          </tr>
+          <tr *ngIf="isTrainer()">
+            <th></th>
+            <th>
+              <p-dropdown [options]="benutzerOptions" [autoWidth]="false" [style]="{'width':'100%'}"
+                (onChange)="onBenutzerChange($event, dt)">
+              </p-dropdown>
+            </th>
+            <th></th>
+            <th class="d-none d-md-table-cell"></th>
+            <th class="d-none d-md-table-cell"></th>
+            <th class="d-none d-lg-table-cell"></th>
+            <th class="d-none d-lg-table-cell"></th>
+            <th class="d-none d-lg-table-cell"></th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-workouts>
@@ -29,9 +43,9 @@
             <td>{{ workouts.ort }}</td>
             <td class="d-none d-md-table-cell">{{ workouts.trainingszeit }}</td>
             <td class="d-none d-md-table-cell">{{ workouts.belastung }}</td>
-            <td class="d-none d-md-table-cell">{{ workouts.zuege12 }}</td>
-            <td class="d-none d-md-table-cell">{{ workouts.zuege23 }}</td>
-            <td class="d-none d-md-table-cell">{{ workouts.zuege34 }}</td>
+            <td class="d-none d-lg-table-cell">{{ workouts.zuege12 }}</td>
+            <td class="d-none d-lg-table-cell">{{ workouts.zuege23 }}</td>
+            <td class="d-none d-ld-table-cell">{{ workouts.zuege34 }}</td>
           </tr>
         </ng-template>
       </p-table>
