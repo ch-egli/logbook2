@@ -23,6 +23,7 @@ import { TableModule } from 'primeng/table';
 import { AboutComponent } from './about/about.component';
 import { ThemeComponent } from './theme/theme.component';
 import { HomeComponent } from './home/home.component';
+import { WorkoutComponent } from './workout/workout.component';
 import { ChartsComponent } from './charts/charts.component';
 import { Charts2Component } from './charts/charts2.component';
 import { LoginComponent } from './login/login.component';
@@ -32,6 +33,7 @@ import { ChartsModule } from 'ng2-charts';
 @NgModule({
     declarations: [
         HomeComponent,
+        WorkoutComponent,
         AboutComponent,
         ThemeComponent,
         ChartsComponent,

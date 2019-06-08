@@ -32,11 +32,11 @@
             <th class="d-none d-lg-table-cell"></th>
           </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-workouts>
+        <ng-template pTemplate="body" let-workouts let-rid="rowIndex">
           <tr>
             <td class="colMinWithForDate">
               <span class="weekday">{{ workouts.datum | date:'EE' }}</span>
-              <span>{{ workouts.datum | date:'dd.MM.yy' }}</span>
+              <a [routerLink]="['/workout', workouts.id]">{{ workouts.datum | date:'dd.MM.yy' }}</a>
             </td>
             <td>{{ workouts.benutzername }}</td>
             <td>{{ workouts.ort }}</td>
