@@ -3,4 +3,111 @@
   <p></p>
 </div>
 <div>
+  <form [formGroup]="workoutForm">
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-3">
+        <label>Datum</label>
+      </div>
+      <div class="ui-grid-col-9">
+        <p-calendar [(ngModel)]="datum" [showIcon]="true" formControlName="datum" dateFormat="dd.mm.yy" [locale]="deCH"
+          [styleClass]="'che-nowrap'">
+        </p-calendar>
+      </div>
+    </div>
+
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-3">
+        <label>Ort</label>
+      </div>
+      <div class="ui-grid-col-9">
+        <p-dropdown [options]="locationOptions" [(ngModel)]="location" formControlName="location" [editable]="true"
+          [placeholder]="'wählen oder eintippen...'">
+        </p-dropdown>
+      </div>
+    </div>
+
+    <div class="ui-grid-row">
+      <label class="cb-label"><input type="checkbox" [(ngModel)]="lead" formControlName="lead" /> Lead
+      </label>
+      <label class="cb-label"><input type="checkbox" [(ngModel)]="boulder" formControlName="boulder" />
+        Bouldern </label>
+      <label class="cb-label"><input type="checkbox" [(ngModel)]="kraft" formControlName="kraft" /> Kraft
+      </label>
+      <label class="cb-label"><input type="checkbox" [(ngModel)]="stretching" formControlName="stretching" />
+        Dehnen </label>
+      <label class="cb-label"><input type="checkbox" [(ngModel)]="mentaltraining" formControlName="mentaltraining" />
+        Mentaltraining
+      </label>
+      <label class="cb-label"><input type="checkbox" [(ngModel)]="jogging" formControlName="jogging" />
+        Jogging </label>
+    </div>
+
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-3">
+        <label>Dauer (Minuten)</label>
+      </div>
+      <div class="ui-grid-col-9">
+        <input pInputText placeholder="Dauer in Minuten" type="number" formControlName="trainingszeit" />
+      </div>
+    </div>
+
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-3">
+        <label>Belastung (6-20)</label>
+      </div>
+      <div class="ui-grid-col-9">
+        <p-dropdown [options]="belastungOptions" [(ngModel)]="belastung" formControlName="belastung"></p-dropdown>
+      </div>
+    </div>
+
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-3">
+        <label>Anzahl Züge 1-2</label>
+      </div>
+      <div class="ui-grid-col-9">
+        <input pInputText placeholder="Zuege12" type="number" formControlName="zuege12" />
+      </div>
+    </div>
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-3">
+        <label>Anzahl Züge 2-3</label>
+      </div>
+      <div class="ui-grid-col-9">
+        <input pInputText placeholder="Zuege23" type="number" formControlName="zuege23" />
+      </div>
+    </div>
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-3">
+        <label>Anzahl Züge 3-4</label>
+      </div>
+      <div class="ui-grid-col-9">
+        <input pInputText placeholder="Zuege34" type="number" formControlName="zuege34" />
+      </div>
+    </div>
+
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-3">
+        <label>Wettkampf</label>
+      </div>
+      <div class="ui-grid-col-9">
+        <input pInputText placeholder="Wettkampf" type="text" formControlName="wettkampf" />
+      </div>
+    </div>
+
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-3">
+        <label>Sonstiges</label>
+      </div>
+      <div class="ui-grid-col-9">
+        <p-dropdown [options]="sonstigesOptions" [(ngModel)]="sonstiges" formControlName="sonstiges" [editable]="true"
+          [placeholder]="'wählen oder eintippen...'">
+        </p-dropdown>
+      </div>
+    </div>
+
+    <div>&nbsp;</div>
+    <div class="form-buttons">
+      <button pButton type="button" class="ui-button-primary" (click)="save()" label="Speichern"></button>
+    </div>
+  </form>
 </div>

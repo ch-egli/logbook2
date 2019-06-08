@@ -9,8 +9,8 @@
     border: 0px;
 }
 
-.ui-dropdown .ui-dropdown-trigger .ui-dropdown-trigger-icon {
-    left: 60%;
+.ui-inputtext {
+    padding: .1em;
 }
 
 .weekday {
@@ -32,4 +32,13 @@ td.nowrap {
 
 table tr th .ui-dropdown {
     min-width: 2.5em;
+}
+
+.che-nowrap {
+    white-space: nowrap;
+}
+
+.cb-label {
+    white-space: nowrap;
+    padding-right: 10px;
 }

@@ -2,9 +2,9 @@
   <p-growl [(value)]="messages" sticky="sticky"></p-growl>
   <h4>Jahres-Statistik für </h4>
   <div>
-    <p-dropdown [dropdownIcon]="angleDown" [options]="userOptions" [(ngModel)]="user" (onChange)="onSelectUser($event)">
+    <p-dropdown [options]="userOptions" [(ngModel)]="user" (onChange)="onSelectUser($event)">
     </p-dropdown>
-    <p-dropdown [dropdownIcon]="angleDown" [options]="yearOptions" [(ngModel)]="year" (onChange)="onSelectYear($event)">
+    <p-dropdown [options]="yearOptions" [(ngModel)]="year" (onChange)="onSelectYear($event)">
     </p-dropdown>
   </div>
 </div>
