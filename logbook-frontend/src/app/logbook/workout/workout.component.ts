@@ -31,7 +31,6 @@ export class WorkoutComponent implements OnInit {
   kraft = false;
   stretching = false;
   mentaltraining = false;
-  jogging = false;
   belastung = 14;
   belastungOptions: SelectItem[] = [
     { label: '20', value: 20 },
@@ -52,6 +51,7 @@ export class WorkoutComponent implements OnInit {
   ];
   sonstiges: string;
   sonstigesOptions: SelectItem[] = [
+    { label: 'Jogging', value: 'Jogging' },
     { label: 'Velo/Bike', value: 'Velo/Bike' },
     { label: 'Ski/Snowboard', value: 'Ski/Snowboard' },
     { label: 'Langlauf', value: 'Langlauf' },
@@ -77,7 +77,6 @@ export class WorkoutComponent implements OnInit {
       kraft: new FormControl(),
       stretching: new FormControl(),
       mentaltraining: new FormControl(),
-      jogging: new FormControl(),
       trainingszeit: [null, Validators.required],
       belastung: new FormControl(),
       zuege12: [null, Validators.required],
@@ -97,7 +96,6 @@ export class WorkoutComponent implements OnInit {
     console.log('kraft: ' + val.kraft);
     console.log('stretching: ' + val.stretching);
     console.log('mentaltraining: ' + val.mentaltraining);
-    console.log('jogging: ' + val.jogging);
     console.log('trainingszeit: ' + val.trainingszeit);
     console.log('belastung: ' + val.belastung);
     console.log('zuege12: ' + val.zuege12);
