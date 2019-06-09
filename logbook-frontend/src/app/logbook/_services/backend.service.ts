@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+
 import { Workout, WorkoutPageable } from '../_model/backend.models';
 
 @Injectable()
@@ -22,5 +24,15 @@ export class BackendService {
     getPagedWorkouts(username: string, page: number, pageSize: number): Observable<WorkoutPageable> {
         return this.http.get<WorkoutPageable>(this.ENDPOINT_URL_BASE + 'users/' + username
             + '/workouts?page=' + page + '&size=' + pageSize);
+    }
+
+    addWorkout(workout: Workout) {
+        return this.http.post<Workout>(this.ENDPOINT_URL_BASE + 'users/' + workout.benutzername + '/workouts', workout)
+            .pipe(
+                catchError(err => {
+                    console.log(err.message);
+                    return of('error in addWorkout: ' + err.message);
+                })
+            );
     }
 }

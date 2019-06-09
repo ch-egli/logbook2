@@ -39,6 +39,8 @@
         </label>
         <label class="cb-label"><input type="checkbox" [(ngModel)]="stretching" formControlName="stretching" />
           Dehnen </label>
+        <label class="cb-label"><input type="checkbox" [(ngModel)]="campus" formControlName="campus" />
+          Campus </label>
         <label class="cb-label"><input type="checkbox" [(ngModel)]="mentaltraining" formControlName="mentaltraining" />
           Mentaltraining
         </label>
@@ -95,6 +97,37 @@
       </div>
       <div class="ui-grid-col-9">
         <input pInputText placeholder="z.B. EYC, MYCC" type="text" formControlName="wettkampf" />
+      </div>
+    </div>
+
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-1">
+        <label class="che-nowrap">&nbsp;</label>
+      </div>
+      <div class="ui-grid-col-11">
+        <p-panel header="Status Infos" [styleClass]="'status-panel'">
+
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-4">
+              <label class="che-nowrap">Gefühl</label>
+            </div>
+            <div class="ui-grid-col-8">
+              <button (click)="selectGrinning()"><img src="{{ imgGrinning }}" style="width:24px" /></button>
+              <button (click)="selectSmirking()"><img src="{{ imgSmirking }}" style="width:24px" /></button>
+              <button (click)="selectFrowning()"><img src="{{ imgFrowning }}" style="width:24px" /></button>
+              <button (click)="selectFearful()"><img src="{{ imgFearful }}" style="width:24px" /></button>
+            </div>
+          </div>
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-4">
+              <label class="che-nowrap">Schlaf</label>
+            </div>
+            <div class="ui-grid-col-8">
+              <input pInputText placeholder="in Stunden" type="number" formControlName="schlaf" style="width: 100%" />
+            </div>
+          </div>
+
+        </p-panel>
       </div>
     </div>
 

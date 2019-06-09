@@ -163,7 +163,7 @@ public class WorkoutController {
             throw new BadRequestException("Workout could not be saved in the database: " + e.getMessage());
         }
 
-        return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
+        return new ResponseEntity<>(workout, responseHeaders, HttpStatus.CREATED);
     }
 
 
