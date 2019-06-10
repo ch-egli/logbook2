@@ -17,7 +17,7 @@ export class AuthenticationService {
                 if (user && user.token) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     let now = new Date();
-                    now.setSeconds(now.getSeconds() + 30); // 3595
+                    now.setSeconds(now.getSeconds() + 3595); // one hour minus 5 seconds
                     user.exp = now.getTime();
                     localStorage.setItem('currentUser', JSON.stringify(user));
                 }
@@ -77,7 +77,7 @@ export class AuthenticationService {
     public logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
-        //location.reload();
+        // location.reload();
     }
 
     private isExpired(dateStr: string) {
