@@ -88,6 +88,15 @@ export class HomeComponent implements OnInit {
     return this.authenticationService.isTrainer();
   }
 
+  public isMyWorkout(workout) {
+    // console.log('isMyWorkout: ' + (this.currentUser === workout.benutzername));
+    return this.currentUser === workout.benutzername;
+  }
+
+  public askAndDelete(workout) {
+    console.log('askAndDelete: ' + workout.id);
+  }
+
   private getUserDiscriminator() {
     if (this.authenticationService.isTrainer()) {
       return 'all';

@@ -17,6 +17,7 @@
             <th class="d-none d-lg-table-cell">Züge12</th>
             <th class="d-none d-lg-table-cell">Züge23</th>
             <th class="d-none d-lg-table-cell">Züge34</th>
+            <th></th>
           </tr>
           <tr *ngIf="isTrainer()">
             <th></th>
@@ -30,6 +31,7 @@
             <th class="d-none d-lg-table-cell"></th>
             <th class="d-none d-lg-table-cell"></th>
             <th class="d-none d-lg-table-cell"></th>
+            <th></th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-workouts let-rid="rowIndex">
@@ -45,6 +47,12 @@
             <td class="d-none d-lg-table-cell">{{ workouts.zuege12 }}</td>
             <td class="d-none d-lg-table-cell">{{ workouts.zuege23 }}</td>
             <td class="d-none d-ld-table-cell">{{ workouts.zuege34 }}</td>
+            <td>
+              <span *ngIf="isMyWorkout(workouts)">
+                <a [routerLink]="['/workout', workouts.id]"><span class="fa fa-pencil-square-o"></span></a> |
+                <a (click)="askAndDelete(workouts)"><span class="fa fa-trash-o"></span></a>
+              </span>
+            </td>
           </tr>
         </ng-template>
       </p-table>
