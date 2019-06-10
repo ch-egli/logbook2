@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
@@ -74,7 +75,7 @@ export class WorkoutComponent implements OnInit {
   gefuehl: number;
 
   constructor(private backendService: BackendService, private authenticationService: AuthenticationService,
-    private route: ActivatedRoute, private fb: FormBuilder) {
+    private router: Router, private route: ActivatedRoute, private fb: FormBuilder) {
 
     environment.workoutLocations.forEach((location) => {
       this.locationOptions.push({ label: location, value: location });
@@ -152,6 +153,13 @@ export class WorkoutComponent implements OnInit {
       data => console.log('workout successfully added: ' + data),
       error => console.log('addWorkout error: ' + error)
     );
+
+    this.router.navigate(['/home']);
+    location.reload();
+  }
+
+  public cancel() {
+    this.router.navigate(['/home']);
   }
 
   public selectGrinning() {
