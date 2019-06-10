@@ -16,6 +16,9 @@ export class AuthenticationService {
                 // login successful if there's a jwt token in the response
                 if (user && user.token) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
+                    let now = new Date();
+                    now.setSeconds(now.getSeconds() + 30); // 3595
+                    user.exp = now.getTime();
                     localStorage.setItem('currentUser', JSON.stringify(user));
                 }
 
@@ -28,8 +31,8 @@ export class AuthenticationService {
     }
 
     public isLoggedIn() {
-        const currentUser = localStorage.getItem('currentUser');
-        if (currentUser) {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (currentUser && !this.isExpired(currentUser.exp)) {
             // console.log('AuthenticationService: isLoggedIn: true');
             return true;
         } else {
@@ -76,4 +79,12 @@ export class AuthenticationService {
         localStorage.removeItem('currentUser');
         //location.reload();
     }
+
+    private isExpired(dateStr: string) {
+        const now = new Date();
+        const date = new Date(Number(dateStr));
+
+        return date < now;
+    }
+
 }

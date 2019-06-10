@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 import { Workout, WorkoutPageable } from '../_model/backend.models';
 
@@ -9,7 +10,7 @@ import { Workout, WorkoutPageable } from '../_model/backend.models';
 export class BackendService {
     readonly ENDPOINT_URL_BASE = 'http://192.168.1.121:8080/v1/';
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private router: Router) {
     }
 
     getAthletes(): Observable<string[]> {
@@ -31,8 +32,14 @@ export class BackendService {
             .pipe(
                 catchError(err => {
                     console.log(err.message);
+                    // this.goToLoginPage();
                     return of('error in addWorkout: ' + err.message);
                 })
             );
+    }
+
+    goToLoginPage() {
+        localStorage.removeItem('currentUser');
+        this.router.navigate(['/login']);
     }
 }
