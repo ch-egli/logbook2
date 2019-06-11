@@ -94,6 +94,7 @@ export class WorkoutComponent implements OnInit {
       this.readonly = (map.get('ro') === '1') ? true : false;
 
       this.workoutForm = this.fb.group({
+        // initial values do not work, therefore they are initialized as variables...
         datum: new FormControl({ value: new Date(), disabled: this.readonly }),
         location: new FormControl({ value: '', disabled: this.readonly }),
         lead: new FormControl({ value: true, disabled: this.readonly }),

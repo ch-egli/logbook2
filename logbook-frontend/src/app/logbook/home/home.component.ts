@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Workout, WorkoutPageable } from '../_model/backend.models';
 import { Observable, forkJoin } from 'rxjs';
 import { BackendService } from '../_services/backend.service';
@@ -30,8 +31,11 @@ export class HomeComponent implements OnInit {
   workouts: Workout[];
   pagedWorkoutObservable: Observable<WorkoutPageable>;
 
-  constructor(private backendService: BackendService, private authenticationService: AuthenticationService) {
+  constructor(private backendService: BackendService, private authenticationService: AuthenticationService, private route: ActivatedRoute) {
     this.title = 'Climbing Logbook';
+    route.params.subscribe(val => {
+      // console.log('route activated: ' + JSON.stringify(val));
+    });
   }
 
   ngOnInit() {

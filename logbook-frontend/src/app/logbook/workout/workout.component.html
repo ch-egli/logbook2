@@ -20,7 +20,7 @@
         <label class="che-nowrap" style="padding-bottom: 0.25em;">Ort</label>
       </div>
       <div class="ui-grid-col-9">
-        <p-dropdown [options]="locationOptions" [(ngModel)]="location" formControlName="location" [editable]="true"
+        <p-dropdown [options]="locationOptions" [(ngModel)]="location" formControlName="location" [editable]="!readonly"
           [styleClass]="'dd-width'" [placeholder]="'wählen oder eintippen...'">
         </p-dropdown>
       </div>
@@ -31,7 +31,8 @@
         <label class="che-nowrap">&nbsp;</label>
       </div>
       <div class="ui-grid-col-9">
-        <label class="cb-label"><input type="checkbox" [(ngModel)]="lead" formControlName="lead" /> Lead
+        <label class="cb-label"><input type="checkbox" [(ngModel)]="lead" formControlName="lead">
+          Lead
         </label>
         <label class="cb-label"><input type="checkbox" [(ngModel)]="boulder" formControlName="boulder" />
           Bouldern </label>
@@ -52,7 +53,8 @@
         <label class="che-nowrap">Dauer</label>
       </div>
       <div class="ui-grid-col-9">
-        <input pInputText placeholder="Wert in Minuten" type="number" formControlName="trainingszeit" />
+        <input pInputText placeholder="Wert in Minuten" type="number" formControlName="trainingszeit"
+          [attr.disabled]="readonly ? 'disabled' : null" />
       </div>
     </div>
 
@@ -62,7 +64,7 @@
       </div>
       <div class="ui-grid-col-9">
         <p-dropdown [options]="belastungOptions" [(ngModel)]="belastung" formControlName="belastung"
-          [styleClass]="'dd-width'"></p-dropdown>
+          [styleClass]="'dd-width'" [attr.disabled]="readonly ? 'disabled' : null"></p-dropdown>
       </div>
     </div>
 
@@ -71,7 +73,8 @@
         <label class="che-nowrap">Züge 1-2</label>
       </div>
       <div class="ui-grid-col-9">
-        <input pInputText placeholder="Anzahl Züge 1-2" type="number" formControlName="zuege12" />
+        <input pInputText placeholder="Anzahl Züge 1-2" type="number" formControlName="zuege12"
+          [attr.disabled]="readonly ? 'disabled' : null" />
       </div>
     </div>
     <div class="ui-grid-row">
@@ -79,7 +82,8 @@
         <label class="che-nowrap">Züge 2-3</label>
       </div>
       <div class="ui-grid-col-9">
-        <input pInputText placeholder="Anzahl Züge 2-3" type="number" formControlName="zuege23" />
+        <input pInputText placeholder="Anzahl Züge 2-3" type="number" formControlName="zuege23"
+          [attr.disabled]="readonly ? 'disabled' : null" />
       </div>
     </div>
     <div class="ui-grid-row">
@@ -87,7 +91,8 @@
         <label class="che-nowrap">Züge 3-4</label>
       </div>
       <div class="ui-grid-col-9">
-        <input pInputText placeholder="Anzahl Züge 3-4" type="number" formControlName="zuege34" />
+        <input pInputText placeholder="Anzahl Züge 3-4" type="number" formControlName="zuege34"
+          [attr.disabled]="readonly ? 'disabled' : null" />
       </div>
     </div>
 
@@ -96,7 +101,7 @@
         <label class="che-nowrap">Wettkampf</label>
       </div>
       <div class="ui-grid-col-9">
-        <input pInputText placeholder="z.B. EYC, MYCC" type="text" formControlName="wettkampf" />
+        <input pInputText placeholder="z.B. EYC, MYCC" type="text" formControlName="wettkampf" [readonly]="readonly" />
       </div>
     </div>
 
@@ -123,7 +128,8 @@
               <label class="che-nowrap">Schlaf</label>
             </div>
             <div class="ui-grid-col-8">
-              <input pInputText placeholder="in Stunden" type="number" formControlName="schlaf" style="width: 100%" />
+              <input pInputText placeholder="in Stunden" type="number" formControlName="schlaf" style="width: 100%"
+                [attr.disabled]="readonly ? 'disabled' : null" />
             </div>
           </div>
 
@@ -136,17 +142,20 @@
         <label class="che-nowrap">Sonstiges</label>
       </div>
       <div class="ui-grid-col-9">
-        <p-dropdown [options]="sonstigesOptions" [(ngModel)]="sonstiges" formControlName="sonstiges" [editable]="true"
-          [styleClass]="'dd-width'" [placeholder]="'wählen oder eintippen...'">
+        <p-dropdown [options]="sonstigesOptions" [(ngModel)]="sonstiges" formControlName="sonstiges"
+          [editable]="!readonly" [styleClass]="'dd-width'" [placeholder]="'wählen oder eintippen...'"
+          [readonly]="readonly">
         </p-dropdown>
       </div>
     </div>
 
     <div class="form-buttons">
+      <button pButton type="button" style="margin-top: 0.4em;" class="ui-button-primary" (click)="cancel()"
+        label="Zurück" *ngIf="readonly"></button>
       <button pButton type="button" style="margin-top: 0.4em;" class="ui-button-primary" (click)="save()"
-        label="Speichern"></button>
+        label="Speichern" *ngIf="!readonly"></button>
       <button pButton type="button" style="margin-top: 0.4rem; margin-left: 0.4rem" class="ui-button-secondary"
-        (click)="cancel()" label="Abbrechen"></button>
+        (click)="cancel()" label="Abbrechen" *ngIf="!readonly"></button>
     </div>
 
   </form>
