@@ -86,63 +86,62 @@ export class WorkoutComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.initCalendarLocale();
     this.title = this.route.snapshot.paramMap.get('wo');
     this.workoutId = this.route.snapshot.paramMap.get('wo');
+
     this.route.queryParamMap.subscribe(map => {
       this.readonly = (map.get('ro') === '1') ? true : false;
-    });
 
-    this.initCalendarLocale();
-
-    this.currentUser = this.authenticationService.getUsername();
-
-    this.workoutForm = this.fb.group({
-      datum: new FormControl(),
-      location: new FormControl(),
-      lead: new FormControl(),
-      boulder: new FormControl(),
-      kraft: new FormControl(),
-      stretching: new FormControl(),
-      campus: new FormControl(),
-      mentaltraining: new FormControl(),
-      trainingszeit: [null, Validators.required],
-      belastung: new FormControl(),
-      zuege12: [null, Validators.required],
-      zuege23: [null, Validators.required],
-      zuege34: [null, Validators.required],
-      wettkampf: [null, Validators.required],
-      sonstiges: new FormControl(),
-      schlaf: [null, Validators.required],
-    });
-
-    if (this.workoutId !== 'new') {
-      this.backendService.getWorkout(this.currentUser, +this.title).subscribe((res) => {
-        const wo: Workout = res;
-        console.log(JSON.stringify(wo));
-
-        this.workoutForm.setValue({
-          datum: new Date(wo.datum),
-          location: wo.ort,
-          lead: wo.lead === 1 ? true : false,
-          boulder: wo.bouldern === 1 ? true : false,
-          kraft: wo.kraftraum === 1 ? true : false,
-          stretching: wo.dehnen === 1 ? true : false,
-          campus: wo.campus === 1 ? true : false,
-          mentaltraining: wo.mentaltraining === 1 ? true : false,
-          trainingszeit: wo.trainingszeit,
-          belastung: wo.belastung,
-          zuege12: wo.zuege12,
-          zuege23: wo.zuege23,
-          zuege34: wo.zuege34,
-          wettkampf: wo.wettkampf,
-          sonstiges: wo.sonstiges,
-          schlaf: wo.schlaf,
-        });
-        this.gefuehl = wo.gefuehl;
-        this.setGefuehlImages(this.gefuehl);
+      this.workoutForm = this.fb.group({
+        datum: new FormControl({ value: new Date(), disabled: this.readonly }),
+        location: new FormControl({ value: '', disabled: this.readonly }),
+        lead: new FormControl({ value: true, disabled: this.readonly }),
+        boulder: new FormControl({ value: false, disabled: this.readonly }),
+        kraft: new FormControl({ value: false, disabled: this.readonly }),
+        stretching: new FormControl({ value: false, disabled: this.readonly }),
+        campus: new FormControl({ value: false, disabled: this.readonly }),
+        mentaltraining: new FormControl({ value: false, disabled: this.readonly }),
+        trainingszeit: [null, Validators.required],
+        belastung: new FormControl({ value: 14, disabled: this.readonly }),
+        zuege12: [null, Validators.required],
+        zuege23: [null, Validators.required],
+        zuege34: [null, Validators.required],
+        wettkampf: [null, Validators.required],
+        sonstiges: new FormControl({ value: '', disabled: this.readonly }),
+        schlaf: [null, Validators.required],
       });
-    }
 
+      this.currentUser = this.authenticationService.getUsername();
+
+      if (this.workoutId !== 'new') {
+        this.backendService.getWorkout(this.currentUser, +this.title).subscribe((res) => {
+          const wo: Workout = res;
+          console.log(JSON.stringify(wo));
+
+          this.workoutForm.setValue({
+            datum: new Date(wo.datum),
+            location: wo.ort,
+            lead: wo.lead === 1 ? true : false,
+            boulder: wo.bouldern === 1 ? true : false,
+            kraft: wo.kraftraum === 1 ? true : false,
+            stretching: wo.dehnen === 1 ? true : false,
+            campus: wo.campus === 1 ? true : false,
+            mentaltraining: wo.mentaltraining === 1 ? true : false,
+            trainingszeit: wo.trainingszeit,
+            belastung: wo.belastung,
+            zuege12: wo.zuege12,
+            zuege23: wo.zuege23,
+            zuege34: wo.zuege34,
+            wettkampf: wo.wettkampf,
+            sonstiges: wo.sonstiges,
+            schlaf: wo.schlaf,
+          });
+          this.gefuehl = wo.gefuehl;
+          this.setGefuehlImages(this.gefuehl);
+        });
+      }
+    });
   }
 
   public save() {
@@ -183,8 +182,9 @@ export class WorkoutComponent implements OnInit {
       );
     }
 
-    // location.reload();
-    this.router.navigate(['/home']);
+    setTimeout(() => {
+      this.router.navigate(['/home']);
+    }, 500);
   }
 
   public cancel() {
@@ -192,27 +192,35 @@ export class WorkoutComponent implements OnInit {
   }
 
   public selectGrinning() {
-    this.gefuehl = 1;
-    this.resetImages();
-    this.imgGrinning = this.imgGrinningColor;
+    if (!this.readonly) {
+      this.gefuehl = 1;
+      this.resetImages();
+      this.imgGrinning = this.imgGrinningColor;
+    }
   }
 
   public selectSmirking() {
-    this.gefuehl = 2;
-    this.resetImages();
-    this.imgSmirking = this.imgSmirkingColor;
+    if (!this.readonly) {
+      this.gefuehl = 2;
+      this.resetImages();
+      this.imgSmirking = this.imgSmirkingColor;
+    }
   }
 
   public selectFrowning() {
-    this.gefuehl = 3;
-    this.resetImages();
-    this.imgFrowning = this.imgFrowningColor;
+    if (!this.readonly) {
+      this.gefuehl = 3;
+      this.resetImages();
+      this.imgFrowning = this.imgFrowningColor;
+    }
   }
 
   public selectFearful() {
-    this.gefuehl = 4;
-    this.resetImages();
-    this.imgFearful = this.imgFearfulColor;
+    if (!this.readonly) {
+      this.gefuehl = 4;
+      this.resetImages();
+      this.imgFearful = this.imgFearfulColor;
+    }
   }
 
   private resetImages() {
