@@ -27,8 +27,23 @@ export class BackendService {
             + '/workouts?page=' + page + '&size=' + pageSize);
     }
 
+    getWorkout(username: string, id: number): Observable<Workout> {
+        return this.http.get<Workout>(this.ENDPOINT_URL_BASE + 'users/all/workouts/' + id);
+    }
+
     addWorkout(workout: Workout) {
         return this.http.post<Workout>(this.ENDPOINT_URL_BASE + 'users/' + workout.benutzername + '/workouts', workout)
+            .pipe(
+                catchError(err => {
+                    console.log(err.message);
+                    // this.goToLoginPage();
+                    return of('error in addWorkout: ' + err.message);
+                })
+            );
+    }
+
+    changeWorkout(workout: Workout, workoutId: number) {
+        return this.http.put<Workout>(this.ENDPOINT_URL_BASE + 'users/' + workout.benutzername + '/workouts/' + workoutId, workout)
             .pipe(
                 catchError(err => {
                     console.log(err.message);

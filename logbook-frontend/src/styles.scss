@@ -20,10 +20,15 @@
 
 .colMinWithForDate {
     min-width: 100px;
+    white-space: nowrap;
 }
 
 .colWidthBenutzer {
     width: 70px;
+}
+
+.colWidthIcons {
+    width: 54px;
 }
 
 td.nowrap {

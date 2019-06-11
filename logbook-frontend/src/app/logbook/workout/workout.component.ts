@@ -21,6 +21,7 @@ import { errorHandler } from '@angular/platform-browser/src/browser';
 export class WorkoutComponent implements OnInit {
   title: string;
   currentUser: string;
+  workoutId: string;
 
   deCH: any;
 
@@ -74,6 +75,8 @@ export class WorkoutComponent implements OnInit {
   ]
   gefuehl: number;
 
+  readonly = true;
+
   constructor(private backendService: BackendService, private authenticationService: AuthenticationService,
     private router: Router, private route: ActivatedRoute, private fb: FormBuilder) {
 
@@ -84,6 +87,11 @@ export class WorkoutComponent implements OnInit {
 
   ngOnInit() {
     this.title = this.route.snapshot.paramMap.get('wo');
+    this.workoutId = this.route.snapshot.paramMap.get('wo');
+    this.route.queryParamMap.subscribe(map => {
+      this.readonly = (map.get('ro') === '1') ? true : false;
+    });
+
     this.initCalendarLocale();
 
     this.currentUser = this.authenticationService.getUsername();
@@ -106,26 +114,40 @@ export class WorkoutComponent implements OnInit {
       sonstiges: new FormControl(),
       schlaf: [null, Validators.required],
     });
+
+    if (this.workoutId !== 'new') {
+      this.backendService.getWorkout(this.currentUser, +this.title).subscribe((res) => {
+        const wo: Workout = res;
+        console.log(JSON.stringify(wo));
+
+        this.workoutForm.setValue({
+          datum: new Date(wo.datum),
+          location: wo.ort,
+          lead: wo.lead === 1 ? true : false,
+          boulder: wo.bouldern === 1 ? true : false,
+          kraft: wo.kraftraum === 1 ? true : false,
+          stretching: wo.dehnen === 1 ? true : false,
+          campus: wo.campus === 1 ? true : false,
+          mentaltraining: wo.mentaltraining === 1 ? true : false,
+          trainingszeit: wo.trainingszeit,
+          belastung: wo.belastung,
+          zuege12: wo.zuege12,
+          zuege23: wo.zuege23,
+          zuege34: wo.zuege34,
+          wettkampf: wo.wettkampf,
+          sonstiges: wo.sonstiges,
+          schlaf: wo.schlaf,
+        });
+        this.gefuehl = wo.gefuehl;
+        this.setGefuehlImages(this.gefuehl);
+      });
+    }
+
   }
 
   public save() {
     const val = this.workoutForm.value;
-    console.log('datum: ' + val.datum);
-    console.log('ort: ' + val.location);
-    console.log('lead: ' + val.lead);
-    console.log('boulder: ' + val.boulder);
-    console.log('kraft: ' + val.kraft);
-    console.log('stretching: ' + val.stretching);
-    console.log('campus: ' + val.campus);
-    console.log('mentaltraining: ' + val.mentaltraining);
-    console.log('trainingszeit: ' + val.trainingszeit);
-    console.log('belastung: ' + val.belastung);
-    console.log('zuege12: ' + val.zuege12);
-    console.log('zuege23: ' + val.zuege23);
-    console.log('zuege34: ' + val.zuege34);
-    console.log('wettkampf: ' + val.wettkampf);
-    console.log('sonstiges: ' + val.sonstiges);
-    console.log('schlaf: ' + val.schlaf);
+    console.log('workoutForm values: ' + JSON.stringify(val));
     console.log('gefühl: ' + this.gefuehl);
 
     const workout: Workout = {
@@ -149,13 +171,20 @@ export class WorkoutComponent implements OnInit {
       gefuehl: Math.round(this.gefuehl),
     };
 
-    this.backendService.addWorkout(workout).subscribe(
-      data => console.log('workout successfully added: ' + data),
-      error => console.log('addWorkout error: ' + error)
-    );
+    if (this.workoutId === 'new') {
+      this.backendService.addWorkout(workout).subscribe(
+        data => console.log('workout successfully added: ' + data),
+        error => console.log('addWorkout error: ' + error)
+      );
+    } else {
+      this.backendService.changeWorkout(workout, +this.workoutId).subscribe(
+        data => console.log('workout successfully changed: ' + data),
+        error => console.log('changeWorkout error: ' + error)
+      );
+    }
 
+    // location.reload();
     this.router.navigate(['/home']);
-    location.reload();
   }
 
   public cancel() {
@@ -191,6 +220,26 @@ export class WorkoutComponent implements OnInit {
     this.imgSmirking = this.imgSmirkingGrey;
     this.imgFrowning = this.imgFrowningGrey;
     this.imgFearful = this.imgFearfulGrey;
+  }
+
+  private setGefuehlImages(gefuehl: number) {
+    this.resetImages();
+    switch (gefuehl) {
+      case 1:
+        this.imgGrinning = this.imgGrinningColor;
+        break;
+      case 2:
+        this.imgSmirking = this.imgSmirkingColor;
+        break;
+      case 3:
+        this.imgFrowning = this.imgFrowningColor;
+        break;
+      case 4:
+        this.imgFearful = this.imgFearfulColor;
+        break;
+      default:
+        console.log('invalid Gefuehl value: ' + gefuehl);
+    }
   }
 
   private initCalendarLocale() {

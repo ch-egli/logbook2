@@ -17,10 +17,10 @@
             <th class="d-none d-lg-table-cell">Züge12</th>
             <th class="d-none d-lg-table-cell">Züge23</th>
             <th class="d-none d-lg-table-cell">Züge34</th>
-            <th></th>
+            <th class="colWidthIcons"></th>
           </tr>
           <tr *ngIf="isTrainer()">
-            <th></th>
+            <th class="colMinWithForDate"></th>
             <th>
               <p-dropdown [options]="userOptions" [style]="{'width':'100%'}" (onChange)="onUserChange($event, dt)">
               </p-dropdown>
@@ -31,14 +31,15 @@
             <th class="d-none d-lg-table-cell"></th>
             <th class="d-none d-lg-table-cell"></th>
             <th class="d-none d-lg-table-cell"></th>
-            <th></th>
+            <th class="colWidthIcons"></th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-workouts let-rid="rowIndex">
           <tr>
             <td class="colMinWithForDate">
               <span class="weekday">{{ workouts.datum | date:'EE' }}</span>
-              <a [routerLink]="['/workout', workouts.id]">{{ workouts.datum | date:'dd.MM.yy' }}</a>
+              <a [routerLink]="['/workout', workouts.id]"
+                [queryParams]="{ ro: 1 }">{{ workouts.datum | date:'dd.MM.yy' }}</a>
             </td>
             <td>{{ workouts.benutzername }}</td>
             <td>{{ workouts.ort }}</td>
@@ -46,8 +47,8 @@
             <td class="d-none d-md-table-cell">{{ workouts.belastung }}</td>
             <td class="d-none d-lg-table-cell">{{ workouts.zuege12 }}</td>
             <td class="d-none d-lg-table-cell">{{ workouts.zuege23 }}</td>
-            <td class="d-none d-ld-table-cell">{{ workouts.zuege34 }}</td>
-            <td>
+            <td class="d-none d-lg-table-cell">{{ workouts.zuege34 }}</td>
+            <td class="colWidthIcons">
               <span *ngIf="isMyWorkout(workouts)">
                 <a [routerLink]="['/workout', workouts.id]"><span class="fa fa-pencil-square-o"></span></a> |
                 <a (click)="askAndDelete(workouts)"><span class="fa fa-trash-o"></span></a>
