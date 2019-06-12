@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter, HostListener } from '@angular/core';
 import { Message, DropdownModule } from 'primeng/primeng';
 import { SelectItem } from 'primeng/api';
 
@@ -59,8 +59,12 @@ export class ChartsComponent implements OnInit {
   public maxZuege0 = 0;
   public maxZuege1 = 0;
 
+  public screenWidth: any;
+
   constructor(private chartService: ChartService, private backendService: BackendService,
     private authenticationService: AuthenticationService) {
+    this.screenWidth = window.innerWidth;
+
     this.aboutMessage = 'Climbing Logbook 2';
     for (let i = (new Date()).getFullYear(); i >= 2016; i--) {
       this.yearOptions.push({ label: '' + i, value: '' + i });
@@ -84,6 +88,11 @@ export class ChartsComponent implements OnInit {
       }
       this.loadDataFromServer();
     });
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.screenWidth = window.innerWidth;
   }
 
   loadDataFromServer() {
