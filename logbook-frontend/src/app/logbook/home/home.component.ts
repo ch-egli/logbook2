@@ -4,7 +4,7 @@ import { Workout, WorkoutPageable } from '../_model/backend.models';
 import { Observable, forkJoin } from 'rxjs';
 import { BackendService } from '../_services/backend.service';
 import { LazyLoadEvent } from 'primeng/primeng';
-import { SelectItem } from 'primeng/api';
+import { SelectItem, ConfirmationService } from 'primeng/api';
 
 import { AuthenticationService } from '../../core/_services/authentication.service';
 
@@ -31,7 +31,8 @@ export class HomeComponent implements OnInit {
   workouts: Workout[];
   pagedWorkoutObservable: Observable<WorkoutPageable>;
 
-  constructor(private backendService: BackendService, private authenticationService: AuthenticationService, private route: ActivatedRoute) {
+  constructor(private backendService: BackendService, private authenticationService: AuthenticationService, private route: ActivatedRoute,
+    private confirmationService: ConfirmationService) {
     this.title = 'Climbing Logbook';
     route.params.subscribe(val => {
       // console.log('route activated: ' + JSON.stringify(val));
@@ -43,6 +44,10 @@ export class HomeComponent implements OnInit {
     this.currentUserCapitalized = this.currentUser.charAt(0).toUpperCase() + this.currentUser.slice(1);
     this.welcomeMessage = 'Herzlich Willkommen, ' + this.currentUserCapitalized;
 
+    this.loadPage();
+  }
+
+  public loadPage() {
     this.userObservable = this.backendService.getAthletes();
 
     this.userDiscriminator = this.getUserDiscriminator();
@@ -99,6 +104,22 @@ export class HomeComponent implements OnInit {
 
   public askAndDelete(workout) {
     console.log('askAndDelete: ' + workout.id);
+  }
+
+  confirmDeletion(workout) {
+    this.confirmationService.confirm({
+      message: 'Willst du die Trainingseinheit wirklich löschen?',
+      accept: () => {
+        this.backendService.deleteWorkout(this.currentUser, workout.id).subscribe(
+          data => console.log('workout successfully deleted: ' + workout.id),
+          error => console.log('deleteWorkout error: ' + error),
+          () => this.loadPage()
+        );
+      },
+      reject: () => {
+        // console.log('rejected');
+      }
+    });
   }
 
   private getUserDiscriminator() {

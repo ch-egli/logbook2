@@ -5,6 +5,14 @@
 <div>
   <p-tabView>
     <p-tabPanel header="Trainings" leftIcon="fa fa-list" [selected]="true">
+
+      <p-confirmDialog #cd header="Bestätigung" icon="pi pi-exclamation-triangle">
+        <p-footer>
+          <button type="button" pButton icon="pi pi-check" label="Ja" (click)="cd.accept()"></button>
+          <button type="button" pButton icon="pi pi-times" label="Nein" (click)="cd.reject()"></button>
+        </p-footer>
+      </p-confirmDialog>
+
       <p-table #dt [value]="workouts" [rows]="workoutPageSize" [paginator]="true" [lazy]="true" [filterDelay]="500"
         [totalRecords]="totalWorkouts" (onLazyLoad)="loadWorkoutsLazy($event)">
         <ng-template pTemplate="header">
@@ -51,7 +59,7 @@
             <td class="colWidthIcons">
               <span *ngIf="isMyWorkout(workouts)">
                 <a [routerLink]="['/workout', workouts.id]"><span class="fa fa-pencil-square-o"></span></a> |
-                <a (click)="askAndDelete(workouts)"><span class="fa fa-trash-o"></span></a>
+                <a (click)="confirmDeletion(workouts)"><span class="fa fa-trash-o"></span></a>
               </span>
             </td>
           </tr>

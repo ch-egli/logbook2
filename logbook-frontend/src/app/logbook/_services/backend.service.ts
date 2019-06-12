@@ -53,6 +53,17 @@ export class BackendService {
             );
     }
 
+    deleteWorkout(user: string, workoutId: number) {
+        return this.http.delete(this.ENDPOINT_URL_BASE + 'users/' + user + '/workouts/' + workoutId)
+            .pipe(
+                catchError(err => {
+                    console.log(err.message);
+                    // this.goToLoginPage();
+                    return of('error in deleteWorkout: ' + err.message);
+                })
+            );
+    }
+
     goToLoginPage() {
         localStorage.removeItem('currentUser');
         this.router.navigate(['/login']);
