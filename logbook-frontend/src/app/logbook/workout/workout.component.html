@@ -3,33 +3,26 @@
 </div>
 <div>
   <form [formGroup]="workoutForm">
-    <div class="ui-grid-row">
-      <div class="ui-grid-col-3">
-        <label class="che-nowrap">Datum</label>
-      </div>
-      <div class="ui-grid-col-9">
+    <div>
+      <div>
+        <label class="che-label">Datum</label>
         <p-calendar [(ngModel)]="datum" [showIcon]="true" formControlName="datum" dateFormat="dd.mm.yy" [locale]="deCH"
           [styleClass]="'che-nowrap'">
         </p-calendar>
       </div>
     </div>
 
-    <div class="ui-grid-row">
-      <div class="ui-grid-col-3">
-        <label class="che-nowrap" style="padding-bottom: 0.25em;">Ort</label>
-      </div>
-      <div class="ui-grid-col-9">
+    <div>
+      <div class="che-label">
+        <label class="che-label" style="padding-bottom: 0.25em;">Ort</label>
         <p-dropdown [options]="locationOptions" [(ngModel)]="location" formControlName="location" [editable]="!readonly"
           [styleClass]="'dd-width'" [placeholder]="'wählen oder eintippen...'">
         </p-dropdown>
       </div>
     </div>
 
-    <div class="ui-grid-row">
-      <div class="ui-grid-col-3">
-        <label class="che-nowrap">&nbsp;</label>
-      </div>
-      <div class="ui-grid-col-9">
+    <div>
+      <div class="che-label-container">
         <label class="cb-label"><input type="checkbox" [(ngModel)]="lead" formControlName="lead">
           Lead
         </label>
@@ -47,11 +40,9 @@
       </div>
     </div>
 
-    <div class="ui-grid-row">
-      <div class="ui-grid-col-3">
-        <label class="che-nowrap">Dauer</label>
-      </div>
-      <div class="ui-grid-col-9">
+    <div>
+      <div class="che-label">
+        <label class="che-label">Dauer</label>
         <input pInputText placeholder="Wert in Minuten" type="number" formControlName="trainingszeit"
           [attr.disabled]="readonly ? 'disabled' : null" />
       </div>
@@ -61,104 +52,73 @@
       <img src="assets/images/belastung.png" alt="Belastung Info" style="width:18rem;" />
     </p-overlayPanel>
 
-    <div class="ui-grid-row">
-      <div class="ui-grid-col-3">
-        <label class="che-nowrap">Belastung</label>
-      </div>
-      <div class="ui-grid-col-9">
+    <div>
+      <div class="che-nowrap">
+        <label class="che-label">Belastung</label>
         <p-dropdown [options]="belastungOptions" [(ngModel)]="belastung" formControlName="belastung"
           [styleClass]="'dd-width'" [attr.disabled]="readonly ? 'disabled' : null"></p-dropdown>&nbsp;
         <a (click)="op.show($event)"><span class="fa fa-info-circle" aria-hidden="true"></span></a>
       </div>
     </div>
 
-    <div class="ui-grid-row">
-      <div class="ui-grid-col-3">
-        <label class="che-nowrap">Züge 1-2</label>
-      </div>
-      <div class="ui-grid-col-9">
+    <div>
+      <div class="che-label">
+        <label class="che-label">Züge 1-2</label>
         <input pInputText placeholder="Anzahl Züge 1-2" type="number" formControlName="zuege12"
           [attr.disabled]="readonly ? 'disabled' : null" />
       </div>
     </div>
-    <div class="ui-grid-row">
-      <div class="ui-grid-col-3">
-        <label class="che-nowrap">Züge 2-3</label>
-      </div>
-      <div class="ui-grid-col-9">
+    <div>
+      <div class="che-label">
+        <label class="che-label">Züge 2-3</label>
         <input pInputText placeholder="Anzahl Züge 2-3" type="number" formControlName="zuege23"
           [attr.disabled]="readonly ? 'disabled' : null" />
       </div>
-    </div>
-    <div class="ui-grid-row">
-      <div class="ui-grid-col-3">
-        <label class="che-nowrap">Züge 3-4</label>
-      </div>
-      <div class="ui-grid-col-9">
+      <div class="che-label">
+        <label class="che-label">Züge 3-4</label>
         <input pInputText placeholder="Anzahl Züge 3-4" type="number" formControlName="zuege34"
           [attr.disabled]="readonly ? 'disabled' : null" />
       </div>
     </div>
 
-    <div class="ui-grid-row">
-      <div class="ui-grid-col-3">
-        <label class="che-nowrap">Wettkampf</label>
-      </div>
-      <div class="ui-grid-col-9">
+    <div>
+      <div class="che-label">
+        <label class="che-label">Wettkampf</label>
         <input pInputText placeholder="z.B. EYC, MYCC" type="text" formControlName="wettkampf" [readonly]="readonly" />
       </div>
     </div>
 
-    <div class="ui-grid-row">
-      <div class="ui-grid-col-1">
-        <label class="che-nowrap">&nbsp;</label>
-      </div>
-      <div class="ui-grid-col-11">
-        <p-panel header="Status Infos" [styleClass]="'status-panel'">
-
-          <div class="ui-grid-row">
-            <div class="ui-grid-col-4">
-              <label class="che-nowrap">Gefühl</label>
-            </div>
-            <div class="ui-grid-col-8">
-              <button (click)="selectGrinning()"><img src="{{ imgGrinning }}" style="width:24px" /></button>
-              <button (click)="selectSmirking()"><img src="{{ imgSmirking }}" style="width:24px" /></button>
-              <button (click)="selectFrowning()"><img src="{{ imgFrowning }}" style="width:24px" /></button>
-              <button (click)="selectFearful()"><img src="{{ imgFearful }}" style="width:24px" /></button>
-            </div>
-          </div>
-          <div class="ui-grid-row">
-            <div class="ui-grid-col-4">
-              <label class="che-nowrap">Schlaf</label>
-            </div>
-            <div class="ui-grid-col-8">
-              <input pInputText placeholder="in Stunden" type="number" formControlName="schlaf" style="width: 100%"
-                [attr.disabled]="readonly ? 'disabled' : null" />
-            </div>
-          </div>
-
-        </p-panel>
-      </div>
+    <div style="margin-left: 1.0rem;">
+      <p-panel header="Status Infos" [styleClass]="'status-panel'">
+        <div>
+          <label class="che-label-small">Gefühl</label>
+          <a (click)="selectGrinning()"><img src="{{ imgGrinning }}" class="status-emoji" /></a>
+          <a (click)="selectSmirking()"><img src="{{ imgSmirking }}" class="status-emoji" /></a>
+          <a (click)="selectFrowning()"><img src="{{ imgFrowning }}" class="status-emoji" /></a>
+          <a (click)="selectFearful()"><img src="{{ imgFearful }}" class="status-emoji" /></a>
+        </div>
+        <div>
+          <label class="che-label-small">Schlaf</label>
+          <input pInputText placeholder="in Stunden" type="number" formControlName="schlaf" style="width: 10.6em;"
+            [attr.disabled]="readonly ? 'disabled' : null" />
+        </div>
+      </p-panel>
     </div>
 
-    <div class="ui-grid-row">
-      <div class="ui-grid-col-3">
-        <label class="che-nowrap">Sonstiges</label>
-      </div>
-      <div class="ui-grid-col-9">
-        <p-dropdown [options]="sonstigesOptions" [(ngModel)]="sonstiges" formControlName="sonstiges"
-          [editable]="!readonly" [styleClass]="'dd-width'" [placeholder]="'wählen oder eintippen...'"
-          [readonly]="readonly">
-        </p-dropdown>
-      </div>
+    <div style="margin-top: 0.3em;">
+      <label class="che-label">Sonstiges</label>
+      <p-dropdown [options]="sonstigesOptions" [(ngModel)]="sonstiges" formControlName="sonstiges"
+        [editable]="!readonly" [styleClass]="'dd-width'" [placeholder]="'wählen oder eintippen...'"
+        [readonly]="readonly">
+      </p-dropdown>
     </div>
 
     <div class="form-buttons">
-      <button pButton type="button" style="margin-top: 0.4em;" class="ui-button-primary" (click)="cancel()"
+      <button pButton type="button" style="margin-top: 1.0em;" class="ui-button-primary" (click)="cancel()"
         label="Zurück" *ngIf="readonly"></button>
-      <button pButton type="button" style="margin-top: 0.4em;" class="ui-button-primary" (click)="save()"
+      <button pButton type="button" style="margin-top: 1.0em;" class="ui-button-primary" (click)="save()"
         label="Speichern" *ngIf="!readonly"></button>
-      <button pButton type="button" style="margin-top: 0.4rem; margin-left: 0.4rem" class="ui-button-secondary"
+      <button pButton type="button" style="margin-top: 1.0rem; margin-left: 0.4rem" class="ui-button-secondary"
         (click)="cancel()" label="Abbrechen" *ngIf="!readonly"></button>
     </div>
 

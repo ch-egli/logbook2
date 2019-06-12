@@ -40,7 +40,23 @@ table tr th .ui-dropdown {
 }
 
 .dd-width {
-    width: 12.1rem;
+    width: 10rem;
+}
+
+.che-label {
+    width: 5.2rem;
+    white-space: nowrap;
+}
+
+.che-label-small {
+    width: 4.2rem;
+    white-space: nowrap;
+}
+
+.che-label-container {
+    width: 20.8rem;
+    padding-bottom: 0.3rem;
+    margin-left: 1.0rem;
 }
 
 .che-nowrap {
@@ -72,5 +88,10 @@ table tr th .ui-dropdown {
 }
 
 .ui-overlaypanel-flipped {
-    margin-top: 75px; 
+    margin-top: 75px;
+}
+
+.status-emoji {
+    width:28px; 
+    margin-right: 0.4rem;
 }
