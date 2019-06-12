@@ -19,6 +19,7 @@ import {
     SplitButtonModule, StepsModule, TabViewModule,
     ToggleButtonModule, TabMenuModule
 } from 'primeng/primeng';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { TableModule } from 'primeng/table';
 import { AboutComponent } from './about/about.component';
 import { ThemeComponent } from './theme/theme.component';
@@ -76,7 +77,8 @@ import { ChartsModule } from 'ng2-charts';
         ProgressBarModule,
         ChartsModule,
         TabMenuModule,
-        TableModule
+        TableModule,
+        OverlayPanelModule
     ],
     providers: [ConfirmationService]
 })

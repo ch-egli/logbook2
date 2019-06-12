@@ -11,7 +11,6 @@ import { BackendService } from '../_services/backend.service';
 import { SelectItem } from 'primeng/api';
 
 import { AuthenticationService } from '../../core/_services/authentication.service';
-import { errorHandler } from '@angular/platform-browser/src/browser';
 
 @Component({
   selector: 'app-workout',
@@ -87,8 +86,8 @@ export class WorkoutComponent implements OnInit {
 
   ngOnInit() {
     this.initCalendarLocale();
-    this.title = this.route.snapshot.paramMap.get('wo');
     this.workoutId = this.route.snapshot.paramMap.get('wo');
+    this.title = this.workoutId === 'new' ? 'Trainingseinheit hinzufügen...' : 'Trainingseinheit ändern...';
 
     this.route.queryParamMap.subscribe(map => {
       this.readonly = (map.get('ro') === '1') ? true : false;
