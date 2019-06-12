@@ -82,12 +82,17 @@ export class WorkoutComponent implements OnInit {
     environment.workoutLocations.forEach((location) => {
       this.locationOptions.push({ label: location, value: location });
     });
+    route.params.subscribe(val => {
+      // console.log('route activated: ' + JSON.stringify(val));
+      this.ngOnInit();
+    });
+
   }
 
   ngOnInit() {
     this.initCalendarLocale();
     this.workoutId = this.route.snapshot.paramMap.get('wo');
-    this.title = this.workoutId === 'new' ? 'Trainingseinheit hinzufügen...' : 'Trainingseinheit ändern...';
+    this.title = this.workoutId === 'new' ? 'Neue Trainingseinheit...' : 'Trainingseinheit ändern...';
 
     this.route.queryParamMap.subscribe(map => {
       this.readonly = (map.get('ro') === '1') ? true : false;
@@ -96,7 +101,7 @@ export class WorkoutComponent implements OnInit {
         // initial values do not work, therefore they are initialized as variables...
         datum: new FormControl({ value: new Date(), disabled: this.readonly }),
         location: new FormControl({ value: '', disabled: this.readonly }),
-        lead: new FormControl({ value: true, disabled: this.readonly }),
+        lead: new FormControl({ value: false, disabled: this.readonly }),
         boulder: new FormControl({ value: false, disabled: this.readonly }),
         kraft: new FormControl({ value: false, disabled: this.readonly }),
         stretching: new FormControl({ value: false, disabled: this.readonly }),
@@ -111,11 +116,13 @@ export class WorkoutComponent implements OnInit {
         sonstiges: new FormControl({ value: '', disabled: this.readonly }),
         schlaf: [null, Validators.required],
       });
+      this.gefuehl = 0;
+      this.resetImages();
 
       this.currentUser = this.authenticationService.getUsername();
 
       if (this.workoutId !== 'new') {
-        this.backendService.getWorkout(this.currentUser, +this.title).subscribe((res) => {
+        this.backendService.getWorkout(this.currentUser, +this.workoutId).subscribe((res) => {
           const wo: Workout = res;
           console.log(JSON.stringify(wo));
 
@@ -233,6 +240,8 @@ export class WorkoutComponent implements OnInit {
   private setGefuehlImages(gefuehl: number) {
     this.resetImages();
     switch (gefuehl) {
+      case 0:
+        break;
       case 1:
         this.imgGrinning = this.imgGrinningColor;
         break;
