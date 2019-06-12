@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Workout, WorkoutPageable } from '../_model/backend.models';
 import { Observable, forkJoin } from 'rxjs';
@@ -31,9 +31,17 @@ export class HomeComponent implements OnInit {
   workouts: Workout[];
   pagedWorkoutObservable: Observable<WorkoutPageable>;
 
+  public screenWidth: any;
+  public tableBenutzerWidth: any;
+
   constructor(private backendService: BackendService, private authenticationService: AuthenticationService, private route: ActivatedRoute,
     private confirmationService: ConfirmationService) {
     this.title = 'Climbing Logbook';
+
+    this.screenWidth = window.innerWidth;
+    this.tableBenutzerWidth = this.screenWidth < 560 ? '60px' : null;
+    console.log('tableBenutzerWidth: ' + this.tableBenutzerWidth);
+
     route.params.subscribe(val => {
       // console.log('route activated: ' + JSON.stringify(val));
     });
@@ -45,6 +53,13 @@ export class HomeComponent implements OnInit {
     this.welcomeMessage = 'Herzlich Willkommen, ' + this.currentUserCapitalized;
 
     this.loadPage();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.screenWidth = window.innerWidth;
+    this.tableBenutzerWidth = this.screenWidth < 576 ? '62px' : null;
+    console.log('tableBenutzerWidth: ' + this.tableBenutzerWidth);
   }
 
   public loadPage() {
@@ -95,6 +110,10 @@ export class HomeComponent implements OnInit {
 
   public isTrainer() {
     return this.authenticationService.isTrainer();
+  }
+
+  public isTrainerOrEgliSister() {
+    return this.authenticationService.isTrainer() || this.authenticationService.isEgliSister();
   }
 
   public isMyWorkout(workout) {

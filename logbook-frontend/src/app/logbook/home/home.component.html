@@ -18,8 +18,8 @@
         <ng-template pTemplate="header">
           <tr>
             <th class="colMinWithForDate">Datum</th>
-            <th>Benutzer</th>
             <th>Ort</th>
+            <th *ngIf="isTrainerOrEgliSister()" [style.width]="tableBenutzerWidth">Benutzer</th>
             <th class="d-none d-md-table-cell">Dauer</th>
             <th class="d-none d-md-table-cell">Belastung</th>
             <th class="d-none d-lg-table-cell">Züge12</th>
@@ -29,11 +29,11 @@
           </tr>
           <tr *ngIf="isTrainer()">
             <th class="colMinWithForDate"></th>
+            <th></th>
             <th>
               <p-dropdown [options]="userOptions" [style]="{'width':'100%'}" (onChange)="onUserChange($event, dt)">
               </p-dropdown>
             </th>
-            <th></th>
             <th class="d-none d-md-table-cell"></th>
             <th class="d-none d-md-table-cell"></th>
             <th class="d-none d-lg-table-cell"></th>
@@ -49,8 +49,8 @@
               <a [routerLink]="['/workout', workouts.id]"
                 [queryParams]="{ ro: 1 }">{{ workouts.datum | date:'dd.MM.yy' }}</a>
             </td>
-            <td>{{ workouts.benutzername }}</td>
             <td>{{ workouts.ort }}</td>
+            <td *ngIf="isTrainerOrEgliSister()" [style.width]="tableBenutzerWidth">{{ workouts.benutzername }}</td>
             <td class="d-none d-md-table-cell">{{ workouts.trainingszeit }}</td>
             <td class="d-none d-md-table-cell">{{ workouts.belastung }}</td>
             <td class="d-none d-lg-table-cell">{{ workouts.zuege12 }}</td>
