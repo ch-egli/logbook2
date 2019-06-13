@@ -145,7 +145,6 @@ export class WorkoutComponent implements OnInit {
             schlaf: wo.schlaf,
           });
           this.gefuehl = wo.gefuehl;
-          this.setGefuehlImages(this.gefuehl);
         });
       }
     });
@@ -249,28 +248,6 @@ export class WorkoutComponent implements OnInit {
     this.imgFearful = this.imgFearfulGrey;
   }
 
-  private setGefuehlImages(gefuehl: number) {
-    this.resetImages();
-    switch (gefuehl) {
-      case null:
-        break;
-      case 1:
-        this.imgGrinning = this.imgGrinningColor;
-        break;
-      case 2:
-        this.imgSmirking = this.imgSmirkingColor;
-        break;
-      case 3:
-        this.imgFrowning = this.imgFrowningColor;
-        break;
-      case 4:
-        this.imgFearful = this.imgFearfulColor;
-        break;
-      default:
-        console.log('invalid Gefuehl value: ' + gefuehl);
-    }
-  }
-
   private initCalendarLocale() {
     this.deCH = {
       firstDayOfWeek: 1,
@@ -296,7 +273,7 @@ export class WorkoutComponent implements OnInit {
     }
   }
 
-  private isNew() {
+  public isNew() {
     return this.workoutId === 'new';
   }
 }
