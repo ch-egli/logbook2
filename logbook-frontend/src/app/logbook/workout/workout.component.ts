@@ -116,7 +116,7 @@ export class WorkoutComponent implements OnInit {
         sonstiges: new FormControl({ value: '', disabled: this.readonly }),
         schlaf: [null, Validators.required],
       });
-      this.gefuehl = 0;
+      this.gefuehl = null;
       this.resetImages();
 
       this.currentUser = this.authenticationService.getUsername();
@@ -174,7 +174,7 @@ export class WorkoutComponent implements OnInit {
       wettkampf: val.wettkampf,
       sonstiges: val.sonstiges,
       schlaf: Math.round(val.schlaf),
-      gefuehl: Math.round(this.gefuehl),
+      gefuehl: this.gefuehl,
     };
 
     if (this.workoutId === 'new') {
@@ -240,7 +240,7 @@ export class WorkoutComponent implements OnInit {
   private setGefuehlImages(gefuehl: number) {
     this.resetImages();
     switch (gefuehl) {
-      case 0:
+      case null:
         break;
       case 1:
         this.imgGrinning = this.imgGrinningColor;

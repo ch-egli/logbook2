@@ -4,88 +4,72 @@
 <div>
   <form [formGroup]="workoutForm">
     <div>
-      <div>
-        <label class="che-label">Datum</label>
-        <p-calendar [(ngModel)]="datum" [showIcon]="true" formControlName="datum" dateFormat="dd.mm.yy" [locale]="deCH"
-          [styleClass]="'che-nowrap'">
-        </p-calendar>
-      </div>
+      <label class="che-label">Datum</label>
+      <p-calendar [(ngModel)]="datum" [showIcon]="false" formControlName="datum" dateFormat="dd.mm.yy" [locale]="deCH"
+        [styleClass]="'che-nowrap'">
+      </p-calendar>
     </div>
 
     <div>
-      <div class="che-label">
-        <label class="che-label" style="padding-bottom: 0.25em;">Ort</label>
-        <p-dropdown [options]="locationOptions" [(ngModel)]="location" formControlName="location" [editable]="!readonly"
-          [styleClass]="'dd-width'" [placeholder]="'wählen oder eintippen...'">
-        </p-dropdown>
-      </div>
+      <label class="che-label" style="padding-bottom: 0.25em;">Ort</label>
+      <p-dropdown [options]="locationOptions" [(ngModel)]="location" formControlName="location" [editable]="!readonly"
+        [styleClass]="'dd-width'" [placeholder]="'wählen oder eintippen...'">
+      </p-dropdown>
+    </div>
+
+    <div class="che-label-container">
+      <label class="cb-label"><input type="checkbox" [(ngModel)]="lead" formControlName="lead">
+        Lead
+      </label>
+      <label class="cb-label"><input type="checkbox" [(ngModel)]="boulder" formControlName="boulder" />
+        Bouldern </label>
+      <label class="cb-label"><input type="checkbox" [(ngModel)]="kraft" formControlName="kraft" /> Kraft
+      </label>
+      <label class="cb-label"><input type="checkbox" [(ngModel)]="stretching" formControlName="stretching" />
+        Dehnen </label>
+      <label class="cb-label"><input type="checkbox" [(ngModel)]="campus" formControlName="campus" />
+        Campus </label>
+      <label class="cb-label"><input type="checkbox" [(ngModel)]="mentaltraining" formControlName="mentaltraining" />
+        Mentaltraining
+      </label>
     </div>
 
     <div>
-      <div class="che-label-container">
-        <label class="cb-label"><input type="checkbox" [(ngModel)]="lead" formControlName="lead">
-          Lead
-        </label>
-        <label class="cb-label"><input type="checkbox" [(ngModel)]="boulder" formControlName="boulder" />
-          Bouldern </label>
-        <label class="cb-label"><input type="checkbox" [(ngModel)]="kraft" formControlName="kraft" /> Kraft
-        </label>
-        <label class="cb-label"><input type="checkbox" [(ngModel)]="stretching" formControlName="stretching" />
-          Dehnen </label>
-        <label class="cb-label"><input type="checkbox" [(ngModel)]="campus" formControlName="campus" />
-          Campus </label>
-        <label class="cb-label"><input type="checkbox" [(ngModel)]="mentaltraining" formControlName="mentaltraining" />
-          Mentaltraining
-        </label>
-      </div>
-    </div>
-
-    <div>
-      <div class="che-label">
-        <label class="che-label">Dauer</label>
-        <input pInputText placeholder="Wert in Minuten" type="number" formControlName="trainingszeit"
-          [attr.disabled]="readonly ? 'disabled' : null" />
-      </div>
+      <label class="che-label">Dauer</label>
+      <input pInputText placeholder="Wert in Minuten" type="number" formControlName="trainingszeit"
+        [attr.disabled]="readonly ? 'disabled' : null" />
     </div>
 
     <p-overlayPanel #op [dismissable]="true" [showCloseIcon]="true">
       <img src="assets/images/belastung.png" alt="Belastung Info" style="width:18rem;" />
     </p-overlayPanel>
 
-    <div>
-      <div class="che-nowrap">
-        <label class="che-label">Belastung</label>
-        <p-dropdown [options]="belastungOptions" [(ngModel)]="belastung" formControlName="belastung"
-          [styleClass]="'dd-width'" [attr.disabled]="readonly ? 'disabled' : null"></p-dropdown>&nbsp;
-        <a (click)="op.show($event)"><span class="fa fa-info-circle" aria-hidden="true"></span></a>
-      </div>
+    <div class="che-nowrap">
+      <label class="che-label">Belastung</label>
+      <p-dropdown [options]="belastungOptions" [(ngModel)]="belastung" formControlName="belastung"
+        [styleClass]="'dd-width'" [attr.disabled]="readonly ? 'disabled' : null"></p-dropdown>&nbsp;
+      <a (click)="op.show($event)"><span class="fa fa-info-circle" aria-hidden="true"></span></a>
     </div>
 
     <div>
-      <div class="che-label">
-        <label class="che-label">Züge 1-2</label>
-        <input pInputText placeholder="Anzahl Züge 1-2" type="number" formControlName="zuege12"
-          [attr.disabled]="readonly ? 'disabled' : null" />
-      </div>
+      <label class="che-label">Züge 1-2</label>
+      <input pInputText placeholder="Anzahl Züge 1-2" type="number" formControlName="zuege12"
+        [attr.disabled]="readonly ? 'disabled' : null" />
     </div>
     <div>
-      <div class="che-label">
-        <label class="che-label">Züge 2-3</label>
-        <input pInputText placeholder="Anzahl Züge 2-3" type="number" formControlName="zuege23"
-          [attr.disabled]="readonly ? 'disabled' : null" />
-      </div>
-      <div class="che-label">
-        <label class="che-label">Züge 3-4</label>
-        <input pInputText placeholder="Anzahl Züge 3-4" type="number" formControlName="zuege34"
-          [attr.disabled]="readonly ? 'disabled' : null" />
-      </div>
+      <label class="che-label">Züge 2-3</label>
+      <input pInputText placeholder="Anzahl Züge 2-3" type="number" formControlName="zuege23"
+        [attr.disabled]="readonly ? 'disabled' : null" />
+    </div>
+    <div>
+      <label class="che-label">Züge 3-4</label>
+      <input pInputText placeholder="Anzahl Züge 3-4" type="number" formControlName="zuege34"
+        [attr.disabled]="readonly ? 'disabled' : null" />
     </div>
 
     <div>
-      <div class="che-label">
-        <label class="che-label">Wettkampf</label>
-        <input pInputText placeholder="z.B. EYC, MYCC" type="text" formControlName="wettkampf" [readonly]="readonly" />
-      </div>
+      <label class="che-label">Wettkampf</label>
+      <input pInputText placeholder="z.B. EYC, MYCC" type="text" formControlName="wettkampf" [readonly]="readonly" />
     </div>
 
     <div style="margin-left: 1.0rem;">
