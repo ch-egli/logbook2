@@ -72,7 +72,7 @@
       <input pInputText placeholder="z.B. EYC, MYCC" type="text" formControlName="wettkampf" [readonly]="readonly" />
     </div>
 
-    <div style="margin-left: 1.0rem;">
+    <div style="margin-left: 1.0rem;" *ngIf="isNew()">
       <p-panel header="Status Infos" [styleClass]="'status-panel'">
         <div>
           <label class="che-label-small">Gefühl</label>

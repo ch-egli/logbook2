@@ -27,6 +27,11 @@ export class BackendService {
             + '/workouts?page=' + page + '&size=' + pageSize);
     }
 
+    getPagedStati(username: string, page: number, pageSize: number): Observable<StatusPageable> {
+        return this.http.get<StatusPageable>(this.ENDPOINT_URL_BASE + 'users/' + username
+            + '/status?page=' + page + '&size=' + pageSize);
+    }
+
     getWorkout(username: string, id: number): Observable<Workout> {
         return this.http.get<Workout>(this.ENDPOINT_URL_BASE + 'users/all/workouts/' + id);
     }

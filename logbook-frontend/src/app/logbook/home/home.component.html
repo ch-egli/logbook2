@@ -2,16 +2,17 @@
   <h1>{{ title }}</h1>
   <p>{{ welcomeMessage }}</p>
 </div>
+
+<p-confirmDialog #cd header="Bestätigung" icon="pi pi-exclamation-triangle">
+  <p-footer>
+    <button type="button" pButton icon="pi pi-check" label="Ja" (click)="cd.accept()"></button>
+    <button type="button" pButton icon="pi pi-times" label="Nein" (click)="cd.reject()"></button>
+  </p-footer>
+</p-confirmDialog>
+
 <div>
   <p-tabView>
     <p-tabPanel header="Trainings" leftIcon="fa fa-list" [selected]="true">
-
-      <p-confirmDialog #cd header="Bestätigung" icon="pi pi-exclamation-triangle">
-        <p-footer>
-          <button type="button" pButton icon="pi pi-check" label="Ja" (click)="cd.accept()"></button>
-          <button type="button" pButton icon="pi pi-times" label="Nein" (click)="cd.reject()"></button>
-        </p-footer>
-      </p-confirmDialog>
 
       <p-table #dt [value]="workouts" [rows]="workoutPageSize" [paginator]="true" [lazy]="true" [filterDelay]="500"
         [totalRecords]="totalWorkouts" (onLazyLoad)="loadWorkoutsLazy($event)">
@@ -66,8 +67,52 @@
         </ng-template>
       </p-table>
     </p-tabPanel>
+
     <p-tabPanel header="Status" leftIcon="fa fa-heartbeat">
-      Hier kommen die Status Daten...
+
+      <p-table #dt2 [value]="status" [rows]="statusPageSize" [paginator]="true" [lazy]="true" [filterDelay]="500"
+        [totalRecords]="totalStati" (onLazyLoad)="loadStatiLazy($event)">
+        <ng-template pTemplate="header">
+          <tr>
+            <th class="colMinWithForDate">Datum</th>
+            <th [style.width]="tableColWidth">Schlaf</th>
+            <th [style.width]="tableColWidth">Gefühl</th>
+            <th *ngIf="isTrainer()" [style.width]="tableBenutzerWidth">Benutzer</th>
+            <th class="d-none d-lg-table-cell">Bemerkung</th>
+            <th class="colWidthIcons"></th>
+          </tr>
+          <tr *ngIf="isTrainer()">
+            <th class="colMinWithForDate"></th>
+            <th [style.width]="tableColWidth"></th>
+            <th [style.width]="tableColWidth"></th>
+            <th>
+              <p-dropdown [options]="userOptions" [style]="{'width':'100%'}" (onChange)="onUserChange($event, dt2)">
+              </p-dropdown>
+            </th>
+            <th class="d-none d-lg-table-cell"></th>
+            <th class="colWidthIcons"></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-status let-rid="rowIndex">
+          <tr>
+            <td class="colMinWithForDate">
+              <span class="weekday">{{ status.datum | date:'EE' }}</span>
+              <a [routerLink]="['/status', status.id]"
+                [queryParams]="{ ro: 1 }">{{ status.datum | date:'dd.MM.yy' }}</a>
+            </td>
+            <td [style.width]="tableColWidth">{{ status.schlaf }}</td>
+            <td [style.width]="tableColWidth">{{ status.gefuehl }}</td>
+            <td *ngIf="isTrainer()" [style.width]="tableBenutzerWidth">{{ status.benutzername }}</td>
+            <td class="d-none d-lg-table-cell">{{ status.bemerkung }}</td>
+            <td class="colWidthIcons">
+              <span *ngIf="isMyStatus(status)">
+                <a [routerLink]="['/status', status.id]"><span class="fa fa-pencil-square-o"></span></a> |
+                <a (click)="confirmDeletionStatus(status)"><span class="fa fa-trash-o"></span></a>
+              </span>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
     </p-tabPanel>
   </p-tabView>
 </div>

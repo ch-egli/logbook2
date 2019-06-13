@@ -93,6 +93,7 @@ export class ChartsComponent implements OnInit {
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.screenWidth = window.innerWidth;
+    this.adjustHeight(this.screenWidth);
   }
 
   loadDataFromServer() {
@@ -295,6 +296,18 @@ export class ChartsComponent implements OnInit {
       events: ['click', 'dblclick', 'mouseover', 'mouseout'],
       annotations: dynamicAnnotations
     };
+  }
+
+  public adjustHeight(screenSize: number) {
+    if (screenSize < 400) {
+      // console.log('setHeight 250');
+      // const ctx: any = document.getElementById('che-chart1');
+      // ctx.height = '250px';
+    } else {
+      // console.log('setHeight 400');
+      // const ctx: any = document.getElementById('che-chart1');
+      // ctx.height = '400px';
+    }
   }
 
   public assembleLineChartOptions(annotations) {

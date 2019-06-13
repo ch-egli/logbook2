@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 
 import { environment } from '../../../environments/environment';
 
-import { Workout, WorkoutPageable } from '../_model/backend.models';
+import { Workout, WorkoutPageable, Status } from '../_model/backend.models';
 import { Observable, forkJoin } from 'rxjs';
 import { BackendService } from '../_services/backend.service';
 import { SelectItem } from 'primeng/api';
@@ -92,10 +92,10 @@ export class WorkoutComponent implements OnInit {
   ngOnInit() {
     this.initCalendarLocale();
     this.workoutId = this.route.snapshot.paramMap.get('wo');
-    this.title = this.workoutId === 'new' ? 'Neue Trainingseinheit...' : 'Trainingseinheit ändern...';
 
     this.route.queryParamMap.subscribe(map => {
       this.readonly = (map.get('ro') === '1') ? true : false;
+      this.setTitle(this.workoutId, this.readonly);
 
       this.workoutForm = this.fb.group({
         // initial values do not work, therefore they are initialized as variables...
@@ -177,10 +177,22 @@ export class WorkoutComponent implements OnInit {
       gefuehl: this.gefuehl,
     };
 
+    const status: Status = {
+      benutzername: this.currentUser,
+      datum: val.datum,
+      schlaf: Math.round(val.schlaf),
+      bemerkung: null,
+      gefuehl: this.gefuehl,
+    };
+
     if (this.workoutId === 'new') {
       this.backendService.addWorkout(workout).subscribe(
         data => console.log('workout successfully added: ' + data),
         error => console.log('addWorkout error: ' + error)
+      );
+      this.backendService.addStatus(status).subscribe(
+        data => console.log('status successfully added: ' + data),
+        error => console.log('addStatus error: ' + error)
       );
     } else {
       this.backendService.changeWorkout(workout, +this.workoutId).subscribe(
@@ -274,4 +286,17 @@ export class WorkoutComponent implements OnInit {
     };
   }
 
+  private setTitle(id: string, readonly: boolean) {
+    if (id === 'new') {
+      this.title = 'Neue Trainingseinheit...';
+    } else if (readonly === true) {
+      this.title = 'Trainingseinheit ansehen...';
+    } else {
+      this.title = 'Trainingseinheit ändern...';
+    }
+  }
+
+  private isNew() {
+    return this.workoutId === 'new';
+  }
 }

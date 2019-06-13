@@ -56,10 +56,10 @@ export class StatusComponent implements OnInit {
   ngOnInit() {
     this.initCalendarLocale();
     this.statusId = this.route.snapshot.paramMap.get('st');
-    this.title = this.statusId === 'new' ? 'Neuer Status...' : 'Status ändern...';
 
     this.route.queryParamMap.subscribe(map => {
       this.readonly = (map.get('ro') === '1') ? true : false;
+      this.setTitle(this.statusId, this.readonly);
 
       this.statusForm = this.fb.group({
         // initial values do not work, therefore they are initialized as variables...
@@ -199,4 +199,13 @@ export class StatusComponent implements OnInit {
     };
   }
 
+  private setTitle(id: string, readonly: boolean) {
+    if (id === 'new') {
+      this.title = 'Neuer Status...';
+    } else if (readonly === true) {
+      this.title = 'Status ansehen...';
+    } else {
+      this.title = 'Status ändern...';
+    }
+  }
 }
