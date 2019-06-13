@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
-import { Workout, WorkoutPageable } from '../_model/backend.models';
+import { Workout, Status, WorkoutPageable, StatusPageable } from '../_model/backend.models';
 
 @Injectable()
 export class BackendService {
@@ -62,6 +62,22 @@ export class BackendService {
                     return of('error in deleteWorkout: ' + err.message);
                 })
             );
+    }
+
+    getStatus(username: string, id: number): Observable<Status> {
+        return this.http.get<Status>(this.ENDPOINT_URL_BASE + 'users/all/status/' + id);
+    }
+
+    addStatus(status: Status) {
+        return this.http.post<Status>(this.ENDPOINT_URL_BASE + 'users/' + status.benutzername + '/status', status);
+    }
+
+    changeStatus(status: Status, statusId: number) {
+        return this.http.put<Status>(this.ENDPOINT_URL_BASE + 'users/' + status.benutzername + '/status/' + statusId, status);
+    }
+
+    deleteStatus(user: string, statusId: number) {
+        return this.http.delete(this.ENDPOINT_URL_BASE + 'users/' + user + '/status/' + statusId);
     }
 
     goToLoginPage() {

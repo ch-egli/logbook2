@@ -26,3 +26,19 @@ export class WorkoutPageable {
     totalElements: number;
     totalPages: number;
 }
+
+export class Status {
+    benutzername: string;
+    datum: Date;
+    schlaf: number;
+    gefuehl: number;
+    bemerkung: string
+}
+
+export class StatusPageable {
+    content: Status[];
+    pageable: any;
+    last: boolean;
+    totalElements: number;
+    totalPages: number;
+}

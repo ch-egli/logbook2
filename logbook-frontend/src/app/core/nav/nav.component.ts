@@ -17,7 +17,7 @@ export class NavComponent {
     public navItems: Array<NavItem> = [
         { displayName: 'Home', routerLink: 'home' },
         { displayName: 'Neue Trainingseinheit', routerLink: 'workout/new' },
-        { displayName: 'Theme', routerLink: 'theme' },
+        { displayName: 'Neuer Status', routerLink: 'status/new' },
         { displayName: 'Statistik1', routerLink: 'stat1' },
         { displayName: 'Statistik2', routerLink: 'stat2' },
         { displayName: 'About', routerLink: 'about' },

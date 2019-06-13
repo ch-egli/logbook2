@@ -1,0 +1,41 @@
+<div class="jumbotron">
+  <h3><small>{{ title }}</small></h3>
+</div>
+<div>
+  <form [formGroup]="statusForm">
+    <div>
+      <label class="che-label2">Datum</label>
+      <p-calendar [(ngModel)]="datum" [showIcon]="false" formControlName="datum" dateFormat="dd.mm.yy" [locale]="deCH"
+        [styleClass]="'che-nowrap'">
+      </p-calendar>
+    </div>
+
+    <div>
+      <label class="che-label2">Gefühl</label>
+      <a (click)="selectGrinning()"><img src="{{ imgGrinning }}" class="status-emoji" /></a>
+      <a (click)="selectSmirking()"><img src="{{ imgSmirking }}" class="status-emoji" /></a>
+      <a (click)="selectFrowning()"><img src="{{ imgFrowning }}" class="status-emoji" /></a>
+      <a (click)="selectFearful()"><img src="{{ imgFearful }}" class="status-emoji" /></a>
+    </div>
+    <div>
+      <label class="che-label2">Schlaf</label>
+      <input pInputText placeholder="in Stunden" type="number" formControlName="schlaf"
+        [attr.disabled]="readonly ? 'disabled' : null" />
+    </div>
+
+    <div>
+      <label class="che-label2">Bemerkung</label>
+      <input pInputText type="text" formControlName="bemerkung" [readonly]="readonly" />
+    </div>
+
+    <div class="form-buttons">
+      <button pButton type="button" style="margin-top: 1.0em;" class="ui-button-primary" (click)="cancel()"
+        label="Zurück" *ngIf="readonly"></button>
+      <button pButton type="button" style="margin-top: 1.0em;" class="ui-button-primary" (click)="save()"
+        label="Speichern" *ngIf="!readonly"></button>
+      <button pButton type="button" style="margin-top: 1.0rem; margin-left: 0.4rem" class="ui-button-secondary"
+        (click)="cancel()" label="Abbrechen" *ngIf="!readonly"></button>
+    </div>
+
+  </form>
+</div>

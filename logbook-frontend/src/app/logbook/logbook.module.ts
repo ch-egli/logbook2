@@ -22,9 +22,9 @@ import {
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { TableModule } from 'primeng/table';
 import { AboutComponent } from './about/about.component';
-import { ThemeComponent } from './theme/theme.component';
 import { HomeComponent } from './home/home.component';
 import { WorkoutComponent } from './workout/workout.component';
+import { StatusComponent } from './status/status.component';
 import { ChartsComponent } from './charts/charts.component';
 import { Charts2Component } from './charts/charts2.component';
 import { LoginComponent } from './login/login.component';
@@ -35,8 +35,8 @@ import { ChartsModule } from 'ng2-charts';
     declarations: [
         HomeComponent,
         WorkoutComponent,
+        StatusComponent,
         AboutComponent,
-        ThemeComponent,
         ChartsComponent,
         Charts2Component,
         LoginComponent
