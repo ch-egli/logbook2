@@ -7,6 +7,7 @@ import { WorkoutComponent } from './logbook/workout/workout.component';
 import { StatusComponent } from './logbook/status/status.component';
 import { ChartsComponent } from './logbook/charts/charts.component';
 import { Charts2Component } from './logbook/charts/charts2.component';
+import { ExportComponent } from './logbook/export/export.component';
 import { AuthGuard } from './core/_guards/auth.guard';
 
 export const appRoutes: Routes = [
@@ -16,6 +17,7 @@ export const appRoutes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'stat1', component: ChartsComponent, canActivate: [AuthGuard] },
     { path: 'stat2', component: Charts2Component, canActivate: [AuthGuard] },
+    { path: 'export', component: ExportComponent, canActivate: [AuthGuard] },
     { path: 'about', component: AboutComponent, canActivate: [AuthGuard] },
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: '**', redirectTo: '/home' },

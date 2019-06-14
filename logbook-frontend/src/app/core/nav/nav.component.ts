@@ -18,8 +18,9 @@ export class NavComponent {
         { displayName: 'Home', routerLink: 'home' },
         { displayName: 'Neue Trainingseinheit', routerLink: 'workout/new' },
         { displayName: 'Neuer Status', routerLink: 'status/new' },
-        { displayName: 'Statistik1', routerLink: 'stat1' },
-        { displayName: 'Statistik2', routerLink: 'stat2' },
+        { displayName: 'Wochenstatistik', routerLink: 'stat1' },
+        { displayName: 'Jahresstatistik', routerLink: 'stat2' },
+        { displayName: 'Export...', routerLink: 'export' },
         { displayName: 'About', routerLink: 'about' },
     ];
 
