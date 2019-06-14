@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Message, DropdownModule } from 'primeng/primeng';
 import { SelectItem } from 'primeng/api';
 
@@ -24,7 +25,7 @@ export class ExportComponent implements OnInit {
   public numericYear = (new Date()).getFullYear() % 100;
   public yearOptions: SelectItem[] = [];
 
-  constructor(private backendService: BackendService,
+  constructor(private backendService: BackendService, private router: Router,
     private authenticationService: AuthenticationService) {
     for (let i = (new Date()).getFullYear(); i >= 2016; i--) {
       this.yearOptions.push({ label: '' + i, value: '' + i });
@@ -67,10 +68,11 @@ export class ExportComponent implements OnInit {
   }
 
   public export() {
-    console.log('export ' + this.user + ' ' + this.year + '...');
+    console.log('export Excel for ' + this.user + ' ' + this.year + '...');
+    this.backendService.downloadFile(this.user, this.year, 'export.xlsx');
   }
 
   public cancel() {
-    console.log('cancel...');
+    this.router.navigate(['/home']);
   }
 }

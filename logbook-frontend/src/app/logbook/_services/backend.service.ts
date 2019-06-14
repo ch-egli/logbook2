@@ -89,4 +89,21 @@ export class BackendService {
         localStorage.removeItem('currentUser');
         this.router.navigate(['/login']);
     }
+
+    downloadFile(user: string, year: string, filename: string = null): void {
+        this.http.get(this.ENDPOINT_URL_BASE + 'users/' + user + '/excelresults/' + year, { responseType: 'blob' as 'json' }).subscribe(
+            (response: any) => {
+                const dataType = response.type;
+                const binaryData = [];
+                binaryData.push(response);
+                const downloadLink = document.createElement('a');
+                downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, { type: dataType }));
+                if (filename) {
+                    downloadLink.setAttribute('download', filename);
+                }
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+            }
+        )
+    }
 }

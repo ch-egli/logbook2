@@ -64,7 +64,7 @@ public class ComputeResultController {
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
-    @RequestMapping(value="/user/{benutzername}/excelresults/{year}", method=RequestMethod.GET)
+    @RequestMapping(value="/users/{benutzername}/excelresults/{year}", method=RequestMethod.GET)
     public void getExportedExcelFile(@PathVariable Integer year, @PathVariable String benutzername,
                                      @RequestParam(name = "requester", required = false) String requester,
                                      HttpServletResponse response) {
