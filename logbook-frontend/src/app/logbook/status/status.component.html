@@ -6,7 +6,7 @@
     <div>
       <label class="che-label2">Datum</label>
       <p-calendar [(ngModel)]="datum" [showIcon]="false" formControlName="datum" dateFormat="dd.mm.yy" [locale]="deCH"
-        [styleClass]="'che-nowrap'">
+        [styleClass]="'che-nowrap'" [required]>
       </p-calendar>
     </div>
 
@@ -27,6 +27,8 @@
       <label class="che-label2">Bemerkung</label>
       <input pInputText type="text" formControlName="bemerkung" [readonly]="readonly" />
     </div>
+
+    <p-messages [(value)]="msgs"></p-messages>
 
     <div class="form-buttons">
       <button pButton type="button" style="margin-top: 1.0em;" class="ui-button-primary" (click)="cancel()"

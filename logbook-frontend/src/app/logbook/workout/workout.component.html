@@ -97,6 +97,8 @@
       </p-dropdown>
     </div>
 
+    <p-messages [(value)]="msgs"></p-messages>
+
     <div class="form-buttons">
       <button pButton type="button" style="margin-top: 1.0em;" class="ui-button-primary" (click)="cancel()"
         label="Zurück" *ngIf="readonly"></button>

@@ -9,7 +9,7 @@ import { Status, StatusPageable } from '../_model/backend.models';
 import { Observable, forkJoin } from 'rxjs';
 import { BackendService } from '../_services/backend.service';
 import { SelectItem } from 'primeng/api';
-
+import { Message } from 'primeng/components/common/api';
 import { AuthenticationService } from '../../core/_services/authentication.service';
 
 @Component({
@@ -21,6 +21,8 @@ export class StatusComponent implements OnInit {
   title: string;
   currentUser: string;
   statusId: string;
+
+  public msgs: Message[] = [];
 
   deCH: any;
 
@@ -84,7 +86,15 @@ export class StatusComponent implements OnInit {
           });
           this.gefuehl = st.gefuehl;
           this.setGefuehlImages(this.gefuehl);
-        });
+        },
+          error => {
+            console.log('getStatus error: ' + JSON.stringify(error));
+            this.msgs.push({
+              severity: 'error', summary: 'Fehler beim Laden des Status: ',
+              detail: 'Bist du offline?'
+            });
+          }
+        );
       }
     });
   }
@@ -104,19 +114,33 @@ export class StatusComponent implements OnInit {
 
     if (this.statusId === 'new') {
       this.backendService.addStatus(status).subscribe(
-        data => console.log('status successfully added: ' + data),
-        error => console.log('addStatus error: ' + error)
+        data => {
+          console.log('status successfully added: ' + JSON.stringify(data));
+          this.router.navigate(['/home']);
+        },
+        error => {
+          console.log('addStatus error: ' + JSON.stringify(error));
+          this.msgs.push({
+            severity: 'error', summary: 'Fehler beim Speichern des Status: ',
+            detail: 'Bist du offline oder hast du fehlerhafte Daten eingegeben?'
+          });
+        }
       );
     } else {
       this.backendService.changeStatus(status, +this.statusId).subscribe(
-        data => console.log('status successfully changed: ' + data),
-        error => console.log('changeStatus error: ' + error)
+        data => {
+          console.log('status successfully added: ' + JSON.stringify(data));
+          this.router.navigate(['/home']);
+        },
+        error => {
+          console.log('addStatus error: ' + JSON.stringify(error));
+          this.msgs.push({
+            severity: 'error', summary: 'Fehler beim Speichern des Status: ',
+            detail: 'Bist du offline oder hast du fehlerhafte Daten eingegeben?'
+          });
+        }
       );
     }
-
-    setTimeout(() => {
-      this.router.navigate(['/home']);
-    }, 500);
   }
 
   public cancel() {

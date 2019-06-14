@@ -1,7 +1,7 @@
 <div class="jumbotron">
   <p-growl [(value)]="messages" sticky="sticky"></p-growl>
   <h6>Trainingseinheiten nach Excel exportieren...</h6>
-  <div style="margin-top=1.0rem">
+  <div style="margin-top: 1.0rem">
     <p-dropdown [options]="userOptions" [(ngModel)]="user" (onChange)="onSelectUser($event)">
     </p-dropdown>
     <p-dropdown [options]="yearOptions" [(ngModel)]="year" (onChange)="onSelectYear($event)">
@@ -9,10 +9,11 @@
   </div>
 </div>
 
+<p-messages [(value)]="msgs"></p-messages>
+
 <div class="form-buttons">
   <button pButton type="button" style="margin-top: 1.0em;" class="ui-button-primary" (click)="export()"
-          label="Exportieren..."></button>
+    label="Exportieren..."></button>
   <button pButton type="button" style="margin-top: 1.0rem; margin-left: 0.4rem" class="ui-button-secondary"
-          (click)="cancel()" label="Abbrechen"></button>
+    (click)="cancel()" label="Abbrechen"></button>
 </div>
-

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 import { Workout, Status, WorkoutPageable, StatusPageable } from '../_model/backend.models';
@@ -10,16 +9,14 @@ import { Workout, Status, WorkoutPageable, StatusPageable } from '../_model/back
 export class BackendService {
     readonly ENDPOINT_URL_BASE = 'http://192.168.1.121:8080/v1/';
 
+    msgs: Message[] = [];
+
     constructor(private http: HttpClient, private router: Router) {
     }
 
     getAthletes(): Observable<string[]> {
         console.log('getAthletes...');
         return this.http.get<string[]>(this.ENDPOINT_URL_BASE + 'athletes');
-    }
-
-    getWorkoutsByUser(username: string): Observable<Workout[]> {
-        return this.http.get<Workout[]>(this.ENDPOINT_URL_BASE + 'users/' + username + '/workouts/top/' + 8);
     }
 
     getPagedWorkouts(username: string, page: number, pageSize: number): Observable<WorkoutPageable> {
@@ -37,36 +34,15 @@ export class BackendService {
     }
 
     addWorkout(workout: Workout) {
-        return this.http.post<Workout>(this.ENDPOINT_URL_BASE + 'users/' + workout.benutzername + '/workouts', workout)
-            .pipe(
-                catchError(err => {
-                    console.log(err.message);
-                    // this.goToLoginPage();
-                    return of('error in addWorkout: ' + err.message);
-                })
-            );
+        return this.http.post<Workout>(this.ENDPOINT_URL_BASE + 'users/' + workout.benutzername + '/workouts', workout);
     }
 
     changeWorkout(workout: Workout, workoutId: number) {
-        return this.http.put<Workout>(this.ENDPOINT_URL_BASE + 'users/' + workout.benutzername + '/workouts/' + workoutId, workout)
-            .pipe(
-                catchError(err => {
-                    console.log(err.message);
-                    // this.goToLoginPage();
-                    return of('error in addWorkout: ' + err.message);
-                })
-            );
+        return this.http.put<Workout>(this.ENDPOINT_URL_BASE + 'users/' + workout.benutzername + '/workouts/' + workoutId, workout);
     }
 
     deleteWorkout(user: string, workoutId: number) {
-        return this.http.delete(this.ENDPOINT_URL_BASE + 'users/' + user + '/workouts/' + workoutId)
-            .pipe(
-                catchError(err => {
-                    console.log(err.message);
-                    // this.goToLoginPage();
-                    return of('error in deleteWorkout: ' + err.message);
-                })
-            );
+        return this.http.delete(this.ENDPOINT_URL_BASE + 'users/' + user + '/workouts/' + workoutId);
     }
 
     getStatus(username: string, id: number): Observable<Status> {
@@ -85,25 +61,7 @@ export class BackendService {
         return this.http.delete(this.ENDPOINT_URL_BASE + 'users/' + user + '/status/' + statusId);
     }
 
-    goToLoginPage() {
-        localStorage.removeItem('currentUser');
-        this.router.navigate(['/login']);
-    }
-
-    downloadFile(user: string, year: string, filename: string = null): void {
-        this.http.get(this.ENDPOINT_URL_BASE + 'users/' + user + '/excelresults/' + year, { responseType: 'blob' as 'json' }).subscribe(
-            (response: any) => {
-                const dataType = response.type;
-                const binaryData = [];
-                binaryData.push(response);
-                const downloadLink = document.createElement('a');
-                downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, { type: dataType }));
-                if (filename) {
-                    downloadLink.setAttribute('download', filename);
-                }
-                document.body.appendChild(downloadLink);
-                downloadLink.click();
-            }
-        )
+    downloadFile(user: string, year: string) {
+        return this.http.get(this.ENDPOINT_URL_BASE + 'users/' + user + '/excelresults/' + year, { responseType: 'blob' as 'json' });
     }
 }

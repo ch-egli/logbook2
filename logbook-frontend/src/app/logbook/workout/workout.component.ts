@@ -9,6 +9,7 @@ import { Workout, WorkoutPageable, Status } from '../_model/backend.models';
 import { Observable, forkJoin } from 'rxjs';
 import { BackendService } from '../_services/backend.service';
 import { SelectItem } from 'primeng/api';
+import { Message } from 'primeng/components/common/api';
 
 import { AuthenticationService } from '../../core/_services/authentication.service';
 
@@ -21,6 +22,8 @@ export class WorkoutComponent implements OnInit {
   title: string;
   currentUser: string;
   workoutId: string;
+
+  msgs: Message[] = [];
 
   deCH: any;
 
@@ -145,7 +148,15 @@ export class WorkoutComponent implements OnInit {
             schlaf: wo.schlaf,
           });
           this.gefuehl = wo.gefuehl;
-        });
+        },
+          error => {
+            console.log('getWorkout error: ' + JSON.stringify(error));
+            this.msgs.push({
+              severity: 'error', summary: 'Fehler beim Laden der Trainingseinheit: ',
+              detail: 'Bist du offline?'
+            });
+          }
+        );
       }
     });
   }
@@ -186,23 +197,46 @@ export class WorkoutComponent implements OnInit {
 
     if (this.workoutId === 'new') {
       this.backendService.addWorkout(workout).subscribe(
-        data => console.log('workout successfully added: ' + data),
-        error => console.log('addWorkout error: ' + error)
-      );
-      this.backendService.addStatus(status).subscribe(
-        data => console.log('status successfully added: ' + data),
-        error => console.log('addStatus error: ' + error)
+        data1 => {
+          console.log('workout successfully added: ' + JSON.stringify(data1));
+          this.backendService.addStatus(status).subscribe(
+            data2 => {
+              console.log('status successfully added: ' + JSON.stringify(data2));
+              this.router.navigate(['/home']);
+            },
+            error2 => {
+              console.log('addStatus error: ' + JSON.stringify(error2));
+              this.msgs.push({
+                severity: 'error', summary: 'Fehler beim Speichern des Status: ',
+                detail: 'Bist du offline oder hast du fehlerhafte Daten eingegeben?'
+              });
+            }
+          );
+        },
+        error1 => {
+          console.log('addWorkout error: ' + JSON.stringify(error1));
+          this.msgs.push({
+            severity: 'error', summary: 'Fehler beim Speichern der Trainingseinheit: ',
+            detail: 'Bist du offline oder hast du fehlerhafte Daten eingegeben?'
+          });
+
+        }
       );
     } else {
       this.backendService.changeWorkout(workout, +this.workoutId).subscribe(
-        data => console.log('workout successfully changed: ' + data),
-        error => console.log('changeWorkout error: ' + error)
+        data => {
+          console.log('workout successfully changed: ' + JSON.stringify(data));
+          this.router.navigate(['/home']);
+        },
+        error => {
+          console.log('changeWorkout error: ' + error);
+          this.msgs.push({
+            severity: 'error', summary: 'Fehler beim Speichern der Trainingseinheit: ',
+            detail: 'Bist du offline oder hast du fehlerhafte Daten eingegeben?'
+          });
+        }
       );
     }
-
-    setTimeout(() => {
-      this.router.navigate(['/home']);
-    }, 500);
   }
 
   public cancel() {

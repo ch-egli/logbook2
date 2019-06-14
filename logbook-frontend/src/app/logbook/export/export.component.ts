@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Message, DropdownModule } from 'primeng/primeng';
+import { Message } from 'primeng/primeng';
 import { SelectItem } from 'primeng/api';
 
 import { BackendService } from '../_services/backend.service';
-import { BarChartData } from '../_model/chart.model';
 import { Observable, forkJoin } from 'rxjs';
 
 import { AuthenticationService } from '../../core/_services/authentication.service';
@@ -15,8 +14,8 @@ import { AuthenticationService } from '../../core/_services/authentication.servi
   providers: [BackendService, AuthenticationService]
 })
 export class ExportComponent implements OnInit {
+  public msgs: Message[] = [];
 
-  public messages: Array<Message> = [];
   public userObservable: Observable<string[]>;
   public user;
   public userOptions: SelectItem[] = [{ label: '', value: '' }];
@@ -69,7 +68,26 @@ export class ExportComponent implements OnInit {
 
   public export() {
     console.log('export Excel for ' + this.user + ' ' + this.year + '...');
-    this.backendService.downloadFile(this.user, this.year, 'export.xlsx');
+    this.backendService.downloadFile(this.user, this.year).subscribe(
+      (response: any) => {
+        const dataType = response.type;
+        const binaryData = [];
+        binaryData.push(response);
+        const downloadLink = document.createElement('a');
+        downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, { type: dataType }));
+        const filename = 'workouts-' + this.year + '-' + this.user + '.xlsx';
+        downloadLink.setAttribute('download', filename);
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+      },
+      error => {
+        console.log('error downloading excel file: ' + JSON.stringify(error));
+        this.msgs.push({
+          severity: 'error', summary: 'Fehler beim Download der Excel Datei: ',
+          detail: 'Bist du offline?'
+        });
+      }
+    );
   }
 
   public cancel() {
