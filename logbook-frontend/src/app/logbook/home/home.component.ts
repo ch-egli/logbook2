@@ -22,8 +22,8 @@ export class HomeComponent implements OnInit {
   userDiscriminatorForStatus: string;
   totalWorkouts: number;
   totalStati: number;
-  workoutPageSize = 10;
-  statusPageSize = 10;
+  workoutPageSize = 8;
+  statusPageSize = 8;
 
   userObservable: Observable<string[]>;
 

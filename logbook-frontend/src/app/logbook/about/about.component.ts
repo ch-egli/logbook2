@@ -12,7 +12,7 @@ export class AboutComponent implements OnInit {
     constructor() {
         this.aboutMessage = 'Über das Climbing Logbook 2';
         this.logbookVersion = '2.0.0';
-        this.metaInfo = 'metainfo'; //document.head.querySelector('[name=app-kind]').content;
+        this.metaInfo = ''; //document.head.querySelector('[name=app-kind]').content;
     }
 
     ngOnInit() {

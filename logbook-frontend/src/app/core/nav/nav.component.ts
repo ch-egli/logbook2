@@ -21,7 +21,7 @@ export class NavComponent {
         { displayName: 'Wochenstatistik', routerLink: 'stat1' },
         { displayName: 'Jahresstatistik', routerLink: 'stat2' },
         { displayName: 'Export...', routerLink: 'export' },
-        { displayName: 'About', routerLink: 'about' },
+        { displayName: 'Über das Climbing Logbook', routerLink: 'about' },
     ];
 
     constructor(public authenticationService: AuthenticationService, private router: Router) {

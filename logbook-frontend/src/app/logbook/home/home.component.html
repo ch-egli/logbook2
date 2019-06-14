@@ -62,6 +62,10 @@
                 <a [routerLink]="['/workout', workouts.id]"><span class="fa fa-pencil-square-o"></span></a> |
                 <a (click)="confirmDeletion(workouts)"><span class="fa fa-trash-o"></span></a>
               </span>
+              <span *ngIf="!isMyWorkout(workouts)">
+                <a [routerLink]="['/workout', workouts.id]" [queryParams]="{ ro: 1 }"><span
+                    class="fa fa-eye"></span></a>
+              </span>
             </td>
           </tr>
         </ng-template>
@@ -108,6 +112,9 @@
               <span *ngIf="isMyStatus(status)">
                 <a [routerLink]="['/status', status.id]"><span class="fa fa-pencil-square-o"></span></a> |
                 <a (click)="confirmDeletionStatus(status)"><span class="fa fa-trash-o"></span></a>
+              </span>
+              <span *ngIf="!isMyStatus(status)">
+                <a [routerLink]="['/status', status.id]" [queryParams]="{ ro: 1 }"><span class="fa fa-eye"></span></a>
               </span>
             </td>
           </tr>
