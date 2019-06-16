@@ -10,7 +10,7 @@ export class AboutComponent implements OnInit {
     public metaInfo: any;
 
     constructor() {
-        this.aboutMessage = 'Über das Climbing Logbook 2';
+        this.aboutMessage = 'Über das Climbing Logbook';
         this.logbookVersion = '2.0.0';
         this.metaInfo = ''; //document.head.querySelector('[name=app-kind]').content;
     }

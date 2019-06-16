@@ -26,7 +26,7 @@ export class AuthGuard implements CanActivate {
         const now = new Date();
         const date = new Date(Number(dateStr));
         const result = date < now;
-        //console.log('isExpired: ' + result + ' ' + date + ' ' + now);
+        // console.log('isExpired: ' + result + ' ' + date + ' ' + now);
 
         return result;
     }

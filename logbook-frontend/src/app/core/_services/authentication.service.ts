@@ -2,15 +2,18 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
+import { environment } from '../../../environments/environment';
+
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-    readonly ENDPOINT_URL_BASE = 'http://192.168.1.121:8080/';
+    baseUrl: string;
 
     constructor(private http: HttpClient) {
+        this.baseUrl = environment.baseUrl;
     }
 
     public login(username: string, password: string) {
-        return this.http.post<any>(this.ENDPOINT_URL_BASE + 'auth/token', { username, password })
+        return this.http.post<any>(this.baseUrl + 'auth/token', { username, password })
             .pipe(map(user => {
                 console.log('user: ' + user);
                 // login successful if there's a jwt token in the response
@@ -77,7 +80,6 @@ export class AuthenticationService {
     public logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
-        // location.reload();
     }
 
     private isExpired(dateStr: string) {
@@ -86,5 +88,4 @@ export class AuthenticationService {
 
         return date < now;
     }
-
 }
