@@ -1,5 +1,4 @@
 <div class="jumbotron">
-  <p-growl [(value)]="messages" sticky="sticky"></p-growl>
   <h6>Trainingseinheiten nach Excel exportieren...</h6>
   <div style="margin-top: 1.0rem">
     <p-dropdown [options]="userOptions" [(ngModel)]="user" (onChange)="onSelectUser($event)">
@@ -16,4 +15,11 @@
     label="Exportieren..."></button>
   <button pButton type="button" style="margin-top: 1.0rem; margin-left: 0.4rem" class="ui-button-secondary"
     (click)="cancel()" label="Abbrechen"></button>
+</div>
+<p>&nbsp;</p>
+<div>
+  <small>Der Download funktioniert nicht auf allen Geräten.<br>
+    Versuche sonst in einem Web Browser (Safari, Chrome, IE...) unter <a href="https://logbook.snoopfish.ch/#/export"
+      target="_blank">https://logbook.snoopfish.ch/#/export</a>
+  </small>
 </div>

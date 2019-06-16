@@ -310,6 +310,10 @@ export class ChartsComponent implements OnInit {
     }
   }
 
+  public isSmallScreen() {
+    return this.screenWidth < 576;
+  }
+
   public assembleLineChartOptions(annotations) {
     return {
       responsive: true,

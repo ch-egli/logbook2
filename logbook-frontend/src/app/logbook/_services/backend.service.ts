@@ -9,8 +9,6 @@ import { Workout, Status, WorkoutPageable, StatusPageable } from '../_model/back
 export class BackendService {
     readonly ENDPOINT_URL_BASE = 'http://192.168.1.121:8080/v1/';
 
-    msgs: Message[] = [];
-
     constructor(private http: HttpClient, private router: Router) {
     }
 
