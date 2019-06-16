@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ConfirmationService } from 'primeng/api';
 
 import { AuthenticationService } from '../../core/_services/authentication.service';
 
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit {
     constructor(private fb: FormBuilder,
         private authenticationService: AuthenticationService,
         private route: ActivatedRoute,
-        private router: Router) {
+        private router: Router,
+        private confirmationService: ConfirmationService) {
     }
 
     ngOnInit(): void {
@@ -44,6 +46,13 @@ export class LoginComponent implements OnInit {
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
         console.log('ngOnInit Login - returnUrl: ' + this.returnUrl);
+
+        // show version info only once
+        const versionInfo = localStorage.getItem('versionInfo2.0.0');
+        // console.log('versionInfo: ' + versionInfo);
+        if (!versionInfo) {
+            this.showNewVersion();
+        }
     }
 
     login() {
@@ -90,4 +99,26 @@ export class LoginComponent implements OnInit {
                 );
         }
     }
+
+    public showNewVersion() {
+        this.confirmationService.confirm({
+            message: `
+            <div>
+              <small>
+                Hallo zäme<br>
+                Dies ist eine neue Version des RZ BeO Climbing Logbook. 
+                Eventuell funktioniert noch nicht alles fehlerfrei oder so, dass es für euch passt... 
+                Also teilt mir doch Fehler oder Wünsche einfach per E-Mail mit: 
+                <a href="mailto:christian.egli4@gmail.com">christian.egli4@gmail.com</a>. 
+                Meine E-Mail Adresse findet ihr auch im Menü "Über das Climbing Logbook."<br>
+                Viel Spass! Christian Egli
+              </small>
+            </div>`,
+            accept: () => {
+                console.log('new version info...');
+                // localStorage.setItem('versionInfo2.0.0', 'done');
+            }
+        });
+    }
+
 }

@@ -1,7 +1,14 @@
 <div class="jumbotron">
-    <h1>RZ-BeO Trainings-Logbook</h1>
+    <h1>RZ-BeO Climbing-Logbook</h1>
     <p>Bitte logge dich ein...</p>
 </div>
+
+<p-confirmDialog #infoDialog header="Info: Neue Version" icon="fa fa-info-circle">
+    <p-footer>
+        <button type="button" pButton icon="pi pi-check" label="OK" (click)="infoDialog.accept()"></button>
+    </p-footer>
+</p-confirmDialog>
+
 <div>
     <form [formGroup]="loginForm">
         <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
