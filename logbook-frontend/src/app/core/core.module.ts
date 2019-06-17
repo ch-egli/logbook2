@@ -1,11 +1,10 @@
-import {CommonModule} from '@angular/common';
-import {NgModule, Optional, SkipSelf} from '@angular/core';
-import {RouterModule} from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { NgModule, Optional, SkipSelf } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
-import {throwIfAlreadyLoaded} from './module-import-guard';
-import {NavComponent} from './nav/nav.component';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
-import {environment} from '../../environments/environment';
+import { throwIfAlreadyLoaded } from './module-import-guard';
+import { NavComponent } from './nav/nav.component';
+import { HttpClientModule } from '@angular/common/http';
 
 // AOT requires an exported function for factories
 @NgModule({
