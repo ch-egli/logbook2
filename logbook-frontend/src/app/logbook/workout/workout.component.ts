@@ -5,8 +5,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 
 import { environment } from '../../../environments/environment';
 
-import { Workout, WorkoutPageable, Status } from '../_model/backend.models';
-import { Observable, forkJoin } from 'rxjs';
+import { Workout, Status } from '../_model/backend.models';
 import { BackendService } from '../_services/backend.service';
 import { SelectItem } from 'primeng/api';
 import { Message } from 'primeng/components/common/api';
@@ -163,8 +162,8 @@ export class WorkoutComponent implements OnInit {
 
   public save() {
     const val = this.workoutForm.value;
-    console.log('workoutForm values: ' + JSON.stringify(val));
-    console.log('gefühl: ' + this.gefuehl);
+    // console.log('workoutForm values: ' + JSON.stringify(val));
+    // console.log('gefühl: ' + this.gefuehl);
 
     const workout: Workout = {
       benutzername: this.currentUser,

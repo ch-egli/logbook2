@@ -3,12 +3,8 @@ import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
-import { environment } from '../../../environments/environment';
-
-import { Status, StatusPageable } from '../_model/backend.models';
-import { Observable, forkJoin } from 'rxjs';
+import { Status } from '../_model/backend.models';
 import { BackendService } from '../_services/backend.service';
-import { SelectItem } from 'primeng/api';
 import { Message } from 'primeng/components/common/api';
 import { AuthenticationService } from '../../core/_services/authentication.service';
 
@@ -77,7 +73,7 @@ export class StatusComponent implements OnInit {
       if (this.statusId !== 'new') {
         this.backendService.getStatus(this.currentUser, +this.statusId).subscribe((res) => {
           const st: Status = res;
-          console.log(JSON.stringify(st));
+          // console.log(JSON.stringify(st));
 
           this.statusForm.setValue({
             datum: new Date(st.datum),
@@ -101,8 +97,8 @@ export class StatusComponent implements OnInit {
 
   public save() {
     const val = this.statusForm.value;
-    console.log('statusForm values: ' + JSON.stringify(val));
-    console.log('gefühl: ' + this.gefuehl);
+    // console.log('statusForm values: ' + JSON.stringify(val));
+    // console.log('gefühl: ' + this.gefuehl);
 
     const status: Status = {
       benutzername: this.currentUser,

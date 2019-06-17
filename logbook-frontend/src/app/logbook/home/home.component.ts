@@ -77,18 +77,18 @@ export class HomeComponent implements OnInit {
 
     forkJoin(this.userObservable, this.pagedWorkoutObservable, this.pagedStatusObservable).subscribe((res) => {
       const users = res[0];
-      console.log('users: ' + users);
+      // console.log('users: ' + users);
       users.forEach((user) => {
         this.userOptions.push({ label: user, value: user });
       });
 
       const pagedWorkouts = res[1];
-      console.log('pagedWorkouts: ' + pagedWorkouts);
+      // console.log('pagedWorkouts: ' + pagedWorkouts);
       this.workouts = pagedWorkouts.content;
       this.totalWorkouts = pagedWorkouts.totalElements;
 
       const pagedStati = res[2];
-      console.log('pagedStati: ' + pagedStati);
+      // console.log('pagedStati: ' + pagedStati);
       this.status = pagedStati.content;
       this.totalStati = pagedStati.totalElements;
     });
@@ -99,7 +99,7 @@ export class HomeComponent implements OnInit {
     const pageNumber = event.first / event.rows;
     this.pagedWorkoutObservable = this.backendService.getPagedWorkouts(this.userDiscriminator, pageNumber, this.workoutPageSize);
     this.pagedWorkoutObservable.subscribe((res) => {
-      console.log(res);
+      // console.log(res);
       this.workouts = res.content;
       this.totalWorkouts = res.totalElements;
     });
@@ -110,7 +110,7 @@ export class HomeComponent implements OnInit {
     const pageNumber = event.first / event.rows;
     this.pagedStatusObservable = this.backendService.getPagedStati(this.userDiscriminatorForStatus, pageNumber, this.statusPageSize);
     this.pagedStatusObservable.subscribe((res) => {
-      console.log(res);
+      // console.log(res);
       this.status = res.content;
       this.totalStati = res.totalElements;
     });
@@ -127,14 +127,14 @@ export class HomeComponent implements OnInit {
 
     this.pagedWorkoutObservable = this.backendService.getPagedWorkouts(this.userDiscriminator, 0, this.workoutPageSize);
     this.pagedWorkoutObservable.subscribe((res) => {
-      console.log(res);
+      // console.log(res);
       this.workouts = res.content;
       this.totalWorkouts = res.totalElements;
     });
 
     this.pagedStatusObservable = this.backendService.getPagedStati(this.userDiscriminatorForStatus, 0, this.statusPageSize);
     this.pagedStatusObservable.subscribe((res) => {
-      console.log(res);
+      // console.log(res);
       this.status = res.content;
       this.totalStati = res.totalElements;
     });
@@ -218,6 +218,6 @@ export class HomeComponent implements OnInit {
     } else {
       this.tableColWidth = null;
     }
-    console.log('tableBenutzerWidth: ' + this.tableBenutzerWidth + ' tableColWidth: ' + this.tableColWidth);
+    // console.log('tableBenutzerWidth: ' + this.tableBenutzerWidth + ' tableColWidth: ' + this.tableColWidth);
   }
 }
