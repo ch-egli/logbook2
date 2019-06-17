@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Message, DropdownModule } from 'primeng/primeng';
 import { SelectItem } from 'primeng/api';
 
 import { ChartService } from '../_services/chart.service';
 import { BackendService } from '../_services/backend.service';
 import { BarChartData } from '../_model/chart.model';
-import { Observable, forkJoin } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { Label } from 'ng2-charts';
@@ -40,11 +39,6 @@ export class Charts2Component implements OnInit {
   public barChartData1: ChartDataSets[] = [{ data: [] }];
   public barChartData2: ChartDataSets[] = [{ data: [] }];
 
-  public aboutMessage: string;
-  public messages: Array<Message> = [];
-
-  public angleDown = 'fa fa-angle-down';
-
   public chartDataObservable: Observable<Map<string, BarChartData>>;
 
   public userObservable: Observable<string[]>;
@@ -57,7 +51,6 @@ export class Charts2Component implements OnInit {
 
   constructor(private chartService: ChartService, private backendService: BackendService,
     private authenticationService: AuthenticationService) {
-    this.aboutMessage = 'Climbing Logbook 2';
     for (let i = (new Date()).getFullYear(); i >= 2016; i--) {
       this.yearOptions.push({ label: '' + i, value: '' + i });
     }
@@ -117,7 +110,7 @@ export class Charts2Component implements OnInit {
   }
 
   public onSelectUser(event) {
-    console.log('selected user: ' + event.value);
+    // console.log('selected user: ' + event.value);
     this.user = event.value;
     this.loadDataFromServer();
   }
@@ -130,11 +123,11 @@ export class Charts2Component implements OnInit {
   }
 
   public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
-    console.log(event, active);
+    // console.log(event, active);
   }
 
   public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
-    console.log(event, active);
+    // console.log(event, active);
   }
 
 }

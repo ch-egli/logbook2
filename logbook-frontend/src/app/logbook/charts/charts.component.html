@@ -1,6 +1,5 @@
 <div class="jumbotron">
-  <p-growl [(value)]="messages" sticky="sticky"></p-growl>
-  <h4>Wochen-Statistik für </h4>
+  <h4>Wochen<sup>*</sup>-Statistik für </h4>
   <div>
     <p-dropdown [options]="userOptions" [(ngModel)]="user" (onChange)="onSelectUser($event)">
     </p-dropdown>
@@ -24,6 +23,8 @@
 </div>
 <div id="wettkampfTooltip" align="right"></div>
 <p>&nbsp;</p>
+<div style="padding-bottom: 0.6rem"><small><sup>*</sup> Die angezeigten Daten sind Mittelwerte (resp.
+    Maximalwerte) pro Woche.</small></div>
 <div *ngIf="isSmallScreen()">
   <small>Die Darstellung der Statistik-Daten auf einem kleinen Bildschirm ist nicht optimal. Versuche sonst in einem Web
     Browser (Safari, Chrome, IE...) unter <a href="https://logbook.snoopfish.ch/#/stat1"

@@ -1,5 +1,4 @@
-import { Component, OnInit, ViewChild, EventEmitter, HostListener } from '@angular/core';
-import { Message, DropdownModule } from 'primeng/primeng';
+import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { SelectItem } from 'primeng/api';
 
 import { ChartService } from '../_services/chart.service';
@@ -19,8 +18,6 @@ import { AuthenticationService } from '../../core/_services/authentication.servi
   providers: [ChartService, BackendService, AuthenticationService]
 })
 export class ChartsComponent implements OnInit {
-  public aboutMessage: string;
-  public messages: Array<Message> = [];
 
   public annotations;
   public lineChartOptions: (ChartOptions & { annotation: any });
@@ -32,7 +29,6 @@ export class ChartsComponent implements OnInit {
 
   @ViewChild(BaseChartDirective) chart: BaseChartDirective;
 
-  public angleDown = 'fa fa-angle-down';
   private chooseParam = 'Wähle...';
 
   public chartDataObservable: Observable<ChartMetaType>;
@@ -65,7 +61,6 @@ export class ChartsComponent implements OnInit {
     private authenticationService: AuthenticationService) {
     this.screenWidth = window.innerWidth;
 
-    this.aboutMessage = 'Climbing Logbook 2';
     for (let i = (new Date()).getFullYear(); i >= 2016; i--) {
       this.yearOptions.push({ label: '' + i, value: '' + i });
     }
@@ -102,7 +97,7 @@ export class ChartsComponent implements OnInit {
     this.chartDataObservable.subscribe((res) => {
       me.myChartData = res.chartData;
       // console.log(res.chartData);
-      console.log(res.wettkaempfe);
+      // console.log(res.wettkaempfe);
       this.wettkaempfe = res.wettkaempfe;
 
       this.annotations = this.assembleAnnotations(this.wettkaempfe);
@@ -123,7 +118,7 @@ export class ChartsComponent implements OnInit {
         data: res.chartData[this.selectedChart1],
         label: this.selectedChart1 !== this.chooseParam ? this.selectedChart1.substring(3) : this.chooseParam,
         yAxisID: 'y-axis-1'
-      }
+      };
       if (this.selectedChart1.indexOf('Züge') !== -1) {
         this.maxZuege1 = Math.max(...res.chartData[this.selectedChart1]);
       } else {
@@ -133,12 +128,12 @@ export class ChartsComponent implements OnInit {
       this.chartOptions0 = [{ label: this.chooseParam, value: null }];
       const optionValues: string[] = Array.from(Object.keys(res.chartData));
       optionValues.sort();
-      console.log('optionValues: ' + optionValues);
+      // console.log('optionValues: ' + optionValues);
       optionValues.forEach((optVal) => {
         this.chartOptions0.push({ label: optVal.substring(3), value: optVal });
       });
       this.chartOptions1 = [{ label: this.chooseParam, value: null }];
-      console.log(this.chartOptions0);
+      // console.log(this.chartOptions0);
       optionValues.forEach((optVal) => {
         this.chartOptions1.push({ label: optVal.substring(3), value: optVal });
       });
@@ -163,15 +158,9 @@ export class ChartsComponent implements OnInit {
     }
   }
 
-  public createMessages() {
-    this.messages.push({ severity: 'info', summary: 'Info Message', detail: 'PrimeNG rocks' });
-    this.messages.push({ severity: 'warn', summary: 'Warn Message', detail: 'Sample warning' });
-    this.messages.push({ severity: 'error', summary: 'Error Message', detail: 'Sample error' });
-  }
-
   // events
   public onSelectChart0(event) {
-    console.log('chart0 selected:' + event.value);
+    // console.log('chart0 selected:' + event.value);
     if (event.value === null) {
       this.chart.hideDataset(0, true);
       this.selectedChart0 = this.chooseParam;
@@ -191,7 +180,7 @@ export class ChartsComponent implements OnInit {
         pointRadius: 2,
         pointHoverBackgroundColor: '#fff',
         pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-      }
+      };
       this.lineChartData[0] = dataSet;
       if (event.value.indexOf('Züge') !== -1) {
         this.maxZuege0 = Math.max(...this.myChartData[event.value]);
@@ -235,24 +224,24 @@ export class ChartsComponent implements OnInit {
   }
 
   onSelectUser(event) {
-    console.log('selected user: ' + event.value);
+    // console.log('selected user: ' + event.value);
     this.user = event.value;
     this.loadDataFromServer();
   }
 
   public onSelectYear(event) {
-    console.log('selected year: ' + event.value);
+    // console.log('selected year: ' + event.value);
     this.year = event.value;
     this.numericYear = (+event.value) % 100;
     this.loadDataFromServer();
   }
 
   public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
-    console.log(event, active);
+    // console.log(event, active);
   }
 
   public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
-    console.log(event, active);
+    // console.log(event, active);
   }
 
   public assembleAnnotations(wettkaempfe: Wettkampf[]) {
