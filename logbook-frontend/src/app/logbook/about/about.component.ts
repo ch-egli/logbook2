@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from '../../../environments/environment';
 
 @Component({
     selector: 'app-about',
@@ -11,7 +12,7 @@ export class AboutComponent implements OnInit {
 
     constructor() {
         this.aboutMessage = 'Über das Climbing Logbook';
-        this.logbookVersion = '2.0.0';
+        this.logbookVersion = environment.logbookVersion;
         this.metaInfo = ''; //document.head.querySelector('[name=app-kind]').content;
     }
 

@@ -68,7 +68,7 @@ public class StatusController {
         final PagingInfo pagingInfo = new PagingInfo(page, size, statusRepository.count());
         response.addHeader(PAGING_INFO, pagingInfo.toString());
 
-        final Iterable<Status> allStatusEntries = statusRepository.findAll(new PageRequest(page, size, statusSort));
+        final Iterable<Status> allStatusEntries = statusRepository.findAll(PageRequest.of(page, size, statusSort));
         return new ResponseEntity<Iterable<Status>>(allStatusEntries, HttpStatus.OK);
     }
 
@@ -78,7 +78,7 @@ public class StatusController {
         final PagingInfo pagingInfo = new PagingInfo(page, size, statusRepository.countByBenutzername(benutzername));
         response.addHeader(PAGING_INFO, pagingInfo.toString());
 
-        final Iterable<Status> allStatusEntries = statusRepository.findByBenutzername(benutzername, new PageRequest(page, size, statusSort));
+        final Iterable<Status> allStatusEntries = statusRepository.findByBenutzername(benutzername, PageRequest.of(page, size, statusSort));
         return new ResponseEntity<Iterable<Status>>(allStatusEntries, HttpStatus.OK);
     }
 
@@ -86,7 +86,7 @@ public class StatusController {
     @RequestMapping(value = "/users/{benutzername}/status/top/{top}", method = RequestMethod.GET)
     public ResponseEntity<Iterable<Status>> getAllStatusEntries(@PathVariable String benutzername, @PathVariable Integer top) {
         resourceValidator.validateUser(benutzername);
-        Pageable topPage = new PageRequest(0, top);
+        Pageable topPage = PageRequest.of(0, top);
         Page<Status> page = statusRepository.findTopByBenutzername(benutzername, topPage);
         final Iterable<Status> topStatusEntries = page.getContent();
         return new ResponseEntity<Iterable<Status>>(topStatusEntries, HttpStatus.OK);

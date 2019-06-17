@@ -96,7 +96,7 @@ public class WorkoutController {
         final PagingInfo pagingInfo = new PagingInfo(page, size, workoutRepository.count());
         response.addHeader(PAGING_INFO, pagingInfo.toString());
 
-        final Iterable<Workout> allWorkouts = workoutRepository.findAll(new PageRequest(page, size, workoutSort));
+        final Iterable<Workout> allWorkouts = workoutRepository.findAll(PageRequest.of(page, size, workoutSort));
         return new ResponseEntity<Iterable<Workout>>(allWorkouts, HttpStatus.OK);
     }
 
@@ -105,7 +105,7 @@ public class WorkoutController {
         response.addHeader(PAGING_INFO, pagingInfo.toString());
 
         final Iterable<Workout> allWorkouts = workoutRepository.findAllWorkoutsOfGivenUsers(GROUP_EGLI_SISTERS__NAME_1, GROUP_EGLI_SISTERS__NAME_2,
-                new PageRequest(page, size, workoutSort));
+                PageRequest.of(page, size, workoutSort));
         return new ResponseEntity<Iterable<Workout>>(allWorkouts, HttpStatus.OK);
     }
 
@@ -115,7 +115,7 @@ public class WorkoutController {
         final PagingInfo pagingInfo = new PagingInfo(page, size, workoutRepository.countByBenutzername(benutzername));
         response.addHeader(PAGING_INFO, pagingInfo.toString());
 
-        final Iterable<Workout> allWorkouts = workoutRepository.findByBenutzername(benutzername, new PageRequest(page, size, workoutSort));
+        final Iterable<Workout> allWorkouts = workoutRepository.findByBenutzername(benutzername, PageRequest.of(page, size, workoutSort));
         return new ResponseEntity<Iterable<Workout>>(allWorkouts, HttpStatus.OK);
     }
 
@@ -123,7 +123,7 @@ public class WorkoutController {
     @RequestMapping(value="/users/{benutzername}/workouts/top/{top}", method= RequestMethod.GET)
     public ResponseEntity<Iterable<Workout>> getAllWorkouts(@PathVariable String benutzername, @PathVariable Integer top) {
         resourceValidator.validateUser(benutzername);
-        Pageable topPage = new PageRequest(0, top);
+        Pageable topPage = PageRequest.of(0, top);
         Page<Workout> page = workoutRepository.findTopByBenutzername(benutzername, topPage);
         final Iterable<Workout> topWorkouts = page.getContent();
         return new ResponseEntity<Iterable<Workout>>(topWorkouts, HttpStatus.OK);

@@ -32,7 +32,7 @@ export class Status {
     datum: Date;
     schlaf: number;
     gefuehl: number;
-    bemerkung: string
+    bemerkung: string;
 }
 
 export class StatusPageable {
