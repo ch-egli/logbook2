@@ -58,7 +58,7 @@
             <td class="d-none d-lg-table-cell">{{ workouts.zuege23 }}</td>
             <td class="d-none d-lg-table-cell">{{ workouts.zuege34 }}</td>
             <td class="colWidthIcons">
-              <span *ngIf="isMyWorkout(workouts)">
+              <span *ngIf="isMyWorkout(workouts)" class="che-nowrap">
                 <a [routerLink]="['/workout', workouts.id]"><span class="fa fa-pencil-square-o"></span></a> |
                 <a (click)="confirmDeletion(workouts)"><span class="fa fa-trash-o"></span></a>
               </span>
@@ -109,7 +109,7 @@
             <td *ngIf="isTrainer()" [style.width]="tableBenutzerWidth">{{ status.benutzername }}</td>
             <td class="d-none d-lg-table-cell">{{ status.bemerkung }}</td>
             <td class="colWidthIcons">
-              <span *ngIf="isMyStatus(status)">
+              <span *ngIf="isMyStatus(status)" class="che-nowrap">
                 <a [routerLink]="['/status', status.id]"><span class="fa fa-pencil-square-o"></span></a> |
                 <a (click)="confirmDeletionStatus(status)"><span class="fa fa-trash-o"></span></a>
               </span>

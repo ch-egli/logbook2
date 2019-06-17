@@ -115,8 +115,8 @@ export class LoginComponent implements OnInit {
               </small>
             </div>`,
             accept: () => {
-                console.log('new version info...');
-                // localStorage.setItem('versionInfo2.0.0', 'done');
+                // console.log('new version info...');
+                localStorage.setItem('versionInfo2.0.0', 'done');
             }
         });
     }

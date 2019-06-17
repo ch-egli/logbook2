@@ -4,6 +4,7 @@
   "displayName": "Logbook",
   "cordova": {
     "platforms": [
+      "browser",
       "android"
     ],
     "plugins": {
@@ -12,6 +13,7 @@
   },
   "dependencies": {
     "cordova-android": "^6.3.0",
+    "cordova-browser": "^6.0.0",
     "cordova-plugin-whitelist": "^1.3.3"
   }
 }
