@@ -21,3 +21,4 @@ credentials
 buildAndDeploy*
 buildApk.sh
 *.keystore
+readme.txt
