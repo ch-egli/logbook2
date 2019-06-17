@@ -16,7 +16,7 @@ export class BackendService {
     }
 
     getAthletes(): Observable<string[]> {
-        console.log('getAthletes...');
+        // console.log('getAthletes...');
         return this.http.get<string[]>(this.baseUrl + 'athletes');
     }
 
