@@ -10,27 +10,28 @@
 </p-confirmDialog>
 
 <div>
-    <form [formGroup]="loginForm">
-        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <div class=" ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
             <div class="ui-g ui-fluid">
                 <div class="ui-g-12 ui-md-12">
-                    <input pInputText placeholder="Benutzername" type="text" name="username"
-                        formControlName="username" />
+                    <input pInputText placeholder="Benutzername" type="text" id="username" formControlName="username"
+                        class="form-control" />
                 </div>
             </div>
             <div class="ui-g ui-fluid">
                 <div class="ui-g-12 ui-md-12">
-                    <input pInputText placeholder="Passwort" type="password" name="password" formControlName="password">
+                    <input pInputText placeholder="Passwort" type="password" id="password" formControlName="password">
                 </div>
             </div>
         </div>
         <div style="margin-left: 0.5em">
-            <input type="checkbox" [(ngModel)]="rememberMe" [ngModelOptions]="{standalone: true}" name="rememberMe" />
+            <input type="checkbox" name="rememberMe" formControlName="rememberMe" />
             Login Daten speichern
         </div>
         <div>&nbsp;</div>
         <div class="form-buttons" style="margin-left: 0.5em">
-            <button pButton type="button" class="ui-button-primary" (click)="login()" label="Login"></button>
+            <button pButton type="submit" [disabled]="!loginForm.valid" class="ui-button-primary"
+                label="Login"></button>
         </div>
 
         <div>&nbsp;</div>

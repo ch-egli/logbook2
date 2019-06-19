@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
 
@@ -14,7 +14,6 @@ export class LoginComponent implements OnInit {
     loginForm: FormGroup;
     submitted = false;
     returnUrl: string;
-    rememberMe = false;
 
     loginErrorMessage = '';
 
@@ -26,21 +25,23 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        // restore login values if user have previously logged in
+        // restore login values if user has previously logged in
         let bn = '';
         let pw = '';
+        let remMe = false;
 
         const storedBenutzername = localStorage.getItem('bn');
         const storedRememberMe = (localStorage.getItem('rememberMe') === 'true');
         if (storedRememberMe && storedBenutzername) {
             bn = storedBenutzername;
             pw = atob(localStorage.getItem('pw')); // base64: decode
-            this.rememberMe = storedRememberMe;
+            remMe = storedRememberMe;
         }
 
         this.loginForm = this.fb.group({
             username: [bn, Validators.required],
             password: [pw, Validators.required],
+            rememberMe: [remMe],
         });
 
         // get return url from route parameters or default to '/'
@@ -55,6 +56,8 @@ export class LoginComponent implements OnInit {
         }
     }
 
+    get username() { return this.loginForm.get('username'); }
+
     login() {
         this.submitted = true;
         const val = this.loginForm.value;
@@ -65,7 +68,7 @@ export class LoginComponent implements OnInit {
         }
 
         // save login in localStorage for next access
-        if (this.rememberMe === true) {
+        if (val.rememberMe === true) {
             localStorage.setItem('rememberMe', 'true');
             localStorage.setItem('bn', val.username);
             localStorage.setItem('pw', btoa(val.password)); // base64 encode
