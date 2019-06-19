@@ -2,11 +2,13 @@
   <h3><small>{{ title }}</small></h3>
 </div>
 <div>
-  <form [formGroup]="statusForm">
+  <form [formGroup]="statusForm" (ngSubmit)="save()">
     <div>
+      <div *ngIf="datum.invalid && (datum.dirty || datum.touched)" class="alert-danger">Datum muss einen gültigen Wert
+        haben!</div>
       <label class="che-label2">Datum</label>
-      <p-calendar [(ngModel)]="datum" [showIcon]="false" formControlName="datum" dateFormat="dd.mm.yy" [locale]="deCH"
-        [styleClass]="'che-nowrap'" [required]>
+      <p-calendar [showIcon]="false" formControlName="datum" dateFormat="dd.mm.yy" [locale]="deCH"
+        [styleClass]="'che-nowrap'" [disabled]="readonly">
       </p-calendar>
     </div>
 
@@ -18,6 +20,8 @@
       <a (click)="selectFearful()"><img src="{{ imgFearful }}" class="status-emoji" /></a>
     </div>
     <div>
+      <div *ngIf="schlaf.invalid && (schlaf.dirty || schlaf.touched)" class="alert-danger">Schlaf muss zwischen 0
+        und 24 Stunden liegen.</div>
       <label class="che-label2">Schlaf</label>
       <input pInputText placeholder="in Stunden" type="number" formControlName="schlaf"
         [attr.disabled]="readonly ? 'disabled' : null" />
@@ -25,16 +29,16 @@
 
     <div>
       <label class="che-label2">Bemerkung</label>
-      <input pInputText type="text" formControlName="bemerkung" [readonly]="readonly" />
+      <input pInputText type="text" formControlName="bemerkung" [attr.disabled]="readonly ? 'disabled' : null" />
     </div>
 
     <p-messages [(value)]="msgs"></p-messages>
 
     <div class="form-buttons">
+      <button pButton type="submit" [disabled]="!statusForm.valid" style="margin-top: 1.0em;" class="ui-button-primary"
+        label="Speichern" *ngIf="!readonly"></button>
       <button pButton type="button" style="margin-top: 1.0em;" class="ui-button-primary" (click)="cancel()"
         label="Zurück" *ngIf="readonly"></button>
-      <button pButton type="button" style="margin-top: 1.0em;" class="ui-button-primary" (click)="save()"
-        label="Speichern" *ngIf="!readonly"></button>
       <button pButton type="button" style="margin-top: 1.0rem; margin-left: 0.4rem" class="ui-button-secondary"
         (click)="cancel()" label="Abbrechen" *ngIf="!readonly"></button>
     </div>

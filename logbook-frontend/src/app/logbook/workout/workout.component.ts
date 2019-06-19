@@ -40,16 +40,9 @@ export class WorkoutComponent implements OnInit {
   imgFearful = this.imgFearfulGrey;
 
   workoutForm: FormGroup;
-  datum = new Date();
-  location: string;
+
   locationOptions: SelectItem[] = [];
-  lead = false;
-  boulder = false;
-  kraft = false;
-  stretching = false;
-  campus = false;
-  mentaltraining = false;
-  belastung = 14;
+
   belastungOptions: SelectItem[] = [
     { label: '20', value: 20 },
     { label: '19', value: 19 },
@@ -67,13 +60,14 @@ export class WorkoutComponent implements OnInit {
     { label: '7', value: 7 },
     { label: '6', value: 6 },
   ];
-  sonstiges: string;
+
   sonstigesOptions: SelectItem[] = [
     { label: 'Jogging', value: 'Jogging' },
     { label: 'Velo/Bike', value: 'Velo/Bike' },
     { label: 'Ski/Snowboard', value: 'Ski/Snowboard' },
     { label: 'Langlauf', value: 'Langlauf' },
   ]
+
   gefuehl: number;
 
   readonly = true;
@@ -91,6 +85,14 @@ export class WorkoutComponent implements OnInit {
 
   }
 
+  get datum() { return this.workoutForm.get('datum'); }
+  get location() { return this.workoutForm.get('location'); }
+  get trainingszeit() { return this.workoutForm.get('trainingszeit'); }
+  get zuege12() { return this.workoutForm.get('zuege12'); }
+  get zuege23() { return this.workoutForm.get('zuege23'); }
+  get zuege34() { return this.workoutForm.get('zuege34'); }
+  get schlaf() { return this.workoutForm.get('schlaf'); }
+
   ngOnInit() {
     this.initCalendarLocale();
     this.workoutId = this.route.snapshot.paramMap.get('wo');
@@ -101,22 +103,22 @@ export class WorkoutComponent implements OnInit {
 
       this.workoutForm = this.fb.group({
         // initial values do not work, therefore they are initialized as variables...
-        datum: new FormControl({ value: new Date(), disabled: this.readonly }),
-        location: new FormControl({ value: '', disabled: this.readonly }),
-        lead: new FormControl({ value: false, disabled: this.readonly }),
-        boulder: new FormControl({ value: false, disabled: this.readonly }),
-        kraft: new FormControl({ value: false, disabled: this.readonly }),
-        stretching: new FormControl({ value: false, disabled: this.readonly }),
-        campus: new FormControl({ value: false, disabled: this.readonly }),
-        mentaltraining: new FormControl({ value: false, disabled: this.readonly }),
-        trainingszeit: [null, Validators.required],
-        belastung: new FormControl({ value: 14, disabled: this.readonly }),
-        zuege12: [null, Validators.required],
-        zuege23: [null, Validators.required],
-        zuege34: [null, Validators.required],
-        wettkampf: [null, Validators.required],
-        sonstiges: new FormControl({ value: '', disabled: this.readonly }),
-        schlaf: [null, Validators.required],
+        datum: [new Date(), Validators.required],
+        location: ['', Validators.required],
+        lead: [false],
+        boulder: [false],
+        kraft: [false],
+        stretching: [false],
+        campus: [false],
+        mentaltraining: [false],
+        trainingszeit: new FormControl(null, [Validators.required, Validators.min(0), Validators.max(600)]),
+        belastung: [14],
+        zuege12: [null, Validators.min(0)],
+        zuege23: [null, Validators.min(0)],
+        zuege34: [null, Validators.min(0)],
+        wettkampf: [null],
+        sonstiges: [null],
+        schlaf: new FormControl(null, [Validators.min(0), Validators.max(24)]),
       });
       this.gefuehl = null;
       this.resetImages();

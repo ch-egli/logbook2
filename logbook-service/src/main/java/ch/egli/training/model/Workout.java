@@ -38,7 +38,7 @@ public class Workout {
     private String wettkampf;
 
     @Column
-    @Min(0) @Max(20)
+    @Min(0) @Max(24)
     private Integer schlaf;
 
     @Column

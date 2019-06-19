@@ -36,7 +36,7 @@ export class StatusComponent implements OnInit {
   imgFearful = this.imgFearfulGrey;
 
   statusForm: FormGroup;
-  datum = new Date();
+
   gefuehl: number;
 
   readonly = true;
@@ -51,6 +51,9 @@ export class StatusComponent implements OnInit {
 
   }
 
+  get datum() { return this.statusForm.get('datum'); }
+  get schlaf() { return this.statusForm.get('schlaf'); }
+
   ngOnInit() {
     this.initCalendarLocale();
     this.statusId = this.route.snapshot.paramMap.get('st');
@@ -60,10 +63,9 @@ export class StatusComponent implements OnInit {
       this.setTitle(this.statusId, this.readonly);
 
       this.statusForm = this.fb.group({
-        // initial values do not work, therefore they are initialized as variables...
-        datum: new FormControl({ value: new Date(), disabled: this.readonly }),
-        schlaf: [null, Validators.required],
-        bemerkung: [null, Validators.required],
+        datum: [new Date(), Validators.required],
+        schlaf: new FormControl(null, [Validators.min(0), Validators.max(24)]),
+        bemerkung: [null],
       });
       this.gefuehl = null;
       this.resetImages();

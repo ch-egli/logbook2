@@ -56,8 +56,6 @@ export class LoginComponent implements OnInit {
         }
     }
 
-    get username() { return this.loginForm.get('username'); }
-
     login() {
         this.submitted = true;
         const val = this.loginForm.value;
