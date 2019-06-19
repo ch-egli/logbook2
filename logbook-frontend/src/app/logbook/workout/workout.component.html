@@ -3,22 +3,23 @@
 </div>
 <div>
   <form [formGroup]="workoutForm" (ngSubmit)="save()">
-    <div>
+
+    <div class="form-group">
+      <label for="datum">Datum *</label>
+      <p-calendar [showIcon]="false" formControlName="datum" name="datum" dateFormat="dd.mm.yy" [locale]="deCH"
+        [styleClass]="'width100'" [disabled]="readonly">
+      </p-calendar>
       <div *ngIf="datum.invalid && (datum.dirty || datum.touched)" class="alert-danger">Datum muss einen gültigen Wert
         haben!</div>
-      <label class="che-label">Datum*</label>
-      <p-calendar [showIcon]="false" formControlName="datum" dateFormat="dd.mm.yy" [locale]="deCH"
-        [styleClass]="'che-nowrap'" [disabled]="readonly">
-      </p-calendar>
     </div>
 
-    <div>
-      <div *ngIf="location.invalid && (location.dirty || location.touched)" class="alert-danger">Ort darf nicht leer
-        sein!</div>
-      <label class="che-label" style="padding-bottom: 0.25em;">Ort*</label>
-      <p-dropdown [options]="locationOptions" formControlName="location" [editable]="!readonly"
+    <div class="form-group">
+      <label for="location">Ort *</label>
+      <p-dropdown [options]="locationOptions" formControlName="location" name="location" [editable]="!readonly"
         [styleClass]="'dd-width'" [placeholder]="'wählen oder eintippen...'" [disabled]="readonly">
       </p-dropdown>
+      <div *ngIf="location.invalid && (location.dirty || location.touched)" class="alert-danger">Ort darf nicht leer
+        sein!</div>
     </div>
 
     <div class="che-label-container">
@@ -44,50 +45,51 @@
       </label>
     </div>
 
-    <div>
+    <div class="form-group">
+      <label for="trainingszeit">Dauer *</label>
+      <input pInputText placeholder="Wert in Minuten" type="number" formControlName="trainingszeit" name="trainingszeit"
+        [attr.disabled]="readonly ? 'disabled' : null" />
       <div *ngIf="trainingszeit.invalid && (trainingszeit.dirty || trainingszeit.touched)" class="alert-danger">
         Trainingszeit muss einen gültigen Wert haben: [0..600]</div>
-      <label class="che-label">Dauer*</label>
-      <input pInputText placeholder="Wert in Minuten" type="number" formControlName="trainingszeit"
-        [attr.disabled]="readonly ? 'disabled' : null" />
     </div>
 
     <p-overlayPanel #op [dismissable]="true" [showCloseIcon]="true">
       <img src="assets/images/belastung.png" alt="Belastung Info" style="width:18rem;" />
     </p-overlayPanel>
 
-    <div class="che-nowrap">
-      <label class="che-label">Belastung</label>
-      <p-dropdown [options]="belastungOptions" formControlName="belastung" [styleClass]="'dd-width'"
-        [attr.disabled]="readonly ? 'disabled' : null" [disabled]="readonly"></p-dropdown>&nbsp;
-      <a (click)="op.show($event)"><span class="fa fa-info-circle" aria-hidden="true"></span></a>
+    <div class="form-group">
+      <label for="belastung">Belastung</label>
+      <a (click)="op.show($event)"><span class="fa fa-info-circle" style="margin-left: 0.4rem;"
+          aria-hidden="true"></span></a>
+      <p-dropdown [options]="belastungOptions" formControlName="belastung" name="belastung" [styleClass]="'dd-width'"
+        [attr.disabled]="readonly ? 'disabled' : null" [disabled]="readonly"></p-dropdown>
     </div>
 
-    <div>
+    <div class="form-group">
+      <label for="zuege12">Züge 1-2</label>
+      <input pInputText placeholder="Anzahl Züge 1-2" type="number" formControlName="zuege12" name="zuege12"
+        [attr.disabled]="readonly ? 'disabled' : null" />
       <div *ngIf="zuege12.invalid && (zuege12.dirty || zuege12.touched)" class="alert-danger">Zuege12 muss eine positive
         Zahl sein.</div>
-      <label class="che-label">Züge 1-2</label>
-      <input pInputText placeholder="Anzahl Züge 1-2" type="number" formControlName="zuege12"
-        [attr.disabled]="readonly ? 'disabled' : null" />
     </div>
-    <div>
+    <div class="form-group">
+      <label for="zuege23">Züge 2-3</label>
+      <input pInputText placeholder="Anzahl Züge 2-3" type="number" formControlName="zuege23" name="zuege23"
+        [attr.disabled]="readonly ? 'disabled' : null" />
       <div *ngIf="zuege23.invalid && (zuege23.dirty || zuege23.touched)" class="alert-danger">Zuege23 muss eine positive
         Zahl sein.</div>
-      <label class="che-label">Züge 2-3</label>
-      <input pInputText placeholder="Anzahl Züge 2-3" type="number" formControlName="zuege23"
-        [attr.disabled]="readonly ? 'disabled' : null" />
     </div>
-    <div>
+    <div class="form-group">
+      <label for="zuege34">Züge 3-4</label>
+      <input pInputText placeholder="Anzahl Züge 3-4" type="number" formControlName="zuege34" name="zuege34"
+        [attr.disabled]="readonly ? 'disabled' : null" />
       <div *ngIf="zuege34.invalid && (zuege34.dirty || zuege34.touched)" class="alert-danger">Zuege34 muss eine positive
         Zahl sein.</div>
-      <label class="che-label">Züge 3-4</label>
-      <input pInputText placeholder="Anzahl Züge 3-4" type="number" formControlName="zuege34"
-        [attr.disabled]="readonly ? 'disabled' : null" />
     </div>
 
-    <div>
-      <label class="che-label">Wettkampf</label>
-      <input pInputText placeholder="z.B. EYC, MYCC" type="text" formControlName="wettkampf"
+    <div class="form-group">
+      <label for="wettkampf">Wettkampf</label>
+      <input pInputText placeholder="z.B. EYC, MYCC" type="text" formControlName="wettkampf" name="wettkampf"
         [attr.disabled]="readonly ? 'disabled' : null" />
     </div>
 
@@ -101,18 +103,18 @@
           <a (click)="selectFearful()"><img src="{{ imgFearful }}" class="status-emoji" /></a>
         </div>
         <div>
+          <label for="schlaf">Schlaf</label>
+          <input pInputText placeholder="in Stunden" type="number" formControlName="schlaf" name="schlaf"
+            [attr.disabled]="readonly ? 'disabled' : null" />
           <div *ngIf="schlaf.invalid && (schlaf.dirty || schlaf.touched)" class="alert-danger">Schlaf muss zwischen 0
             und 24 Stunden liegen.</div>
-          <label class="che-label-small">Schlaf</label>
-          <input pInputText placeholder="in Stunden" type="number" formControlName="schlaf" style="width: 10.6em;"
-            [attr.disabled]="readonly ? 'disabled' : null" />
         </div>
       </p-panel>
     </div>
 
-    <div style="margin-top: 0.3em;">
-      <label class="che-label">Sonstiges</label>
-      <p-dropdown [options]="sonstigesOptions" formControlName="sonstiges" [editable]="!readonly"
+    <div class="form-group">
+      <label for="sonstiges">Sonstiges</label>
+      <p-dropdown [options]="sonstigesOptions" formControlName="sonstiges" name="sonstiges" [editable]="!readonly"
         [styleClass]="'dd-width'" [placeholder]="'wählen oder eintippen...'" [disabled]="readonly">
       </p-dropdown>
     </div>

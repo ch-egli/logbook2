@@ -40,7 +40,7 @@ table tr th .ui-dropdown {
 }
 
 .dd-width {
-    width: 10rem;
+    width: 100%;
 }
 
 .che-label {
@@ -59,9 +59,9 @@ table tr th .ui-dropdown {
 }
 
 .che-label-container {
-    width: 20.8rem;
-    padding-bottom: 0.3rem;
-    margin-left: 1.0rem;
+    width: 100%;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
 }
 
 .che-nowrap {
@@ -75,10 +75,10 @@ table tr th .ui-dropdown {
 }
 
 .status-panel {
-    width: 18em;
+    width: 100%;
     padding-top: 0.2em;
     padding-right: 0em;
-    padding-bottom: 0.2em;
+    padding-bottom: 0.5em;
     padding-left: 0em;
 }
 
@@ -111,6 +111,24 @@ a {
     color: #721c24;
     background-color: #f8d7da;
     border-color: #f5c6cb;
+}
+
+label {
+    display: inline-block;
+    margin-bottom: 0.1rem;
+}
+
+.ui-inputtext {
+    padding: .1em;
+    width: 100%;
+}
+
+.width100 {
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 0.5rem;
 }
 
 /*

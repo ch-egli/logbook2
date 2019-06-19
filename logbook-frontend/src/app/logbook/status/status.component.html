@@ -3,33 +3,35 @@
 </div>
 <div>
   <form [formGroup]="statusForm" (ngSubmit)="save()">
-    <div>
+
+    <div class="form-group">
+      <label for="datum">Datum *</label>
+      <p-calendar [showIcon]="false" formControlName="datum" name="datum" dateFormat="dd.mm.yy" [locale]="deCH"
+        [styleClass]="'width100'" [disabled]="readonly">
+      </p-calendar>
       <div *ngIf="datum.invalid && (datum.dirty || datum.touched)" class="alert-danger">Datum muss einen gültigen Wert
         haben!</div>
-      <label class="che-label2">Datum</label>
-      <p-calendar [showIcon]="false" formControlName="datum" dateFormat="dd.mm.yy" [locale]="deCH"
-        [styleClass]="'che-nowrap'" [disabled]="readonly">
-      </p-calendar>
     </div>
 
-    <div>
+    <div class="form-group" style="margin-top:0.2rem">
       <label class="che-label2">Gefühl</label>
       <a (click)="selectGrinning()"><img src="{{ imgGrinning }}" class="status-emoji" /></a>
       <a (click)="selectSmirking()"><img src="{{ imgSmirking }}" class="status-emoji" /></a>
       <a (click)="selectFrowning()"><img src="{{ imgFrowning }}" class="status-emoji" /></a>
       <a (click)="selectFearful()"><img src="{{ imgFearful }}" class="status-emoji" /></a>
     </div>
-    <div>
+    <div class="form-group">
+      <label for="schlaf">Schlaf</label>
+      <input pInputText placeholder="in Stunden" type="number" formControlName="schlaf" name="schlaf"
+        [attr.disabled]="readonly ? 'disabled' : null" />
       <div *ngIf="schlaf.invalid && (schlaf.dirty || schlaf.touched)" class="alert-danger">Schlaf muss zwischen 0
         und 24 Stunden liegen.</div>
-      <label class="che-label2">Schlaf</label>
-      <input pInputText placeholder="in Stunden" type="number" formControlName="schlaf"
-        [attr.disabled]="readonly ? 'disabled' : null" />
     </div>
 
-    <div>
-      <label class="che-label2">Bemerkung</label>
-      <input pInputText type="text" formControlName="bemerkung" [attr.disabled]="readonly ? 'disabled' : null" />
+    <div class="form-group">
+      <label for="bemerkung">Bemerkung</label>
+      <input pInputText type="text" formControlName="bemerkung" name="bemerkung"
+        [attr.disabled]="readonly ? 'disabled' : null" />
     </div>
 
     <p-messages [(value)]="msgs"></p-messages>
