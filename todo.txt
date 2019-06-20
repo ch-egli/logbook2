@@ -1,12 +1,16 @@
 
+- CSS bereinigen: nicht benutzte Klassen entfernen
+
+- Checkbox Speed
+
+- Change Password Dialogue
+
 - Statistik: Gefühl und Status werden von der Workout Tabelle genommen und nicht von der Status Tabelle...
 
 - Authentication:
   -> use secure cookie and csrf resp. same host policy
   -> pay attention to xss (test input fields!)
   -> remove remember me?
-
-- Change Password Dialogue
 
 - Add Season Goals Dialogue
 

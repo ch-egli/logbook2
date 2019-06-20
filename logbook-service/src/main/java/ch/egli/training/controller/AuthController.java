@@ -4,6 +4,7 @@ package ch.egli.training.controller;
 import ch.egli.training.exception.BadCredentialsException;
 import ch.egli.training.repository.BenutzerRepository;
 import ch.egli.training.security.JwtTokenProvider;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,6 +27,7 @@ import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @RequestMapping("/auth")
+@Slf4j
 public class AuthController {
 
     @Autowired
@@ -41,6 +43,7 @@ public class AuthController {
     public ResponseEntity loginAndReturnToken(@RequestBody AuthenticationRequest data) {
         try {
             String username = data.getUsername();
+            log.info("login request - user: {}", username);
             Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, data.getPassword()));
 
             final Collection<? extends GrantedAuthority> authorities = auth.getAuthorities();
@@ -53,6 +56,7 @@ public class AuthController {
             model.put("roles", roles.stream().collect(Collectors.joining(",")));
             return ok(model);
         } catch (AuthenticationException e) {
+            log.error("authentication error - user: {}", data.getUsername());
             throw new BadCredentialsException("Invalid username/password");
         }
     }
