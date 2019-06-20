@@ -46,6 +46,7 @@ public class StatisticsRepository {
                 "SUM(CASE WHEN gefuehl > 2 THEN 1 ELSE 0 END) as countGefuehlMoreThan2,\n" +
                 "COUNT(lead) as countLead,\n" +
                 "COUNT(bouldern) as countBouldern,\n" +
+                "COUNT(speed) as countSpeed,\n" +
                 "COUNT(campus) as countCampus,\n" +
                 "COUNT(kraftraum) as countKraft,\n" +
                 "COUNT(dehnen) as countStretching,\n" +
@@ -95,6 +96,7 @@ public class StatisticsRepository {
 
         List<Map<String, Integer>> queryResultDisziplinen = jdbcTemplate.query("SELECT COUNT(lead) as lead, " +
                         "COUNT(bouldern) as bouldern, " +
+                        "COUNT(speed) as speed, " +
                         "COUNT(campus) as campusboard, " +
                         "COUNT(kraftraum) as krafttraining, " +
                         "COUNT(dehnen) as stretching, " +
@@ -105,6 +107,7 @@ public class StatisticsRepository {
                     Map<String, Integer> disziplinenMap = new LinkedHashMap<>();
                     disziplinenMap.put("Lead", rs.getInt("lead"));
                     disziplinenMap.put("Bouldern", rs.getInt("bouldern"));
+                    disziplinenMap.put("Speed", rs.getInt("speed"));
                     disziplinenMap.put("Campusboard", rs.getInt("campusboard"));
                     disziplinenMap.put("Krafttraining", rs.getInt("krafttraining"));
                     disziplinenMap.put("Stretching", rs.getInt("stretching"));

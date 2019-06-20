@@ -39,7 +39,7 @@ public class Workout {
 
     @Column
     @Min(0) @Max(24)
-    private Integer schlaf;
+    private Double schlaf;
 
     @Column
     @Min(1) @Max(4)
@@ -52,6 +52,10 @@ public class Workout {
     @Column
     @Min(0) @Max(9)
     private Integer bouldern;
+
+    @Column
+    @Min(0) @Max(9)
+    private Integer speed;
 
     @Column
     @Min(0) @Max(9)
@@ -164,11 +168,11 @@ public class Workout {
         this.wettkampf = wettkampf;
     }
 
-    public Integer getSchlaf() {
+    public Double getSchlaf() {
         return schlaf;
     }
 
-    public void setSchlaf(Integer schlaf) {
+    public void setSchlaf(Double schlaf) {
         this.schlaf = schlaf;
     }
 
@@ -346,5 +350,13 @@ public class Workout {
 
     public void setSonstiges(String bemerkungen) {
         this.sonstiges = bemerkungen;
+    }
+
+    public Integer getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(Integer speed) {
+        this.speed = speed;
     }
 }

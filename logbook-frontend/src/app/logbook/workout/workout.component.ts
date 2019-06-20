@@ -107,6 +107,7 @@ export class WorkoutComponent implements OnInit {
         location: ['', Validators.required],
         lead: [false],
         boulder: [false],
+        speed: [false],
         kraft: [false],
         stretching: [false],
         campus: [false],
@@ -118,7 +119,7 @@ export class WorkoutComponent implements OnInit {
         zuege34: [null, Validators.min(0)],
         wettkampf: [null],
         sonstiges: [null],
-        schlaf: new FormControl(null, [Validators.min(0), Validators.max(24)]),
+        schlaf: new FormControl(9.0, [Validators.min(0), Validators.max(24)]),
       });
       this.gefuehl = null;
       this.resetImages();
@@ -135,6 +136,7 @@ export class WorkoutComponent implements OnInit {
             location: wo.ort,
             lead: wo.lead === 1 ? true : false,
             boulder: wo.bouldern === 1 ? true : false,
+            speed: wo.speed === 1 ? true : false,
             kraft: wo.kraftraum === 1 ? true : false,
             stretching: wo.dehnen === 1 ? true : false,
             campus: wo.campus === 1 ? true : false,
@@ -174,6 +176,7 @@ export class WorkoutComponent implements OnInit {
       trainingszeit: Math.round(val.trainingszeit),
       lead: val.lead === true ? 1 : 0,
       bouldern: val.boulder === true ? 1 : 0,
+      speed: val.speed === true ? 1 : 0,
       kraftraum: val.kraft === true ? 1 : 0,
       dehnen: val.stretching === true ? 1 : 0,
       campus: val.campus === true ? 1 : 0,
@@ -184,14 +187,14 @@ export class WorkoutComponent implements OnInit {
       zuege34: Math.round(val.zuege34),
       wettkampf: val.wettkampf,
       sonstiges: val.sonstiges,
-      schlaf: Math.round(val.schlaf),
+      schlaf: Math.round(10 * val.schlaf) / 10,
       gefuehl: this.gefuehl,
     };
 
     const status: Status = {
       benutzername: this.currentUser,
       datum: val.datum,
-      schlaf: Math.round(val.schlaf),
+      schlaf: Math.round(10 * val.schlaf) / 10,
       bemerkung: null,
       gefuehl: this.gefuehl,
     };

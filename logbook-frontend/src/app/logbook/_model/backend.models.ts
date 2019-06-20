@@ -5,6 +5,7 @@ export class Workout {
     trainingszeit: number;
     lead: number;
     bouldern: number;
+    speed: number;
     kraftraum: number;
     dehnen: number;
     campus: number;

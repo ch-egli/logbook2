@@ -1,7 +1,7 @@
 export interface Environment {
     production: boolean;
     baseUrl: string;
-    logbookVersion: '2.0.0';
+    logbookVersion: string;
 
     workoutLocations: string[];
 }

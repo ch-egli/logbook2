@@ -367,6 +367,7 @@ export class ChartsComponent implements OnInit {
                 axis.max = 7;
               } else if (this.selectedChart0 && (this.selectedChart0.indexOf('Lead') !== -1
                 || this.selectedChart0.indexOf('Bouldern') !== -1
+                || this.selectedChart0.indexOf('Speed') !== -1
                 || this.selectedChart0.indexOf('Campusboard')
                 || this.selectedChart0.indexOf('Krafttrainings')
                 || this.selectedChart0.indexOf('Stretching')
@@ -413,6 +414,7 @@ export class ChartsComponent implements OnInit {
                 axis.max = 7;
               } else if (this.selectedChart1 && (this.selectedChart1.indexOf('Lead') !== -1
                 || this.selectedChart1.indexOf('Bouldern') !== -1
+                || this.selectedChart1.indexOf('Speed') !== -1
                 || this.selectedChart1.indexOf('Campusboard')
                 || this.selectedChart1.indexOf('Krafttrainings')
                 || this.selectedChart1.indexOf('Stretching')

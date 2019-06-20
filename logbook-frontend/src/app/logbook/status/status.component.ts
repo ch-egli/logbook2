@@ -64,7 +64,7 @@ export class StatusComponent implements OnInit {
 
       this.statusForm = this.fb.group({
         datum: [new Date(), Validators.required],
-        schlaf: new FormControl(null, [Validators.min(0), Validators.max(24)]),
+        schlaf: new FormControl(9.0, [Validators.min(0), Validators.max(24)]),
         bemerkung: [null],
       });
       this.gefuehl = null;
@@ -105,7 +105,7 @@ export class StatusComponent implements OnInit {
     const status: Status = {
       benutzername: this.currentUser,
       datum: val.datum,
-      schlaf: Math.round(val.schlaf),
+      schlaf: Math.round(10 * val.schlaf) / 10,
       bemerkung: val.bemerkung,
       gefuehl: this.gefuehl,
     };

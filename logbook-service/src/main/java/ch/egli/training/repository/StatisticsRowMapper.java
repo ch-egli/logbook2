@@ -32,6 +32,7 @@ public class StatisticsRowMapper implements RowMapper<StatsData> {
                 rs.getDouble("totalZuege"),
                 rs.getDouble("countLead"),
                 rs.getDouble("countBouldern"),
+                rs.getDouble("countSpeed"),
                 rs.getDouble("countCampus"),
                 rs.getDouble("countKraft"),
                 rs.getDouble("countStretching"),

@@ -29,6 +29,7 @@ public class StatsData {
     private Double totalZuege;
     private Double countLead;
     private Double countBouldern;
+    private Double countSpeed;
     private Double countCampus;
     private Double countKraft;
     private Double countStretching;

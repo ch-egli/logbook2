@@ -56,6 +56,7 @@ public class ChartDataController {
         List<Double> countGefuehlMoreThan2Data = new ArrayList<>();
         List<Double> countLeadData = new ArrayList<>();
         List<Double> countBouldernData = new ArrayList<>();
+        List<Double> countSpeedData = new ArrayList<>();
         List<Double> countCampusData = new ArrayList<>();
         List<Double> countKraftData = new ArrayList<>();
         List<Double> countDehnenData = new ArrayList<>();
@@ -86,6 +87,7 @@ public class ChartDataController {
             countGefuehlMoreThan2Data.add(data.getCountGefuehlMoreThan2());
             countLeadData.add(data.getCountLead());
             countBouldernData.add(data.getCountBouldern());
+            countSpeedData.add(data.getCountSpeed());
             countCampusData.add(data.getCountCampus());
             countKraftData.add(data.getCountKraft());
             countDehnenData.add(data.getCountStretching());
@@ -107,11 +109,12 @@ public class ChartDataController {
         chartData.put("12 Anzahl schlechtes Gefühl", countGefuehlMoreThan2Data);
         chartData.put("13 Anzahl Lead", countLeadData);
         chartData.put("14 Anzahl Bouldern", countBouldernData);
-        chartData.put("15 Anzahl Campusboard", countCampusData);
-        chartData.put("16 Anzahl Krafttrainings", countKraftData);
-        chartData.put("17 Anzahl Stretching", countDehnenData);
-        chartData.put("18 Anzahl Mentaltraining", countMentaltrainingData);
-        chartData.put("19 Anzahl Jogging", coundJoggingData);
+        chartData.put("15 Anzahl Speed", countSpeedData);
+        chartData.put("16 Anzahl Campusboard", countCampusData);
+        chartData.put("17 Anzahl Krafttrainings", countKraftData);
+        chartData.put("18 Anzahl Stretching", countDehnenData);
+        chartData.put("19 Anzahl Mentaltraining", countMentaltrainingData);
+        chartData.put("20 Anzahl Jogging", coundJoggingData);
 
         List<Wettkampf> wettkaempfe = wettkampfRepository.findByBenutzerAndYear(benutzername, year);
 

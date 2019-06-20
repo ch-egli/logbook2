@@ -1,7 +1,9 @@
 
-- CSS bereinigen: nicht benutzte Klassen entfernen
++ CSS bereinigen: nicht benutzte Klassen entfernen
 
-- Checkbox Speed
++ Checkbox Speed
+
++ Schlaf als Float und nicht Integer -> Datenbank!
 
 - Change Password Dialogue
 
