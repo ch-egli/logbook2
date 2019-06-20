@@ -1,4 +1,4 @@
-FROM postgres:11.1
+FROM postgres:11.3
 MAINTAINER Christian Egli <christian.egli@gmx.net>
 
 # Add debian testing repository and make the ‘stable’ repository default
