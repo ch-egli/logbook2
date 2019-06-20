@@ -11,6 +11,7 @@
 
 .ui-inputtext {
     padding: .1em;
+    width: 100%;
 }
 
 .weekday {
@@ -21,10 +22,6 @@
 .colMinWithForDate {
     min-width: 100px;
     white-space: nowrap;
-}
-
-.colWidthBenutzer {
-    width: 70px;
 }
 
 .colWidthIcons {
@@ -41,11 +38,6 @@ table tr th .ui-dropdown {
 
 .dd-width {
     width: 100%;
-}
-
-.che-label {
-    width: 5.2rem;
-    white-space: nowrap;
 }
 
 .che-label-small {
@@ -97,7 +89,7 @@ table tr th .ui-dropdown {
 }
 
 .status-emoji {
-    width:28px; 
+    width:28px;
     margin-top: 0.4rem;
     margin-right: 0.4rem;
     margin-bottom: 0.6rem;
@@ -118,11 +110,6 @@ label {
     margin-bottom: 0.1rem;
 }
 
-.ui-inputtext {
-    padding: .1em;
-    width: 100%;
-}
-
 .width100 {
     width: 100%;
 }
@@ -130,10 +117,3 @@ label {
 .form-group {
     margin-bottom: 0.5rem;
 }
-
-/*
-.ui-growl-message-error, .ui-messages-error {
-    background-color: #d9534f;
-    //background-color: #fe6969;;
-}
-*/
