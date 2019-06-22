@@ -29,6 +29,10 @@ export class AuthenticationService {
             }));
     }
 
+    public changePassword(oldPassword: string, newPassword: string) {
+        return this.http.post<any>(this.baseUrl + 'v1/users/updatePassword', { oldPassword, newPassword });
+    }
+
     public getCurrentUser() {
         return localStorage.getItem('currentUser');
     }

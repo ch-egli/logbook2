@@ -21,6 +21,7 @@ export class NavComponent {
         { displayName: 'Wochenstatistik', routerLink: 'stat1' },
         { displayName: 'Jahresstatistik', routerLink: 'stat2' },
         { displayName: 'Export...', routerLink: 'export' },
+        { displayName: 'Passwort ändern', routerLink: 'updatePassword' },
         { displayName: 'Über das Climbing Logbook', routerLink: 'about' },
     ];
 

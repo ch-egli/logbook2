@@ -2,7 +2,6 @@ package ch.egli.training.controller;
 
 
 import ch.egli.training.exception.BadCredentialsException;
-import ch.egli.training.repository.BenutzerRepository;
 import ch.egli.training.security.JwtTokenProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +34,6 @@ public class AuthController {
 
     @Autowired
     JwtTokenProvider jwtTokenProvider;
-
-    @Autowired
-    BenutzerRepository benutzerRepository;
 
     @PostMapping("/token")
     public ResponseEntity loginAndReturnToken(@RequestBody AuthenticationRequest data) {

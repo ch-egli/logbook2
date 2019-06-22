@@ -1,6 +1,7 @@
 import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './logbook/login/login.component';
+import { PasswordComponent } from './logbook/login/password.component';
 import { AboutComponent } from './logbook/about/about.component';
 import { HomeComponent } from './logbook/home/home.component';
 import { WorkoutComponent } from './logbook/workout/workout.component';
@@ -15,6 +16,7 @@ export const appRoutes: Routes = [
     { path: 'workout/:wo', component: WorkoutComponent, canActivate: [AuthGuard] },
     { path: 'status/:st', component: StatusComponent, canActivate: [AuthGuard] },
     { path: 'login', component: LoginComponent },
+    { path: 'updatePassword', component: PasswordComponent },
     { path: 'stat1', component: ChartsComponent, canActivate: [AuthGuard] },
     { path: 'stat2', component: Charts2Component, canActivate: [AuthGuard] },
     { path: 'export', component: ExportComponent, canActivate: [AuthGuard] },
