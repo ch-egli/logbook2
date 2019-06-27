@@ -230,4 +230,17 @@ export class StatusComponent implements OnInit {
       this.title = 'Status ändern...';
     }
   }
+
+  // correct problem with timezone: see https://github.com/primefaces/primeng/issues/2426
+  setCorrectDate(date: Date) {
+    console.log('selected date (orig): ' + date);
+    const offset: number = date.getTimezoneOffset();
+    console.log('timezoneOffset: ' + offset);
+
+    date.setTime(date.getTime() - (date.getTimezoneOffset() * 60 * 1000));
+
+    console.log('selected date (corr): ' + date);
+    //this.statusForm.controls['datum'].setValue(date);
+    this.statusForm.patchValue({ datum: date });
+  }
 }

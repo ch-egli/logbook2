@@ -5,7 +5,7 @@
 
 + Schlaf als Float und nicht Integer -> Datenbank!
 
-- Change Password Dialogue
++ Change Password Dialogue
 
 - Statistik: Gefühl und Status werden von der Workout Tabelle genommen und nicht von der Status Tabelle...
 
