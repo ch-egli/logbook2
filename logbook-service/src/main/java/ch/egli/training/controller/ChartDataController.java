@@ -145,7 +145,7 @@ public class ChartDataController {
         } else if (countTrainings == null || countTrainings == 0) {
             return 0.0;
         } else {
-            return totalZuege / countTrainings;
+            return (Long.valueOf(Math.round(totalZuege / countTrainings))).doubleValue();
         }
     }
 }
