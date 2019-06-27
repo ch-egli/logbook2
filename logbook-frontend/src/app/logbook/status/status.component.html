@@ -7,7 +7,7 @@
     <div class="form-group">
       <label for="datum">Datum *</label>
       <p-calendar [showIcon]="false" formControlName="datum" name="datum" dateFormat="dd.mm.yy" [locale]="deCH"
-        [styleClass]="'width100'" [disabled]="readonly" (onSelect)="setCorrectDate($event)">
+        [styleClass]="'width100'" [disabled]="readonly" [readonlyInput]="true" (onSelect)="setCorrectDate($event)">
       </p-calendar>
       <div *ngIf="datum.invalid && (datum.dirty || datum.touched)" class="alert-danger">Datum muss einen gültigen Wert
         haben!</div>
