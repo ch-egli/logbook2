@@ -1,13 +1,8 @@
 
-+ CSS bereinigen: nicht benutzte Klassen entfernen
+- Gefühl (mental), Gefühl (körperlich)
 
-+ Checkbox Speed
-
-+ Schlaf als Float und nicht Integer -> Datenbank!
-
-+ Change Password Dialogue
-
-- Statistik: Gefühl und Status werden von der Workout Tabelle genommen und nicht von der Status Tabelle...
++ Statistik: Gefühl und Status werden von der Workout Tabelle genommen und nicht von der Status Tabelle...
+  -> won't do
 
 - Authentication:
   -> use secure cookie and csrf resp. same host policy
