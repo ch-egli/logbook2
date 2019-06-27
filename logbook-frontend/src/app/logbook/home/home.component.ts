@@ -78,9 +78,14 @@ export class HomeComponent implements OnInit {
     forkJoin(this.userObservable, this.pagedWorkoutObservable, this.pagedStatusObservable).subscribe((res) => {
       const users = res[0];
       // console.log('users: ' + users);
-      users.forEach((user) => {
-        this.userOptions.push({ label: user, value: user });
-      });
+      if (this.userDiscriminator === 'groupEgliSisters') {
+        this.userOptions.push({ label: 'liv', value: 'liv' });
+        this.userOptions.push({ label: 'zoe', value: 'zoe' });
+      } else {
+        users.forEach((user) => {
+          this.userOptions.push({ label: user, value: user });
+        });
+      }
 
       const pagedWorkouts = res[1];
       // console.log('pagedWorkouts: ' + pagedWorkouts);
@@ -121,7 +126,11 @@ export class HomeComponent implements OnInit {
       this.userDiscriminator = event.value;
       this.userDiscriminatorForStatus = event.value;
     } else {
-      this.userDiscriminator = 'all';
+      if (this.authenticationService.isEgliSister()) {
+        this.userDiscriminator = 'groupEgliSisters';
+      } else {
+        this.userDiscriminator = 'all';
+      }
       this.userDiscriminatorForStatus = 'all';
     }
 
