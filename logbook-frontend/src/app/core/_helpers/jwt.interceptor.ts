@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 import { AuthenticationService } from '../_services/authentication.service';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-    constructor(private authenticationService: AuthenticationService) { }
+    constructor(private authenticationService: AuthenticationService,
+        private router: Router) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         // check if the current user is logged in:
@@ -21,6 +24,12 @@ export class JwtInterceptor implements HttpInterceptor {
             });
         }
 
-        return next.handle(request);
+        return next.handle(request).pipe(
+            catchError(err => {
+                console.log('error in http-interceptor: ' + JSON.stringify(err));
+                this.router.navigate(['/login']);
+                return throwError(err);
+            })
+        )
     }
 }
