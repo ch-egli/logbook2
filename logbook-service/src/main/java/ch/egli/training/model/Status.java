@@ -37,6 +37,14 @@ public class Status {
     @Min(1) @Max(4)
     private Float gefuehl;
 
+    @Column(name = "gefuehl_k")
+    @Min(0) @Max(5)
+    private Float gefuehlK;
+
+    @Column(name = "gefuehl_m")
+    @Min(0) @Max(5)
+    private Float gefuehlM;
+
     @Column
     private String bemerkung;
 
@@ -86,5 +94,21 @@ public class Status {
 
     public void setBemerkung(String bemerkung) {
         this.bemerkung = bemerkung;
+    }
+
+    public Float getGefuehlK() {
+        return gefuehlK;
+    }
+
+    public void setGefuehlK(Float gefuehlK) {
+        this.gefuehlK = gefuehlK;
+    }
+
+    public Float getGefuehlM() {
+        return gefuehlM;
+    }
+
+    public void setGefuehlM(Float gefuehlM) {
+        this.gefuehlM = gefuehlM;
     }
 }

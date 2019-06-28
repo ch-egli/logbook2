@@ -19,6 +19,7 @@ import {
     SplitButtonModule, StepsModule, TabViewModule,
     ToggleButtonModule, TabMenuModule
 } from 'primeng/primeng';
+import { RatingModule } from 'primeng/rating';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { TableModule } from 'primeng/table';
 import { AboutComponent } from './about/about.component';
@@ -83,7 +84,8 @@ import { ChartsModule } from 'ng2-charts';
         ChartsModule,
         TabMenuModule,
         TableModule,
-        OverlayPanelModule
+        OverlayPanelModule,
+        RatingModule
     ],
     providers: [ConfirmationService]
 })

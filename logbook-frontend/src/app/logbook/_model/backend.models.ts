@@ -18,6 +18,8 @@ export class Workout {
     sonstiges: string;
     schlaf: number;
     gefuehl: number;
+    gefuehlK: number;
+    gefuehlM: number;
 }
 
 export class WorkoutPageable {
@@ -33,6 +35,8 @@ export class Status {
     datum: Date;
     schlaf: number;
     gefuehl: number;
+    gefuehlK: number;
+    gefuehlM: number;
     bemerkung: string;
 }
 

@@ -98,6 +98,21 @@
 
     <div style="margin-left: 1.0rem;" *ngIf="isNew()">
       <p-panel header="Status Infos" [styleClass]="'status-panel'">
+        <div class="form-group" style="padding-top:0.6rem">
+          <label for="datum">Gefühl (körperlich):<br><span class="che-nowrap">kaputt/müde... --
+              fit/ausgeruht...</span></label>
+          <p-rating formControlName="gefuehlK" name="gefuehlK" stars="5" [cancel]="false" [disabled]="readonly">
+          </p-rating>
+        </div>
+
+        <div class="form-group">
+          <label for="datum">Gefühl (mental):<br><span class="che-nowrap">gestresst/ausgelaugt... --
+              frisch/entspannt...</span></label>
+          <p-rating formControlName="gefuehlM" name="gefuehlM" stars="5" [cancel]="false" [disabled]="readonly">
+          </p-rating>
+        </div>
+
+        <!--
         <div>
           <label class="che-label-small">Gefühl</label>
           <a (click)="selectGrinning()"><img src="{{ imgGrinning }}" class="status-emoji" /></a>
@@ -105,6 +120,8 @@
           <a (click)="selectFrowning()"><img src="{{ imgFrowning }}" class="status-emoji" /></a>
           <a (click)="selectFearful()"><img src="{{ imgFearful }}" class="status-emoji" /></a>
         </div>
+        -->
+
         <div>
           <label for="schlaf">Schlaf</label>
           <input pInputText placeholder="in Stunden" type="number" formControlName="schlaf" name="schlaf"

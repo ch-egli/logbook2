@@ -6,5 +6,5 @@ export const environment: Environment = {
   baseUrl: 'https://logbook.snoopfish.ch:443/',
   logbookVersion: '2.0.9',
 
-  workoutLocations: ['Wilderswil', 'Griffbar', 'K44', 'O\'Bloc', 'Magnet', 'NLZ Biel', 'Bimano', 'Klettertreff', 'Home'],
+  workoutLocations: ['Wilderswil', 'Griffbar', 'K44', 'O\'Bloc', 'Magnet', 'Home', 'NLZ Biel', 'Bimano', 'Klettertreff'],
 };

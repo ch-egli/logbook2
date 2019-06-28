@@ -45,6 +45,14 @@ public class Workout {
     @Min(1) @Max(4)
     private Integer gefuehl;
 
+    @Column(name = "gefuehl_k")
+    @Min(0) @Max(5)
+    private Float gefuehlK;
+
+    @Column(name = "gefuehl_m")
+    @Min(0) @Max(5)
+    private Float gefuehlM;
+
     @Column
     @Min(0) @Max(9)
     private Integer lead;
@@ -358,5 +366,21 @@ public class Workout {
 
     public void setSpeed(Integer speed) {
         this.speed = speed;
+    }
+
+    public Float getGefuehlK() {
+        return gefuehlK;
+    }
+
+    public void setGefuehlK(Float gefuehlK) {
+        this.gefuehlK = gefuehlK;
+    }
+
+    public Float getGefuehlM() {
+        return gefuehlM;
+    }
+
+    public void setGefuehlM(Float gefuehlM) {
+        this.gefuehlM = gefuehlM;
     }
 }

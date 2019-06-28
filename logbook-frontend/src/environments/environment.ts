@@ -5,6 +5,6 @@ export const environment: Environment = {
   baseUrl: 'http://localhost:8080/',
   logbookVersion: '2.0.9',
 
-  workoutLocations: ['Wilderswil', 'Griffbar', 'K44', 'O\'Bloc', 'Magnet', 'NLZ Biel', 'Bimano', 'Klettertreff', 'Home'],
+  workoutLocations: ['Wilderswil', 'Griffbar', 'K44', 'O\'Bloc', 'Magnet', 'Home', 'NLZ Biel', 'Bimano', 'Klettertreff'],
 };
 

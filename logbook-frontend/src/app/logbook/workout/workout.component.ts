@@ -120,6 +120,8 @@ export class WorkoutComponent implements OnInit {
         wettkampf: [null],
         sonstiges: [null],
         schlaf: new FormControl(9.0, [Validators.min(0), Validators.max(24)]),
+        gefuehlK: [3],
+        gefuehlM: [3],
       });
       this.gefuehl = null;
       this.resetImages();
@@ -149,6 +151,8 @@ export class WorkoutComponent implements OnInit {
             wettkampf: wo.wettkampf,
             sonstiges: wo.sonstiges,
             schlaf: wo.schlaf,
+            gefuehlK: wo.gefuehlK,
+            gefuehlM: wo.gefuehlM,
           });
           this.gefuehl = wo.gefuehl;
         },
@@ -189,6 +193,8 @@ export class WorkoutComponent implements OnInit {
       sonstiges: val.sonstiges,
       schlaf: Math.round(10 * val.schlaf) / 10,
       gefuehl: this.gefuehl,
+      gefuehlK: val.gefuehlK,
+      gefuehlM: val.gefuehlM,
     };
 
     const status: Status = {
@@ -197,6 +203,8 @@ export class WorkoutComponent implements OnInit {
       schlaf: Math.round(10 * val.schlaf) / 10,
       bemerkung: null,
       gefuehl: this.gefuehl,
+      gefuehlK: val.gefuehlK,
+      gefuehlM: val.gefuehlM,
     };
 
     if (this.workoutId === 'new') {

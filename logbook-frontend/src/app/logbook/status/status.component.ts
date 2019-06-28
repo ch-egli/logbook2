@@ -66,6 +66,8 @@ export class StatusComponent implements OnInit {
         datum: [new Date(), Validators.required],
         schlaf: new FormControl(9.0, [Validators.min(0), Validators.max(24)]),
         bemerkung: [null],
+        gefuehlK: [3],
+        gefuehlM: [3],
       });
       this.gefuehl = null;
       this.resetImages();
@@ -81,6 +83,8 @@ export class StatusComponent implements OnInit {
             datum: new Date(st.datum),
             schlaf: st.schlaf,
             bemerkung: st.bemerkung,
+            gefuehlK: st.gefuehlK,
+            gefuehlM: st.gefuehlM,
           });
           this.gefuehl = st.gefuehl;
           this.setGefuehlImages(this.gefuehl);
@@ -108,6 +112,8 @@ export class StatusComponent implements OnInit {
       schlaf: Math.round(10 * val.schlaf) / 10,
       bemerkung: val.bemerkung,
       gefuehl: this.gefuehl,
+      gefuehlK: val.gefuehlK,
+      gefuehlM: val.gefuehlM,
     };
 
     if (this.statusId === 'new') {
