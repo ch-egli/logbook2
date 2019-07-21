@@ -64,7 +64,7 @@ export class StatusComponent implements OnInit {
 
       this.statusForm = this.fb.group({
         datum: [new Date(), Validators.required],
-        schlaf: new FormControl(9.0, [Validators.min(0), Validators.max(24)]),
+        schlaf: new FormControl(null, [Validators.min(0), Validators.max(24)]),
         bemerkung: [null],
         gefuehlK: [3],
         gefuehlM: [3],

@@ -119,7 +119,7 @@ export class WorkoutComponent implements OnInit {
         zuege34: [null, Validators.min(0)],
         wettkampf: [null],
         sonstiges: [null],
-        schlaf: new FormControl(9.0, [Validators.min(0), Validators.max(24)]),
+        schlaf: new FormControl(null, [Validators.min(0), Validators.max(24)]),
         gefuehlK: [3],
         gefuehlM: [3],
       });
