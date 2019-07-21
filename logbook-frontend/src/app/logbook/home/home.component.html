@@ -80,7 +80,7 @@
           <tr>
             <th class="colMinWithForDate">Datum</th>
             <th [style.width]="tableColWidth">Schlaf</th>
-            <th [style.width]="tableColWidth">Gefühl</th>
+            <th [style.width]="tableColWidth">Gefühl<span *ngIf="screenWidth > 1000">&nbsp;(körp./mental)</span></th>
             <th *ngIf="isTrainer()" [style.width]="tableBenutzerWidth">Benutzer</th>
             <th class="d-none d-lg-table-cell">Bemerkung</th>
             <th class="colWidthIcons"></th>
@@ -105,7 +105,7 @@
                 [queryParams]="{ ro: 1 }">{{ status.datum | date:'dd.MM.yy' }}</a>
             </td>
             <td [style.width]="tableColWidth">{{ status.schlaf }}</td>
-            <td [style.width]="tableColWidth">{{ status.gefuehl }}</td>
+            <td [style.width]="tableColWidth">{{ status.gefuehlK }}/{{ status.gefuehlM }}</td>
             <td *ngIf="isTrainer()" [style.width]="tableBenutzerWidth">{{ status.benutzername }}</td>
             <td class="d-none d-lg-table-cell">{{ status.bemerkung }}</td>
             <td class="colWidthIcons">
