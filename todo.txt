@@ -1,5 +1,8 @@
 
-- Gefühl (mental), Gefühl (körperlich)
+- Statistik letzte Wochen...
+
++ Gefühl (mental), Gefühl (körperlich)
+- Cleanup Gefühl -> nur noch körperlich und mental, remove Icons
 
 + Statistik: Gefühl und Status werden von der Workout Tabelle genommen und nicht von der Status Tabelle...
   -> won't do

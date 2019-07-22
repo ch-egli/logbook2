@@ -359,12 +359,12 @@ export class ChartsComponent implements OnInit {
               } else if (this.selectedChart0 && this.selectedChart0.indexOf('Anzahl Nächte mit wenig Schlaf') !== -1) {
                 axis.min = 0;
                 axis.max = 4;
-              } else if (this.selectedChart0 && this.selectedChart0.indexOf('Gefühl (Mittelwert') !== -1) {
+              } else if (this.selectedChart0 && this.selectedChart0.indexOf('Gefühl (körperlich)') !== -1) {
                 axis.min = 1;
-                axis.max = 4;
-              } else if (this.selectedChart0 && this.selectedChart0.indexOf('Anzahl schlechtes Gefühl') !== -1) {
-                axis.min = 0;
-                axis.max = 7;
+                axis.max = 5;
+              } else if (this.selectedChart0 && this.selectedChart0.indexOf('Gefühl (mental)') !== -1) {
+                axis.min = 1;
+                axis.max = 5;
               } else if (this.selectedChart0 && (this.selectedChart0.indexOf('Lead') !== -1
                 || this.selectedChart0.indexOf('Bouldern') !== -1
                 || this.selectedChart0.indexOf('Speed') !== -1
@@ -406,12 +406,12 @@ export class ChartsComponent implements OnInit {
               } else if (this.selectedChart1 && this.selectedChart1.indexOf('Anzahl Nächte mit wenig Schlaf') !== -1) {
                 axis.min = 0;
                 axis.max = 4;
-              } else if (this.selectedChart1 && this.selectedChart1.indexOf('Gefühl (Mittelwert') !== -1) {
+              } else if (this.selectedChart1 && this.selectedChart1.indexOf('Gefühl (körperlich)') !== -1) {
                 axis.min = 1;
-                axis.max = 4;
-              } else if (this.selectedChart1 && this.selectedChart1.indexOf('Anzahl schlechtes Gefühl') !== -1) {
-                axis.min = 0;
-                axis.max = 7;
+                axis.max = 5;
+              } else if (this.selectedChart1 && this.selectedChart1.indexOf('Gefühl (mental)') !== -1) {
+                axis.min = 1;
+                axis.max = 5;
               } else if (this.selectedChart1 && (this.selectedChart1.indexOf('Lead') !== -1
                 || this.selectedChart1.indexOf('Bouldern') !== -1
                 || this.selectedChart1.indexOf('Speed') !== -1

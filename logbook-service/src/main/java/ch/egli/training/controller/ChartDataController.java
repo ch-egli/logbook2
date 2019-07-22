@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,8 +53,8 @@ public class ChartDataController {
         List<Double> zuege34Data = new ArrayList<>();
         List<Double> avgSchlaf = new ArrayList<>();
         List<Double> countSchlafLessThan7Data = new ArrayList<>();
-        List<Double> avgGefuehl = new ArrayList<>();
-        List<Double> countGefuehlMoreThan2Data = new ArrayList<>();
+        List<Double> avgGefuehlK = new ArrayList<>();
+        List<Double> avgGefuehlM = new ArrayList<>();
         List<Double> countLeadData = new ArrayList<>();
         List<Double> countBouldernData = new ArrayList<>();
         List<Double> countSpeedData = new ArrayList<>();
@@ -83,8 +84,8 @@ public class ChartDataController {
 
             avgSchlaf.add(data.getAvgSchlaf());
             countSchlafLessThan7Data.add(data.getCountSchlafLessThan7());
-            avgGefuehl.add(5 - data.getAvgGefuehl()); // in der Graphik ist es logischer, wenn "gut" oben ist...
-            countGefuehlMoreThan2Data.add(data.getCountGefuehlMoreThan2());
+            avgGefuehlK.add(computeAvgGefuehl(data.getWeekDate(), data.getAvgGefuehlK()));
+            avgGefuehlM.add(computeAvgGefuehl(data.getWeekDate(), data.getAvgGefuehlM()));
             countLeadData.add(data.getCountLead());
             countBouldernData.add(data.getCountBouldern());
             countSpeedData.add(data.getCountSpeed());
@@ -105,8 +106,8 @@ public class ChartDataController {
         chartData.put("08 Züge 34", zuege34Data);
         chartData.put("09 Schlaf (Mittelwert)", avgSchlaf);
         chartData.put("10 Anzahl Nächte mit wenig Schlaf", countSchlafLessThan7Data);
-        chartData.put("11 Gefühl (Mittelwert: 4=top, 1=flop)", avgGefuehl);
-        chartData.put("12 Anzahl schlechtes Gefühl", countGefuehlMoreThan2Data);
+        chartData.put("11 Gefühl (körperlich)", avgGefuehlK);
+        chartData.put("12 Gefühl (mental)", avgGefuehlM);
         chartData.put("13 Anzahl Lead", countLeadData);
         chartData.put("14 Anzahl Bouldern", countBouldernData);
         chartData.put("15 Anzahl Speed", countSpeedData);
@@ -146,6 +147,20 @@ public class ChartDataController {
             return 0.0;
         } else {
             return (Long.valueOf(Math.round(totalZuege / countTrainings))).doubleValue();
+        }
+    }
+
+    /*
+     * Ab 22.7.2019 geht die Skala von 1-5, vorher war es 1-4.
+     */
+    Double computeAvgGefuehl(Date date, Double avgGefuehl) {
+        Date changeDate = Date.valueOf("2019-07-22");
+        if (date.after(changeDate)) {
+            // in der Graphik ist es logischer, wenn "gut" oben ist...
+            return 6 - avgGefuehl;
+        } else {
+            // in der Graphik ist es logischer, wenn "gut" oben ist...
+            return 5 - avgGefuehl;
         }
     }
 }

@@ -45,6 +45,8 @@ public class StatisticsRepository {
                 "  SUM(CASE WHEN schlaf < 7 THEN 1 ELSE 0 END) as countSchlafLessThan7,\n" +
                 "  ROUND(AVG(gefuehl), 1) as avgGefuehl,\n" +
                 "  SUM(CASE WHEN gefuehl > 2 THEN 1 ELSE 0 END) as countGefuehlMoreThan2,\n" +
+                "  ROUND(AVG(gefuehl_k), 1) as avgGefuehlK,\n" +
+                "  ROUND(AVG(gefuehl_m), 1) as avgGefuehlM,\n" +
                 "  COUNT(lead) as countLead,\n" +
                 "  COUNT(bouldern) as countBouldern,\n" +
                 "  COUNT(speed) as countSpeed,\n" +

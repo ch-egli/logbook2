@@ -24,6 +24,8 @@ public class StatisticsRowMapper implements RowMapper<StatsData> {
                 rs.getDouble("countSchlafLessThan7"),
                 rs.getDouble("avgGefuehl"),
                 rs.getDouble("countGefuehlMoreThan2"),
+                rs.getDouble("avgGefuehlK"),
+                rs.getDouble("avgGefuehlM"),
                 rs.getDouble("avgBelastung"),
                 rs.getDouble("maxBelastung"),
                 rs.getDouble("zuege12"),

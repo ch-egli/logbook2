@@ -21,6 +21,8 @@ public class StatsData {
     private Double countSchlafLessThan7;
     private Double avgGefuehl;
     private Double countGefuehlMoreThan2;
+    private Double avgGefuehlK;
+    private Double avgGefuehlM;
     private Double avgBelastung;
     private Double maxBelastung;
     private Double zuege12;
