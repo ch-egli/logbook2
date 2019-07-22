@@ -1,4 +1,6 @@
 
+- Multiple Trainings -> letzte Status Daten sollen erscheinen...
+
 - Statistik letzte Wochen...
 
 + Gefühl (mental), Gefühl (körperlich)
