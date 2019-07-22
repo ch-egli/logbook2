@@ -1,6 +1,7 @@
 package ch.egli.training.repository;
 
 import ch.egli.training.model.StatsData;
+import ch.egli.training.model.StatsData2;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
@@ -59,6 +60,38 @@ public class StatisticsRepository {
                 "  WHERE benutzername = ? AND date_part('year', datum::date) = ? \n" +
                 "GROUP BY year, week\n" +
                 "ORDER BY year, week", new Object[]{user, year}, new StatisticsRowMapper());
+        return result;
+    }
+
+    public List<StatsData2> getStatsByUserAndLastDays(String user, int numberOfDays) {
+        List<StatsData2> result;
+        result = jdbcTemplate.query("SELECT \n" +
+                "  w.datum AS w_datum, \n" +
+                "  COUNT(w.benutzername) AS countTrainings, \n" +
+                "  SUM(w.trainingszeit) as w_trainingszeit, \n" +
+                "  MAX(w.belastung) as maxBelastung,\n" +
+                "  SUM(w.zuege12) + SUM(zuege23) + SUM(zuege34) AS totalZuege,\n" +
+                "  SUM(w.zuege12) as zuege12,\n" +
+                "  SUM(w.zuege23) as zuege23,\n" +
+                "  SUM(w.zuege34) as zuege34,\n" +
+                "  SUM(w.lead) as countLead,\n" +
+                "  SUM(w.bouldern) as countBouldern,\n" +
+                "  SUM(w.speed) as countSpeed,\n" +
+                "  SUM(w.campus) as countCampus,\n" +
+                "  SUM(w.kraftraum) as countKraft,\n" +
+                "  SUM(w.dehnen) as countStretching,\n" +
+                "  SUM(w.mentaltraining) as countMentaltraining,\n" +
+                "  SUM(w.jogging) as countJogging,\n" +
+                "  s.datum AS s_datum, \n" +
+                "  ROUND(AVG(s.schlaf),1) AS s_schlaf, \n" +
+                "  ROUND(AVG(s.gefuehl_k),0) AS s_gefuehlK, \n" +
+                "  ROUND(AVG(s.gefuehl_m),0) AS s_gefuehlM\n" +
+                "FROM workout w\n" +
+                "  FULL OUTER JOIN status s\n" +
+                "  ON s.datum = w.datum AND s.benutzername = w.benutzername\n" +
+                "WHERE (s.benutzername = ?) AND s.datum > current_date - ? \n" +
+                "  GROUP BY w.datum, s.datum\n" +
+                "  ORDER BY s.datum DESC", new Object[]{user, numberOfDays}, new StatisticsRowMapper2());
         return result;
     }
 
