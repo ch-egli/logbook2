@@ -1,6 +1,6 @@
 package ch.egli.training.repository;
 
-import ch.egli.training.model.StatsData2;
+import ch.egli.training.model.StatsData3;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -10,11 +10,11 @@ import java.sql.SQLException;
  * @author Christian Egli
  * @since 5/17/19.
  */
-public class StatisticsRowMapper2 implements RowMapper<StatsData2> {
+public class StatisticsRowMapper3 implements RowMapper<StatsData3> {
 
     @Override
-    public StatsData2 mapRow(ResultSet rs, int i) throws SQLException {
-        StatsData2 data = new StatsData2(
+    public StatsData3 mapRow(ResultSet rs, int i) throws SQLException {
+        StatsData3 data = new StatsData3(
                 rs.getDate("w_datum"),
                 rs.getDouble("countTrainings"),
                 rs.getDouble("w_trainingszeit"),

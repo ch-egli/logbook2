@@ -1,9 +1,6 @@
 package ch.egli.training.controller;
 
-import ch.egli.training.model.BarChartData;
-import ch.egli.training.model.ChartDataSet;
-import ch.egli.training.model.StatsData;
-import ch.egli.training.model.Wettkampf;
+import ch.egli.training.model.*;
 import ch.egli.training.repository.StatisticsRepository;
 import ch.egli.training.repository.WettkampfRepository;
 import org.springframework.http.ResponseEntity;
@@ -120,6 +117,86 @@ public class ChartDataController {
         List<Wettkampf> wettkaempfe = wettkampfRepository.findByBenutzerAndYear(benutzername, year);
 
         ChartDataSet chartDataSet = new ChartDataSet(chartData, labels, wettkaempfe);
+
+        return ResponseEntity.ok(chartDataSet);
+    }
+
+    @GetMapping(value = "/charts3/{benutzername}/{days}")
+    public ResponseEntity<ChartDataSet> getChartDataLastDays(@PathVariable String benutzername, @PathVariable Integer days) {
+
+        final List<StatsData3> statsData = statisticsRepository.getStatsByUserAndLastDays(benutzername, days);
+
+        List<String> labels = new ArrayList<>();
+        List<Double> countTrainingsData = new ArrayList<>();
+        List<Double> trainingszeitData = new ArrayList<>();
+        List<Double> maxBelastungData = new ArrayList<>();
+        List<Double> zuege12Data = new ArrayList<>();
+        List<Double> zuege23Data = new ArrayList<>();
+        List<Double> zuege34Data = new ArrayList<>();
+        List<Double> totalZuegeData = new ArrayList<>();
+        List<Double> countLeadData = new ArrayList<>();
+        List<Double> countBouldernData = new ArrayList<>();
+        List<Double> countSpeedData = new ArrayList<>();
+        List<Double> countCampusData = new ArrayList<>();
+        List<Double> countKraftData = new ArrayList<>();
+        List<Double> countDehnenData = new ArrayList<>();
+        List<Double> countMentaltrainingData = new ArrayList<>();
+        List<Double> coundJoggingData = new ArrayList<>();
+        List<Double> schlafData = new ArrayList<>();
+        List<Double> gefuehlKData = new ArrayList<>();
+        List<Double> gefuehlMData = new ArrayList<>();
+
+        Map<String, List<Double>> chartData = new HashMap<>();
+        for (StatsData3 data : statsData) {
+            //labels.add("Woche " + data.getWeek());
+            SimpleDateFormat format = new SimpleDateFormat("dd.MM.yy");
+            String dateString = format.format(data.getStatusDate());
+            labels.add(dateString);
+
+            Double countTrainings = data.getCountTrainings();
+            countTrainingsData.add(countTrainings);
+            maxBelastungData.add(data.getMaxBelastung());
+            trainingszeitData.add(data.getTrainingszeit());
+
+            totalZuegeData.add(data.getTotalZuege());
+            zuege12Data.add(data.getZuege12());
+            zuege23Data.add(data.getZuege23());
+            zuege34Data.add(data.getZuege34());
+
+            countLeadData.add(data.getCountLead());
+            countBouldernData.add(data.getCountBouldern());
+            countSpeedData.add(data.getCountSpeed());
+            countCampusData.add(data.getCountCampus());
+            countKraftData.add(data.getCountKraft());
+            countDehnenData.add(data.getCountStretching());
+            countMentaltrainingData.add(data.getCountMentaltraining());
+            coundJoggingData.add(data.getCountJogging());
+
+            schlafData.add(data.getSchlaf());
+            gefuehlKData.add(data.getGefuehlK());
+            gefuehlMData.add(data.getGefuehlM());
+        }
+
+        chartData.put("01 Anzahl Trainings", countTrainingsData);
+        chartData.put("02 Max. Belastung", maxBelastungData);
+        chartData.put("04 Trainingszeit", trainingszeitData);
+        chartData.put("10 Züge total", totalZuegeData);
+        chartData.put("11 Züge 12", zuege12Data);
+        chartData.put("12 Züge 23", zuege23Data);
+        chartData.put("13 Züge 34", zuege34Data);
+        chartData.put("13 Anzahl Lead", countLeadData);
+        chartData.put("21 Anzahl Bouldern", countBouldernData);
+        chartData.put("22 Anzahl Speed", countSpeedData);
+        chartData.put("23 Anzahl Campusboard", countCampusData);
+        chartData.put("24 Anzahl Krafttrainings", countKraftData);
+        chartData.put("25 Anzahl Stretching", countDehnenData);
+        chartData.put("26 Anzahl Mentaltraining", countMentaltrainingData);
+        chartData.put("27 Anzahl Jogging", coundJoggingData);
+        chartData.put("30 Schlaf", schlafData);
+        chartData.put("31 Gefühl (körperlich)", gefuehlKData);
+        chartData.put("32 Gefühl (mental)", gefuehlMData);
+
+        ChartDataSet chartDataSet = new ChartDataSet(chartData, labels, null);
 
         return ResponseEntity.ok(chartDataSet);
     }

@@ -1,7 +1,7 @@
 package ch.egli.training.repository;
 
 import ch.egli.training.model.StatsData;
-import ch.egli.training.model.StatsData2;
+import ch.egli.training.model.StatsData3;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -49,7 +49,7 @@ public class StatisticsRepositoryTest {
     @Ignore
     @Test
     public void testGetLastDaysStatistics() {
-        List<StatsData2> result = statisticsRepository.getStatsByUserAndLastDays("chrigu", 22);
+        List<StatsData3> result = statisticsRepository.getStatsByUserAndLastDays("chrigu", 22);
         assertThat(result).isNotNull();
     }
 

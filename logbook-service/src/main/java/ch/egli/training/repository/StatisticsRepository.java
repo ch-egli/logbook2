@@ -1,7 +1,7 @@
 package ch.egli.training.repository;
 
 import ch.egli.training.model.StatsData;
-import ch.egli.training.model.StatsData2;
+import ch.egli.training.model.StatsData3;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
@@ -63,8 +63,8 @@ public class StatisticsRepository {
         return result;
     }
 
-    public List<StatsData2> getStatsByUserAndLastDays(String user, int numberOfDays) {
-        List<StatsData2> result;
+    public List<StatsData3> getStatsByUserAndLastDays(String user, int numberOfDays) {
+        List<StatsData3> result;
         result = jdbcTemplate.query("SELECT \n" +
                 "  w.datum AS w_datum, \n" +
                 "  COUNT(w.benutzername) AS countTrainings, \n" +
@@ -91,7 +91,7 @@ public class StatisticsRepository {
                 "  ON s.datum = w.datum AND s.benutzername = w.benutzername\n" +
                 "WHERE (s.benutzername = ?) AND s.datum > current_date - ? \n" +
                 "  GROUP BY w.datum, s.datum\n" +
-                "  ORDER BY s.datum DESC", new Object[]{user, numberOfDays}, new StatisticsRowMapper2());
+                "  ORDER BY s.datum DESC", new Object[]{user, numberOfDays}, new StatisticsRowMapper3());
         return result;
     }
 

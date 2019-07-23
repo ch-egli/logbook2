@@ -11,7 +11,7 @@ import java.sql.Date;
  */
 @Data
 @AllArgsConstructor
-public class StatsData2 {
+public class StatsData3 {
     private Date workoutDate;
     private Double countTrainings;
     private Double trainingszeit;
