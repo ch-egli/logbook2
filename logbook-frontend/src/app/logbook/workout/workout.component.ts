@@ -72,6 +72,8 @@ export class WorkoutComponent implements OnInit {
 
   readonly = true;
 
+  statusArray: any[];
+
   constructor(private backendService: BackendService, private authenticationService: AuthenticationService,
     private router: Router, private route: ActivatedRoute, private fb: FormBuilder) {
 
@@ -164,8 +166,53 @@ export class WorkoutComponent implements OnInit {
             });
           }
         );
+      } else {
+        // is new...
+        this.getAndSetStatusForDate(new Date());
       }
     });
+  }
+
+  private getAndSetStatusForDate(date: Date) {
+    this.backendService.getStati(this.currentUser, 100).subscribe((res) => {
+      const result: { content: any[] } = res;
+      this.statusArray = result.content;
+      // console.log(JSON.stringify(result.content));
+      const status: any[] = this.statusArray.filter(st => this.isEqualDate(st['datum'], date));
+      console.log(JSON.stringify(status));
+      if (status.length > 0) {
+        const s = status[0];
+        this.workoutForm.patchValue({
+          schlaf: s['schlaf'],
+          gefuehlK: s['gefuehlK'],
+          gefuehlM: s['gefuehlM'],
+        });
+      } else {
+        this.workoutForm.patchValue({
+          schlaf: null,
+          gefuehlK: 3,
+          gefuehlM: 3,
+        });
+      }
+    },
+      error => {
+        console.log('getStatus error: ' + JSON.stringify(error));
+        this.msgs.push({
+          severity: 'error', summary: 'Fehler beim Laden des Status: ',
+          detail: 'Bist du offline?'
+        });
+      }
+    );
+  }
+
+  private isEqualDate(d1: string, d2: Date): boolean {
+    let result = false;
+    if (d1.substr(0, 4) === d2.getUTCFullYear().toString() &&
+      Number(d1.substr(5, 2)) === d2.getUTCMonth() + 1 &&
+      Number(d1.substr(8, 2)) === d2.getUTCDate()) {
+      result = true;
+    }
+    return result;
   }
 
   public save() {
@@ -324,7 +371,7 @@ export class WorkoutComponent implements OnInit {
   }
 
   // correct problem with timezone: see https://github.com/primefaces/primeng/issues/2426
-  setCorrectDate(date: Date) {
+  public setCorrectDate(date: Date) {
     console.log('selected date (orig): ' + date);
     const offset: number = date.getTimezoneOffset();
     console.log('timezoneOffset: ' + offset);
@@ -334,5 +381,7 @@ export class WorkoutComponent implements OnInit {
     console.log('selected date (corr): ' + date);
     //this.workoutForm.controls['datum'].setValue(date);
     this.workoutForm.patchValue({ datum: date });
+
+    this.getAndSetStatusForDate(date);
   }
 }

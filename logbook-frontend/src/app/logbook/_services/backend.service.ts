@@ -46,6 +46,10 @@ export class BackendService {
         return this.http.delete(this.baseUrl + 'users/' + user + '/workouts/' + workoutId);
     }
 
+    getStati(username: string, nbRecords: number): Observable<any> {
+        return this.http.get<any>(this.baseUrl + 'users/' + username + '/status?page=0&size=' + nbRecords);
+    }
+
     getStatus(username: string, id: number): Observable<Status> {
         return this.http.get<Status>(this.baseUrl + 'users/all/status/' + id);
     }
