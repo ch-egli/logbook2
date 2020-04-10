@@ -48,14 +48,15 @@ public class StatisticsRepository {
                 "  SUM(CASE WHEN gefuehl > 2 THEN 1 ELSE 0 END) as countGefuehlMoreThan2,\n" +
                 "  ROUND(AVG(gefuehl_k), 1) as avgGefuehlK,\n" +
                 "  ROUND(AVG(gefuehl_m), 1) as avgGefuehlM,\n" +
-                "  COUNT(lead) as countLead,\n" +
-                "  COUNT(bouldern) as countBouldern,\n" +
-                "  COUNT(speed) as countSpeed,\n" +
-                "  COUNT(campus) as countCampus,\n" +
-                "  COUNT(kraftraum) as countKraft,\n" +
-                "  COUNT(dehnen) as countStretching,\n" +
-                "  COUNT(mentaltraining) as countMentaltraining,\n" +
-                "  COUNT(jogging) as countJogging\n" +
+                "  SUM(lead) as countLead,\n" +
+                "  SUM(bouldern) as countBouldern,\n" +
+                "  SUM(speed) as countSpeed,\n" +
+                "  SUM(campus) as countCampus,\n" +
+                "  SUM(kraftraum) as countKraft,\n" +
+                "  SUM(dehnen) as countStretching,\n" +
+                "  SUM(mentaltraining) as countMentaltraining,\n" +
+                "  SUM(CASE WHEN sonstiges like '%ogg%' THEN 1 ELSE 0 END) as countJogging,\n" +
+                "  SUM(CASE WHEN sonstiges like '%ysio%' THEN 1 ELSE 0 END) as countPhysio\n" +
                 "FROM workout w \n" +
                 "  WHERE benutzername = ? AND date_part('year', datum::date) = ? \n" +
                 "GROUP BY year, week\n" +
@@ -81,7 +82,8 @@ public class StatisticsRepository {
                 "  SUM(w.kraftraum) as countKraft,\n" +
                 "  SUM(w.dehnen) as countStretching,\n" +
                 "  SUM(w.mentaltraining) as countMentaltraining,\n" +
-                "  SUM(w.jogging) as countJogging,\n" +
+                "  SUM(CASE WHEN w.sonstiges like '%ogg%' THEN 1 ELSE 0 END) as countJogging,\n" +
+                "  SUM(CASE WHEN w.sonstiges like '%ysio%' THEN 1 ELSE 0 END) as countPhysio\n" +
                 "  s.datum AS s_datum, \n" +
                 "  ROUND(AVG(s.schlaf),1) AS s_schlaf, \n" +
                 "  ROUND(AVG(s.gefuehl_k),0) AS s_gefuehlK, \n" +
@@ -131,14 +133,14 @@ public class StatisticsRepository {
                 .filter(n -> n.getFirst().length() > 0)
                 .collect(Collectors.toMap(Pair::getFirst, Pair::getSecond));
 
-        List<Map<String, Integer>> queryResultDisziplinen = jdbcTemplate.query("SELECT COUNT(lead) as lead, " +
-                        "COUNT(bouldern) as bouldern, " +
-                        "COUNT(speed) as speed, " +
-                        "COUNT(campus) as campusboard, " +
-                        "COUNT(kraftraum) as krafttraining, " +
-                        "COUNT(dehnen) as stretching, " +
-                        "COUNT(mentaltraining) as mentaltraining, " +
-                        "COUNT(jogging) as jogging\n" +
+        List<Map<String, Integer>> queryResultDisziplinen = jdbcTemplate.query("SELECT SUM(lead) as lead, " +
+                        "SUM(bouldern) as bouldern, " +
+                        "SUM(speed) as speed, " +
+                        "SUM(campus) as campusboard, " +
+                        "SUM(kraftraum) as krafttraining, " +
+                        "SUM(dehnen) as stretching, " +
+                        "SUM(mentaltraining) as mentaltraining, " +
+                        "SUM(jogging) as jogging\n" +
                         "FROM workout where benutzername = ? and date_part('year', datum::date) = ?", new Object[]{user, year},
                 (ResultSet rs, int i) -> {
                     Map<String, Integer> disziplinenMap = new LinkedHashMap<>();
@@ -155,8 +157,8 @@ public class StatisticsRepository {
         Map<String, Integer> resultDisziplinen = queryResultDisziplinen.get(0); // query return just one row...
 
         Map<String, Integer> completeResult = new LinkedHashMap<>();
-        completeResult.putAll(resultSonstiges);
         completeResult.putAll(resultDisziplinen);
+        completeResult.putAll(resultSonstiges);
 
         Map<String, Integer> intermediate1 = assembleSimilarResults(completeResult, "Jogging",
                 map -> map.getKey().toLowerCase().contains("jogg") || map.getKey().toLowerCase().contains("laufen"));

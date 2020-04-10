@@ -18,3 +18,6 @@ ALTER TABLE workout ADD COLUMN gefuehl_k NUMERIC(3,1);
 UPDATE workout SET gefuehl_k = gefuehl;
 ALTER TABLE workout ADD COLUMN gefuehl_m NUMERIC(3,1);
 UPDATE workout SET gefuehl_m = gefuehl;
+
+-- move jogging checkbox to sonstiges
+UPDATE workout SET sonstiges = CONCAT('Jogging ', COALESCE(sonstiges, '')) WHERE jogging is not null;

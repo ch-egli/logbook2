@@ -28,6 +28,7 @@ public class StatsData3 {
     private Double countStretching;
     private Double countMentaltraining;
     private Double countJogging;
+    private Double countPhysio;
     private Date statusDate;
     private Double schlaf;
     private Double gefuehlK;

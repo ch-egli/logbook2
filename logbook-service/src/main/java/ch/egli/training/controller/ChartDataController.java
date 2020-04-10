@@ -59,7 +59,8 @@ public class ChartDataController {
         List<Double> countKraftData = new ArrayList<>();
         List<Double> countDehnenData = new ArrayList<>();
         List<Double> countMentaltrainingData = new ArrayList<>();
-        List<Double> coundJoggingData = new ArrayList<>();
+        List<Double> countJoggingData = new ArrayList<>();
+        List<Double> countPhysioData = new ArrayList<>();
 
         Map<String, List<Double>> chartData = new HashMap<>();
         for (StatsData data : statsData) {
@@ -90,7 +91,8 @@ public class ChartDataController {
             countKraftData.add(data.getCountKraft());
             countDehnenData.add(data.getCountStretching());
             countMentaltrainingData.add(data.getCountMentaltraining());
-            coundJoggingData.add(data.getCountJogging());
+            countJoggingData.add(data.getCountJogging());
+            countPhysioData.add(data.getCountPhysio());
         }
 
         chartData.put("01 Anzahl Trainings", countTrainingsData);
@@ -112,7 +114,8 @@ public class ChartDataController {
         chartData.put("17 Anzahl Krafttrainings", countKraftData);
         chartData.put("18 Anzahl Stretching", countDehnenData);
         chartData.put("19 Anzahl Mentaltraining", countMentaltrainingData);
-        chartData.put("20 Anzahl Jogging", coundJoggingData);
+        chartData.put("20 Anzahl Jogging", countJoggingData);
+        chartData.put("21 Anzahl Physio", countPhysioData);
 
         List<Wettkampf> wettkaempfe = wettkampfRepository.findByBenutzerAndYear(benutzername, year);
 
@@ -141,7 +144,8 @@ public class ChartDataController {
         List<Double> countKraftData = new ArrayList<>();
         List<Double> countDehnenData = new ArrayList<>();
         List<Double> countMentaltrainingData = new ArrayList<>();
-        List<Double> coundJoggingData = new ArrayList<>();
+        List<Double> countJoggingData = new ArrayList<>();
+        List<Double> countPhysioData = new ArrayList<>();
         List<Double> schlafData = new ArrayList<>();
         List<Double> gefuehlKData = new ArrayList<>();
         List<Double> gefuehlMData = new ArrayList<>();
@@ -170,7 +174,8 @@ public class ChartDataController {
             countKraftData.add(data.getCountKraft());
             countDehnenData.add(data.getCountStretching());
             countMentaltrainingData.add(data.getCountMentaltraining());
-            coundJoggingData.add(data.getCountJogging());
+            countJoggingData.add(data.getCountJogging());
+            countPhysioData.add(data.getCountPhysio());
 
             schlafData.add(data.getSchlaf());
             gefuehlKData.add(data.getGefuehlK());
@@ -191,7 +196,8 @@ public class ChartDataController {
         chartData.put("24 Anzahl Krafttrainings", countKraftData);
         chartData.put("25 Anzahl Stretching", countDehnenData);
         chartData.put("26 Anzahl Mentaltraining", countMentaltrainingData);
-        chartData.put("27 Anzahl Jogging", coundJoggingData);
+        chartData.put("27 Anzahl Jogging", countJoggingData);
+        chartData.put("28 Anzahl Physio", countPhysioData);
         chartData.put("30 Schlaf", schlafData);
         chartData.put("31 Gefühl (körperlich)", gefuehlKData);
         chartData.put("32 Gefühl (mental)", gefuehlMData);

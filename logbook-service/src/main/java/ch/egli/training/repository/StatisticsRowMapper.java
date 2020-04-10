@@ -39,7 +39,8 @@ public class StatisticsRowMapper implements RowMapper<StatsData> {
                 rs.getDouble("countKraft"),
                 rs.getDouble("countStretching"),
                 rs.getDouble("countMentaltraining"),
-                rs.getDouble("countJogging")
+                rs.getDouble("countJogging"),
+                rs.getDouble("countPhysio")
         );
         return data;
     }

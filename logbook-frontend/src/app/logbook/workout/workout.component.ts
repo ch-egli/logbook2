@@ -66,6 +66,7 @@ export class WorkoutComponent implements OnInit {
     { label: 'Velo/Bike', value: 'Velo/Bike' },
     { label: 'Ski/Snowboard', value: 'Ski/Snowboard' },
     { label: 'Langlauf', value: 'Langlauf' },
+    { label: 'Physio', value: 'Physio' },
   ]
 
   gefuehl: number;

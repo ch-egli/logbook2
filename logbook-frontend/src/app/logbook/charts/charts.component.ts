@@ -372,6 +372,7 @@ export class ChartsComponent implements OnInit {
                 || this.selectedChart0.indexOf('Krafttrainings')
                 || this.selectedChart0.indexOf('Stretching')
                 || this.selectedChart0.indexOf('Mentaltraining')
+                || this.selectedChart0.indexOf('Physio')
                 || this.selectedChart0.indexOf('Jogging'))) {
                 axis.min = 0;
                 axis.max = 12;
@@ -419,6 +420,7 @@ export class ChartsComponent implements OnInit {
                 || this.selectedChart1.indexOf('Krafttrainings')
                 || this.selectedChart1.indexOf('Stretching')
                 || this.selectedChart1.indexOf('Mentaltraining')
+                || this.selectedChart1.indexOf('Physio')
                 || this.selectedChart1.indexOf('Jogging'))) {
                 axis.min = 0;
                 axis.max = 12;

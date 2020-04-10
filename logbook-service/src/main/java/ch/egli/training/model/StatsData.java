@@ -37,4 +37,5 @@ public class StatsData {
     private Double countStretching;
     private Double countMentaltraining;
     private Double countJogging;
+    private Double countPhysio;
 }

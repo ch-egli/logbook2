@@ -31,6 +31,7 @@ public class StatisticsRowMapper3 implements RowMapper<StatsData3> {
                 rs.getDouble("countStretching"),
                 rs.getDouble("countMentaltraining"),
                 rs.getDouble("countJogging"),
+                rs.getDouble("countPhysio"),
                 rs.getDate("s_datum"),
                 rs.getDouble("s_schlaf"),
                 rs.getDouble("s_gefuehlK"),
