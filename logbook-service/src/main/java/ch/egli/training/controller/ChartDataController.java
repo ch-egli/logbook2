@@ -82,8 +82,8 @@ public class ChartDataController {
 
             avgSchlaf.add(data.getAvgSchlaf());
             countSchlafLessThan7Data.add(data.getCountSchlafLessThan7());
-            avgGefuehlK.add(computeAvgGefuehl(data.getWeekDate(), data.getAvgGefuehlK()));
-            avgGefuehlM.add(computeAvgGefuehl(data.getWeekDate(), data.getAvgGefuehlM()));
+            avgGefuehlK.add(data.getAvgGefuehlK());
+            avgGefuehlM.add(data.getAvgGefuehlM());
             countLeadData.add(data.getCountLead());
             countBouldernData.add(data.getCountBouldern());
             countSpeedData.add(data.getCountSpeed());
@@ -230,19 +230,6 @@ public class ChartDataController {
             return 0.0;
         } else {
             return (Long.valueOf(Math.round(totalZuege / countTrainings))).doubleValue();
-        }
-    }
-
-    /*
-     * Ab 22.7.2019 geht die Skala von 1-5, vorher war es 1-4.
-     */
-    Double computeAvgGefuehl(Date date, Double avgGefuehl) {
-        Date changeDate = Date.valueOf("2019-07-22");
-        if (date.after(changeDate)) {
-            return avgGefuehl;
-        } else {
-            // in der Graphik ist es logischer, wenn "gut" oben ist...
-            return 6 - avgGefuehl;
         }
     }
 }
