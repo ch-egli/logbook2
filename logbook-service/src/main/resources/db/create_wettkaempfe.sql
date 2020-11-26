@@ -198,3 +198,34 @@ INSERT INTO wettkampf (datum, beschreibung, abkuerzung, disziplin, kategorie, be
     VALUES ('2019-10-21', 'EYCH Lead, Voronezh (RUS)', 'EM', 'lead', 'U18', 'joelle');
 INSERT INTO wettkampf (datum, beschreibung, abkuerzung, disziplin, kategorie, benutzer)
     VALUES ('2019-10-21', 'EYCH Lead, Voronezh (RUS)', 'EM', 'lead', 'U18', 'jonas');
+
+-- -------
+-- 2020 --
+-- -------
+
+INSERT INTO wettkampf (datum, beschreibung, abkuerzung, disziplin, kategorie, benutzer)
+    VALUES ('2020-10-03', 'MYCC Boulder-SM, Biel', 'SM', 'bouldern', 'U16', 'leon');
+INSERT INTO wettkampf (datum, beschreibung, abkuerzung, disziplin, kategorie, benutzer)
+    VALUES ('2020-10-03', 'MYCC Boulder-SM, Biel', 'SM', 'bouldern', 'U16', 'levin');
+
+INSERT INTO wettkampf (datum, beschreibung, abkuerzung, disziplin, kategorie, benutzer)
+    VALUES ('2020-03-01', 'BSCC Boulder-SM, Bulle', 'SM', 'bouldern', 'Elite', 'zoe');
+INSERT INTO wettkampf (datum, beschreibung, abkuerzung, disziplin, kategorie, benutzer)
+    VALUES ('2020-03-01', 'BSCC Boulder-SM, Bulle', 'SM', 'bouldern', 'U18', 'liv');
+INSERT INTO wettkampf (datum, beschreibung, abkuerzung, disziplin, kategorie, benutzer)
+    VALUES ('2020-03-01', 'BSCC Boulder-SM, Bulle', 'SM', 'bouldern', 'U18', 'joelle');
+INSERT INTO wettkampf (datum, beschreibung, abkuerzung, disziplin, kategorie, benutzer)
+    VALUES ('2020-03-01', 'BSCC Boulder-SM, Bulle', 'SM', 'bouldern', 'U18', 'francesca');
+INSERT INTO wettkampf (datum, beschreibung, abkuerzung, disziplin, kategorie, benutzer)
+    VALUES ('2020-03-01', 'BSCC Boulder-SM, Bulle', 'SM', 'bouldern', 'U18', 'jonas');
+
+INSERT INTO wettkampf (datum, beschreibung, abkuerzung, disziplin, kategorie, benutzer)
+    VALUES ('2020-09-12', 'BSCC Lead-SM, Villeneuve', 'SM', 'lead', 'Elite', 'zoe');
+INSERT INTO wettkampf (datum, beschreibung, abkuerzung, disziplin, kategorie, benutzer)
+    VALUES ('2020-09-12', 'BSCC Lead-SM, Villeneuve', 'SM', 'lead', 'U18', 'liv');
+INSERT INTO wettkampf (datum, beschreibung, abkuerzung, disziplin, kategorie, benutzer)
+    VALUES ('2020-09-12', 'BSCC Lead-SM, Villeneuve', 'SM', 'lead', 'U18', 'joelle');
+INSERT INTO wettkampf (datum, beschreibung, abkuerzung, disziplin, kategorie, benutzer)
+    VALUES ('2020-09-12', 'BSCC Lead-SM, Villeneuve', 'SM', 'lead', 'U18', 'francesca');
+INSERT INTO wettkampf (datum, beschreibung, abkuerzung, disziplin, kategorie, benutzer)
+    VALUES ('2020-09-12', 'BSCC Lead-SM, Villeneuve', 'SM', 'lead', 'U18', 'jonas');
