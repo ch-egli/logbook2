@@ -1,17 +1,14 @@
-FROM postgres:11.3
+FROM postgres:11
 MAINTAINER Christian Egli <christian.egli@gmx.net>
 
-# Add debian testing repository and make the ‘stable’ repository default
-RUN echo 'deb http://ftp.de.debian.org/debian testing main' >> /etc/apt/sources.list
-RUN echo 'APT::Default-Release "stable";' | tee -a /etc/apt/apt.conf.d/00local
 RUN apt-get update
 
-RUN apt-get install -y supervisor && \
-  apt-get install -y openjdk-8-jdk && \
-  apt-get install -y nginx && \
-  apt-get install -y nano && \
-  apt-get install -y curl && \
-  apt-get install -y -t testing python3-pip
+RUN apt-get install -y supervisor
+RUN apt-get install -y openjdk-8-jdk
+RUN apt-get install -y nginx
+RUN apt-get install -y nano
+RUN apt-get install -y curl
+RUN apt-get install -y python3-pip
 
 RUN pip3 install awscli --upgrade
 RUN mkdir -p /root/.aws
