@@ -349,7 +349,7 @@ export class ChartsComponent implements OnInit {
                 axis.max = Math.max(this.maxZuege0, this.maxZuege1);
               } else if (this.selectedChart0 && this.selectedChart0.indexOf('Anzahl Trainings') !== -1) {
                 axis.min = 0;
-                axis.max = 12;
+                axis.max = 16;
               } else if (this.selectedChart0 && this.selectedChart0.indexOf('Trainingszeit') !== -1) {
                 axis.min = 0;
                 axis.max = 280;

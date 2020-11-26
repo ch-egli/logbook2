@@ -239,11 +239,10 @@ public class ChartDataController {
     Double computeAvgGefuehl(Date date, Double avgGefuehl) {
         Date changeDate = Date.valueOf("2019-07-22");
         if (date.after(changeDate)) {
-            // in der Graphik ist es logischer, wenn "gut" oben ist...
-            return 6 - avgGefuehl;
+            return avgGefuehl;
         } else {
             // in der Graphik ist es logischer, wenn "gut" oben ist...
-            return 5 - avgGefuehl;
+            return 6 - avgGefuehl;
         }
     }
 }
