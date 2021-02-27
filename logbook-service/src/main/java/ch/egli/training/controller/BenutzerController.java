@@ -6,8 +6,8 @@ import ch.egli.training.model.Benutzer;
 import ch.egli.training.repository.BenutzerRepository;
 import ch.egli.training.util.ResourceValidator;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -37,7 +37,7 @@ import java.util.List;
 @RequestMapping({"/v1/"})
 public class BenutzerController {
 
-    private static final Logger LOGGER = LogManager.getLogger(BenutzerController.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(BenutzerController.class.getName());
 
     private final static String HIDDEN_PASSWORD = "*****";
 
