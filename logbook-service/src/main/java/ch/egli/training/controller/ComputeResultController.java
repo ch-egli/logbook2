@@ -11,9 +11,9 @@ import ch.egli.training.repository.RequestlogRepository;
 import ch.egli.training.repository.StatusRepository;
 import ch.egli.training.repository.WorkoutRepository;
 import ch.egli.training.util.ExcelExporter;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.poi.util.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +38,7 @@ import java.util.List;
 @RequestMapping({"/v1/"})
 public class ComputeResultController {
 
-    private static final Logger LOGGER = LogManager.getLogger(ComputeResultController.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(ComputeResultController.class.getName());
 
     @Autowired
     private WorkoutRepository workoutRepository;

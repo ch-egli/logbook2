@@ -12,8 +12,15 @@
     }
   },
   "dependencies": {
-    "cordova-android": "^6.3.0",
-    "cordova-browser": "^6.0.0",
-    "cordova-plugin-whitelist": "^1.3.3"
+    "@netflix/nerror": "^1.1.3",
+    "at-least-node": "^1.0.0",
+    "cordova-plugin-whitelist": "^1.3.3",
+    "fast-glob": "^3.2.5",
+    "properties-parser": "^0.3.1",
+    "read-chunk": "^3.2.0"
+  },
+  "devDependencies": {
+    "cordova-android": "^9.0.0",
+    "cordova-browser": "^6.0.0"
   }
 }

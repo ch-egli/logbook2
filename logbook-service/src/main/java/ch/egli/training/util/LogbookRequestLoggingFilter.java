@@ -2,8 +2,8 @@ package ch.egli.training.util;
 
 import ch.egli.training.model.Requestlog;
 import ch.egli.training.repository.RequestlogRepository;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.filter.CommonsRequestLoggingFilter;
 
@@ -21,7 +21,7 @@ import java.util.List;
  * @since 12/30/16.
  */
 public class LogbookRequestLoggingFilter extends CommonsRequestLoggingFilter {
-    private static final Logger LOGGER = LogManager.getLogger(LogbookRequestLoggingFilter.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(LogbookRequestLoggingFilter.class.getName());
 
     private final static String DEFAULT_LOG_USER_1 = "maex";
     private final static String DEFAULT_LOG_USER_2 = "jojo";
