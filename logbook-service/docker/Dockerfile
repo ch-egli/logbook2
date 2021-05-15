@@ -1,6 +1,7 @@
 FROM postgres:11
 MAINTAINER Christian Egli <christian.egli@gmx.net>
 
+RUN echo "start..."
 RUN apt-get update
 
 RUN apt-get install -y supervisor
@@ -9,6 +10,7 @@ RUN apt-get install -y nginx
 RUN apt-get install -y nano
 RUN apt-get install -y curl
 RUN apt-get install -y python3-pip
+RUN apt-get install -y cron
 
 RUN pip3 install awscli --upgrade
 RUN mkdir -p /root/.aws
