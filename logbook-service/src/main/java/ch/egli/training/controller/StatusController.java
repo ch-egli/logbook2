@@ -20,6 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Optional;
 
@@ -40,7 +41,7 @@ public class StatusController {
 
 
     // Sorting of statuses is done by datum DESC
-    private Sort statusSort = new Sort(Sort.Direction.DESC, "datum");
+    private Sort statusSort = Sort.by(Sort.Direction.DESC, "datum");
 
     @Autowired
     private StatusRepository statusRepository;

@@ -20,6 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,7 +42,7 @@ public class WorkoutController {
     private final static String GROUP_EGLI_SISTERS__NAME_1 = "zoe";
     private final static String GROUP_EGLI_SISTERS__NAME_2 = "liv";
 
-    private Sort workoutSort = new Sort(Sort.Direction.DESC, "datum");
+    private Sort workoutSort = Sort.by(Sort.Direction.DESC, "datum");
 
     public WorkoutController(WorkoutRepository workoutRepository, ResourceValidator resourceValidator) {
         this.workoutRepository = workoutRepository;

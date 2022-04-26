@@ -21,7 +21,7 @@ public class CorsConfiguration {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         org.springframework.web.cors.CorsConfiguration config = new org.springframework.web.cors.CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("*");
+        config.addAllowedOriginPattern("*");
 //        config.addAllowedOrigin("https://logbook.snoopfish.ch:443");
 //        config.addAllowedOrigin("http://localhost:4200");
         config.addAllowedHeader("*");

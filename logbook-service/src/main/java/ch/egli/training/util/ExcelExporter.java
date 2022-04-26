@@ -170,6 +170,9 @@ public class ExcelExporter {
     private static String getSheetNameForDate(LocalDate date) {
         Locale locale = new Locale("de", "CH");
         Integer weekOfYear = date.get(WeekFields.of(locale).weekOfWeekBasedYear());
+        if (weekOfYear > 52) {
+            weekOfYear = 1;
+        }
         return weekOfYear.toString();
     }
 
