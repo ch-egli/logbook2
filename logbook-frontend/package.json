@@ -37,10 +37,10 @@
     "esta-webjs-extensions": "^7.0.0",
     "font-awesome": "^4.7.0",
     "ng2-charts": "^2.2.3",
-    "node-sass": "^4.12.0",
     "primeicons": "^1.0.0",
     "primeng": "^7.1.2",
     "rxjs": "~6.3.3",
+    "sass": "^1.51.0",
     "zone.js": "^0.8.29"
   },
   "devDependencies": {
