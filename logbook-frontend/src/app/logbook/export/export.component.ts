@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Message } from 'primeng/primeng';
+import { Message } from 'primeng/api';
 import { SelectItem } from 'primeng/api';
 
 import { BackendService } from '../_services/backend.service';

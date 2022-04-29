@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Workout, Status, WorkoutPageable, StatusPageable } from '../_model/backend.models';
 import { Observable, forkJoin } from 'rxjs';
 import { BackendService } from '../_services/backend.service';
-import { LazyLoadEvent } from 'primeng/primeng';
+import { LazyLoadEvent } from 'primeng/api';
 import { SelectItem, ConfirmationService } from 'primeng/api';
 
 import { AuthenticationService } from '../../core/_services/authentication.service';

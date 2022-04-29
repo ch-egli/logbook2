@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Message } from 'primeng/components/common/api';
+import { Message } from 'primeng/api';
 
 import { MustMatch } from '../../core/_helpers/must-match.validator';
 import { AuthenticationService } from '../../core/_services/authentication.service';

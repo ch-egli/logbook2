@@ -2,22 +2,37 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {
-    AccordionModule,
-    BreadcrumbModule,
-    ButtonModule, CalendarModule, CheckboxModule, ConfirmationService, ConfirmDialogModule,
-    DropdownModule,
-    FieldsetModule,
-    GrowlModule,
-    InputMaskModule, InputSwitchModule, InputTextModule, ListboxModule, MenubarModule,
-    MessagesModule, MessageModule, MultiSelectModule, PaginatorModule,
-    PanelModule, ProgressBarModule,
-    RadioButtonModule,
-    SelectButtonModule,
-    SharedModule, SliderModule, SpinnerModule,
-    SplitButtonModule, StepsModule, TabViewModule,
-    ToggleButtonModule, TabMenuModule
-} from 'primeng/primeng';
+
+import { AccordionModule } from 'primeng/accordion';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { ButtonModule } from 'primeng/button';
+import { CalendarModule } from 'primeng/calendar';
+import { CheckboxModule } from 'primeng/checkbox';
+import { ConfirmationService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { FieldsetModule } from 'primeng/fieldset';
+import { InputMaskModule } from 'primeng/inputmask';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { InputTextModule } from 'primeng/inputtext';
+import { ListboxModule } from 'primeng/listbox';
+import { MenubarModule } from 'primeng/menubar';
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { PaginatorModule } from 'primeng/paginator';
+import { PanelModule } from 'primeng/panel';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { SharedModule } from 'primeng/api';
+import { SliderModule } from 'primeng/slider';
+import { SpinnerModule } from 'primeng/spinner';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { StepsModule } from 'primeng/steps';
+import { TabViewModule } from 'primeng/tabview';
+import { ToggleButtonModule } from 'primeng/togglebutton';
+import { TabMenuModule } from 'primeng/tabmenu';
+import { DropdownModule } from 'primeng/dropdown';
 import { RatingModule } from 'primeng/rating';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { TableModule } from 'primeng/table';
@@ -63,7 +78,6 @@ import { ChartsModule } from 'ng2-charts';
         SharedModule,
         MessagesModule,
         MessageModule,
-        GrowlModule,
         PanelModule,
         CheckboxModule,
         CalendarModule,

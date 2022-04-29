@@ -8,7 +8,7 @@ import { environment } from '../../../environments/environment';
 import { Workout, Status } from '../_model/backend.models';
 import { BackendService } from '../_services/backend.service';
 import { SelectItem } from 'primeng/api';
-import { Message } from 'primeng/components/common/api';
+import { Message } from 'primeng/api';
 
 import { AuthenticationService } from '../../core/_services/authentication.service';
 
